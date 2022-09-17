@@ -38,6 +38,25 @@ tr {
 
 /* classes and ids - alpha order*/
 
+.completeTrip {
+    grid-column-start: 3;
+    grid-column-end: 1;
+    grid-row-start: 5;
+    grid-row-end: 6;
+    margin-top: 1em;
+}
+
+.docTable{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.docHistHeader{
+    justify-content: space-around;
+    display: flex;
+    margin-bottom: 1em;
+}
+
 #login {
     margin-left: auto;
     margin-right: auto;
@@ -60,6 +79,7 @@ tr {
     width: 40%;
     margin-top: 1em;
     margin-bottom: 1em;
+    background-color: #0C7BDC; 
 }
 
 .submitButton {
@@ -81,3 +101,71 @@ tr {
     border-collapse: collapse;
 }
 
+.tripDetail{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 22% 22% 22% 22% 12%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 50%;
+    margin-top: 3em;
+
+}
+
+
+.tripDetailArrivalTime{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
+
+.tripDetailDest{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 4;
+    grid-row-end: 5;
+}
+
+.tripDetailDriver {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+.tripDetailHeader {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+.tripDetailStartLoc {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 4;
+    grid-row-end: 5;
+}
+
+.tripDetailStartTime {    
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+.tripDetailUID  {    
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
+
+.tripDocs {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    margin-top: 3em;
+}
