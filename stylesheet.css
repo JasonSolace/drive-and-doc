@@ -9,3 +9,41 @@ main {
     margin-right: auto;
 }
 
+button {
+    border-radius: 12px;
+}
+
+
+.submitButton {
+    background-color: blue;
+    color: white;
+}
+
+#loginBtn {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    width: 20%;
+    justify-content: space-around;
+    padding-top: 5px;
+}
+
+.tripsTable{
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+tr {   
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th {
+    padding: 5px;
+}
+
+td {
+    padding: 5px;
+}
