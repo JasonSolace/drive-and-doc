@@ -1,22 +1,40 @@
+/* generic element selectors - alpha order*/
+button {
+    border-radius: 12px;
+}
+
+
+h3 {
+    margin-block-start: .25em;
+    margin-block-end: .25em;
+}
+
 main {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
 
+td {
+    padding: 5px;
+}
+
+th {
+    padding: 5px;
+}
+
+tr {   
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+
+
+/* classes and ids - alpha order*/
+
 #login {
     margin-left: auto;
     margin-right: auto;
-}
-
-button {
-    border-radius: 12px;
-}
-
-
-.submitButton {
-    background-color: blue;
-    color: white;
 }
 
 #loginBtn {
@@ -28,22 +46,24 @@ button {
     padding-top: 5px;
 }
 
+.pageHeader{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.submitButton {
+    background-color: blue;
+    color: white;
+}
+
 .tripsTable{
     margin-left: auto;
     margin-right: auto;
     border: 1px solid black;
     border-collapse: collapse;
-}
-
-tr {   
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-
-th {
-    padding: 5px;
-}
-
-td {
-    padding: 5px;
 }
