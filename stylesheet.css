@@ -15,6 +15,10 @@ h3 {
     margin-block-end: .25em;
 }
 
+input {
+    margin-top: .5em;
+}
+
 main {
     margin-left: auto;
     margin-right: auto;
@@ -44,6 +48,12 @@ tr {
     grid-row-start: 5;
     grid-row-end: 6;
     margin-top: 1em;
+}
+
+.createTrip {
+    
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .docTable{
