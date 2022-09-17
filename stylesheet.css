@@ -1,0 +1,181 @@
+/* generic element selectors - alpha order*/
+button {
+    border-radius: 8px;
+}
+
+button:hover {
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-image: linear-gradient(rgb(0 0 0/20%) 0 0);
+    cursor: pointer;
+}
+
+
+h3 {
+    margin-block-start: .25em;
+    margin-block-end: .25em;
+}
+
+input {
+    margin-top: .5em;
+}
+
+main {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+td {
+    padding: 5px;
+}
+
+th {
+    padding: 5px;
+}
+
+tr {   
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+
+
+/* classes and ids - alpha order*/
+
+.completeTrip {
+    grid-column-start: 3;
+    grid-column-end: 1;
+    grid-row-start: 5;
+    grid-row-end: 6;
+    margin-top: 1em;
+}
+
+.createTrip {
+    
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.docTable{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.docHistHeader{
+    justify-content: space-around;
+    display: flex;
+    margin-bottom: 1em;
+}
+
+#login {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#loginBtn {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    width: 20%;
+    justify-content: space-around;
+    padding-top: 5px;
+}
+
+.pageHeader{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    background-color: #0C7BDC; 
+}
+
+.submitButton {
+    background-color: blue;
+    color: white;
+}
+
+.searchButton{
+    background-image: url("./icons/search-icon.png");
+    background-size: 20px 20px;
+    height: 25px;
+    width: 25px;
+}
+
+.tripsTable{
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.tripDetail{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 22% 22% 22% 22% 12%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 50%;
+    margin-top: 3em;
+
+}
+
+
+.tripDetailArrivalTime{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
+
+.tripDetailDest{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 4;
+    grid-row-end: 5;
+}
+
+.tripDetailDriver {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+.tripDetailHeader {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+.tripDetailStartLoc {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 4;
+    grid-row-end: 5;
+}
+
+.tripDetailStartTime {    
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+.tripDetailUID  {    
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
+
+.tripDocs {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    margin-top: 3em;
+}
