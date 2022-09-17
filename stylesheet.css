@@ -1,6 +1,12 @@
 /* generic element selectors - alpha order*/
 button {
-    border-radius: 12px;
+    border-radius: 8px;
+}
+
+button:hover {
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-image: linear-gradient(rgb(0 0 0/20%) 0 0);
+    cursor: pointer;
 }
 
 
@@ -59,6 +65,13 @@ tr {
 .submitButton {
     background-color: blue;
     color: white;
+}
+
+.searchButton{
+    background-image: url("./icons/search-icon.png");
+    background-size: 20px 20px;
+    height: 25px;
+    width: 25px;
 }
 
 .tripsTable{
