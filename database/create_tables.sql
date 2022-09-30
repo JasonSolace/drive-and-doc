@@ -1,4 +1,12 @@
 USE drive_and_doc;
+
+CREATE TABLE USERTYPES (
+	ID int NOT NULL,
+	UserTypeName varchar(50),
+	PRIMARY KEY (ID)
+);
+    
+
 CREATE TABLE USERS (
 	ID mediumint NOT NULL AUTO_INCREMENT,
 	Username varchar(50) NOT NULL,
@@ -27,29 +35,25 @@ CREATE TABLE USERS (
 		);
         
         
-	CREATE TABLE USERTYPES (
-		ID int NOT NULL,
-        UserTypeName varchar(50),
-		PRIMARY KEY (ID)
-    );
-    
+
     CREATE TABLE ADMINDRIVERS (
 		ID mediumint NOT NULL AUTO_INCREMENT,
-        AdminUserId mediumint NOT NULL,
-        DriverUserId mediumint NOT NULL,
+        AdminUserId mediumint,
+        DriverUserId mediumint,
         StartDate datetime,
         EndDate datetime,
         PRIMARY KEY (ID),
-        CONSTRAINT FK_Admin FOREIGN KEY (AdminUserID) REFERENCES USERS(ID),
-        CONSTRAINT FK_Driver FOREIGN KEY (DriverUserID) REFERENCES USERS(ID)
+        FOREIGN KEY (AdminUserID) REFERENCES USERS(ID),
+        FOREIGN KEY (DriverUserID) REFERENCES USERS(ID)
     );
     
     CREATE TABLE DOCUMENTS (
-		ID int NOT NULL,
+		ID mediumint NOT NULL AUTO_INCREMENT,
         DocFilePath VARCHAR(255) NOT NULL,
         TripId mediumint,
         PRIMARY KEY (ID),
         FOREIGN KEY (TripId) REFERENCES TRIPS(ID)
     );
+    
     
     
