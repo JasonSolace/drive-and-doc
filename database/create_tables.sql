@@ -1,24 +1,24 @@
 USE drive_and_doc;
 
-CREATE TABLE USERTYPES (
+CREATE TABLE USER_TYPE (
 	ID int NOT NULL,
 	UserTypeName varchar(50),
 	PRIMARY KEY (ID)
 );
     
 
-CREATE TABLE USERS (
+CREATE TABLE USER (
 	ID mediumint NOT NULL AUTO_INCREMENT,
 	Username varchar(50) NOT NULL,
     UserTypeId int NOT NULL,
     FirstName varchar(144),
     LastName varchar(144),
     PRIMARY KEY (ID),
-    FOREIGN KEY (UserTypeId) REFERENCES USERTYPES(ID)
+    FOREIGN KEY (UserTypeId) REFERENCES USER_TYPE(ID)
     );
     
     
-    CREATE TABLE TRIPS (
+    CREATE TABLE TRIP (
 		ID mediumint NOT NULL AUTO_INCREMENT,
         TripStatus varchar(50),
         StartDateTime datetime NOT NULL,
@@ -31,29 +31,44 @@ CREATE TABLE USERS (
         LoadContents varchar(255),
         LoadWeight mediumint,
         PRIMARY KEY (ID),
-        FOREIGN KEY (UserId) REFERENCES USERS(ID)
+        FOREIGN KEY (UserId) REFERENCES USER(ID)
 		);
         
         
 
-    CREATE TABLE ADMINDRIVERS (
+
+    
+    CREATE TABLE DOCUMENT_TYPE (
 		ID mediumint NOT NULL AUTO_INCREMENT,
-        AdminUserId mediumint,
-        DriverUserId mediumint,
+        DocumentTypeName VARCHAR(255),
+        PRIMARY KEY (ID)
+    );
+    
+    CREATE TABLE DOCUMENT (
+		ID mediumint NOT NULL AUTO_INCREMENT,
+        DocFilePath VARCHAR(255) NOT NULL,
+        DocTypeId mediumint,
+        TripId mediumint,
+        PRIMARY KEY (ID),
+        FOREIGN KEY (TripId) REFERENCES TRIP(ID),
+        FOREIGN KEY (DocTypeId) REFERENCES DOCUMENT_TYPE(ID)
+    );
+    
+    CREATE TABLE COMPANY (
+		ID mediumint NOT NULL AUTO_INCREMENT,
+        CompanyName VARCHAR(255) NOT NULL,
+        PRIMARY KEY (ID)
+    );
+    
+        CREATE TABLE COMPANY_USER (
+		ID mediumint NOT NULL AUTO_INCREMENT,
+        UserId mediumint,
+        CompanyId mediumint,
         StartDate datetime,
         EndDate datetime,
         PRIMARY KEY (ID),
-        FOREIGN KEY (AdminUserID) REFERENCES USERS(ID),
-        FOREIGN KEY (DriverUserID) REFERENCES USERS(ID)
+        FOREIGN KEY (UserId) REFERENCES USER(ID),
+        FOREIGN KEY (CompanyId) REFERENCES COMPANY(ID)
     );
-    
-    CREATE TABLE DOCUMENTS (
-		ID mediumint NOT NULL AUTO_INCREMENT,
-        DocFilePath VARCHAR(255) NOT NULL,
-        TripId mediumint,
-        PRIMARY KEY (ID),
-        FOREIGN KEY (TripId) REFERENCES TRIPS(ID)
-    );
-    
     
     
