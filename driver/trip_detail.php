@@ -7,10 +7,10 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Drive and Doc Admin Trip Detail</title>
+        <title>Drive and Doc Driver Trip Detail</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="stylesheet.css">
+        <link rel="stylesheet" href="../css/stylesheet.css">
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -19,11 +19,10 @@
         <main>
             <h1>Drive and Doc</h1>
             <nav class="pageHeader">
-                <button>Create New Trip</button>
                 <button>View Current Trips</button>
                 <button>View Past Trips</button>
             </nav>
-            <h2>Admin Trip Details</h2>
+            <h2>Driver Trip Details</h2>
             <div class="tripDetail">
                 
                 <h3 class="tripDetailHeader">Trip Details</h3>
@@ -33,9 +32,6 @@
                 <div class="tripDetailArrivalTime">Expected Arrival: 9-18-2022</div>
                 <div class="tripDetailStartLoc">Start Location: Topeka, KS</div>
                 <div class="tripDetailDest">Destination: Wichita, KS</div>
-                <div class="completeTrip">
-                    <button class="completeTripButton">Mark As Completed</button>
-                </div>
             </div>
 
             <div class="tripDocs">
@@ -67,7 +63,6 @@
                 </table>
             </div>
 
-        </main>
 
         
 

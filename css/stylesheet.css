@@ -98,7 +98,7 @@ tr {
 }
 
 .searchButton{
-    background-image: url("./icons/search-icon.png");
+    background-image: url("../img/search-icon.png");
     background-size: 20px 20px;
     height: 25px;
     width: 25px;
