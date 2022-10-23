@@ -3,69 +3,48 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Drive and Doc Admin Trip Detail</title>
+        <title>Drive and Doc Admin Trip Details</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../css/stylesheet.css">
+        <link rel="stylesheet" href="../../css/stylesheet.css">
+        <nav class = "topnav">
+            <h2>Drive and Doc</h2>
+            <button class="tripButton">Create A Trip</button>
+        </nav>
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        <main>
-            <h1>Drive and Doc</h1>
-            <nav class="pageHeader">
-                <button>Create New Trip</button>
-                <button>View Current Trips</button>
-                <button>View Past Trips</button>
-            </nav>
-            <h2>Admin Trip Details</h2>
-            <div class="tripDetail">
-                
-                <h3 class="tripDetailHeader">Trip Details</h3>
-                <div class="tripDetailDriver">Driver: Driver A</div>
-                <div class="tripDetailUID">User ID: 01234</div>                
-                <div class="tripDetailStartTime">Start Date: 9-17-2022</div>
-                <div class="tripDetailArrivalTime">Expected Arrival: 9-18-2022</div>
-                <div class="tripDetailStartLoc">Start Location: Topeka, KS</div>
-                <div class="tripDetailDest">Destination: Wichita, KS</div>
-                <div class="completeTrip">
-                    <button class="completeTripButton">Mark As Completed</button>
-                </div>
+        <h1>Trip Record Details</h1>
+        <h3><a href>View Active Trips</a> | <a href>View Completed Trips</a></h3>
+            <div class="tripDetailAdmin">                
+                <div class="tripDetailID"><strong>Trip ID</strong><br>0000001</div>  
+                <div class="tripDetailDriver"><strong>Driver</strong><br>Joe Bob</div> 
+                <div class="tripDetailArrivalTime"><strong>Expected Arrival</strong><br>9-18-2022</div>             
+                <div class="tripDetailStartTime"><strong>Start Date</strong><br>9-17-2022</div>
+                <div class="tripDetailStartLoc"><strong>Start Location</strong><br>Topeka, KS</div>
+                <div class="tripDetailDest"><strong>Destination</strong><br>Fort Hays, KS</div>
+                <div class="completeTrip"><button class="completeTripButton">Mark As Completed</button></div>
             </div>
-
-            <div class="tripDocs">
                 <div class="docHistHeader">
-                    <h3>Document History</h3>
-                    <button>Add New</button>
+                    <h4>Document History</h4>
+                    <button class="newDocBtn">Add New</button>
                 </div>
                 <table class="docTable">
                     <tr>
-                        <th>Upload Date</th>
                         <th>Document Type</th>
+                        <th>Upload Date</th>
                         <th>Download</th>
                     </tr>
                     <tr>
-                        <td>9-17-2022 10:00 AM</td>
                         <td>Load Permit</td>
-                        <td>
-                            <button type="submit" class="docDownload">Download</button>
-                        </td>
+                        <td>9-17-2022<br>10:00 AM</td>
+                        <td><button type="submit" class="docDownload">Download</button></td>
                     </tr> 
                     <tr>
-                        <td>9-18-2022 8:00 AM</td>
                         <td>Trip Log</td>
-                        <td>
-                            <button type="submit" class="docDownload">Download</button>
-                        </td>
+                        <td>9-18-2022<br>8:00 AM</td>
+                        <td><button type="submit" class="docDownload">Download</button></td>
                     </tr>
-
                 </table>
             </div>
-
-        </main>
-
-        
-
     </body>
 </html>

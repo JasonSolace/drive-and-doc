@@ -35,16 +35,18 @@ h2 {
 
 h3 {
     text-align: center;
+    margin-bottom: 0%;
 }
 
 h4 {
+    float: left;
     margin-top: 5%;
     margin-bottom: 1%;
-    margin-left: 5%;
+    margin-left: 3%;
 }
 
 td {
-    padding: 3%;
+    padding: 0%;
     padding-top: 2%;
     padding-bottom: 2%;
     text-align: center;
@@ -52,7 +54,7 @@ td {
 }
 
 th {
-    padding: 3%;
+    padding: 0%;
     padding-top: 2%;
     padding-bottom: 2%;
     background-color: #1B4F72;
@@ -75,21 +77,69 @@ tr {
     margin-top: 1em;
 }
 
-.createTrip {
-    
+.completeTripButton {
     margin-left: auto;
     margin-right: auto;
+    margin-top: 0%;
+    margin-bottom: 10%;
+    width: 40%;
+    justify-content: space-around;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding: 1%;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #1B4F72;
+    color: white;
+}
+
+.createTrip {    
+    float: right;
+    display: inline;
+    width: 200px;
+    justify-content: space-around;
+    padding: 20px;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #1B4F72;
+    color: white;
 }
 
 .docTable{
     margin-left: auto;
     margin-right: auto;
+    margin-top: 0%;
+    padding: 1%;
+    width: 95%;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.docDelete {
+    margin-top: auto;
+    margin-right: auto;
+    display: inline-block;
+    content: "\00d7";
+    color: #9C2424;
+}
+
+.docDownload {
+    margin-top: auto;
+    margin-right: auto;
+    display: inline;
+    width: auto;
+    justify-content: space-around;
+    padding: 10px;
+    padding-left: 15%;
+    padding-right: 15%;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #1B4F72;
+    color: white;
 }
 
 .docHistHeader{
-    justify-content: space-around;
-    display: flex;
-    margin-bottom: 1em;
+    overflow: hidden;
+    padding: 0px;
+    margin-top: 0%;
+    margin-bottom: 1%;
 }
 
 #login {
@@ -107,6 +157,19 @@ tr {
     padding: 10px;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     background-color: #1B4F72;
+    color: white;
+}
+
+.newDocBtn {
+    float: right;
+    margin-top: 4%;
+    margin-right: 3%;
+    display: inline;
+    width: 100px;
+    justify-content: space-around;
+    padding: 10px;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #CC5D00;
     color: white;
 }
 
@@ -143,12 +206,14 @@ tr {
 .search {
     margin: 12px;
     margin-right: 0%;
-    margin-left: 0%;
+    margin-left: 3%;
     padding: 10px;
-    width: 75%;
+    width: 70%;
 }
 
 .searchButton{
+    margin-left: 0%;
+    margin-right: 0%;
     margin-top: 11px;
     padding: 10px;
     width: 17%;
@@ -178,7 +243,7 @@ tr {
     margin-left: auto;
     margin-right: auto;
     margin-top: 0%;
-    width: 90%;
+    width: 95%;
     border: 1px solid black;
     border-collapse: collapse;
 }
@@ -186,20 +251,32 @@ tr {
 .tripDetail{
     display: grid;
     grid-template-columns: 50% 50%;
-    grid-template-rows: 22% 22% 22% 22% 12%;
-    margin-left: auto;
+    grid-template-rows: 25% 25% 25% 25%;
+    margin-left: 0%;
     margin-right: auto;
+    margin-top: 0%;
     text-align: center;
-    width: 50%;
-    margin-top: 3em;
+    width: 100%;
+
+}
+
+.tripDetailAdmin{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 22% 22% 22% 22% 12%;
+    margin-left: 0%;
+    margin-right: auto;
+    margin-top: 0%;
+    text-align: center;
+    width: 100%;
 
 }
 
 .tripDetailArrivalTime{
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 3;
-    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 4;
+    grid-row-end: 5;
 }
 
 .tripDetailDest{
@@ -209,7 +286,7 @@ tr {
     grid-row-end: 5;
 }
 
-.tripDetailDriver {
+.tripDetailDriver { 
     grid-column-start: 1;
     grid-column-end: 2;
     grid-row-start: 2;
@@ -224,10 +301,10 @@ tr {
 }
 
 .tripDetailStartLoc {
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 4;
-    grid-row-end: 5;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 3;
+    grid-row-end: 4;
 }
 
 .tripDetailStartTime {    
@@ -237,7 +314,7 @@ tr {
     grid-row-end: 3;
 }
 
-.tripDetailUID  {    
+.tripDetailID  {    
     grid-column-start: 1;
     grid-column-end: 2;
     grid-row-start: 3;
@@ -247,6 +324,7 @@ tr {
 .tripDocs {
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    margin-top: 3%;
+    width: 100%;
     margin-top: 3em;
 }
