@@ -9,12 +9,12 @@
         <link rel="stylesheet" href="../../css/stylesheet.css">
         <nav class = "topnav">
             <h2>Drive and Doc</h2>
-            <button class="tripButton">Create A Trip</button>
+            <a href="new_trip.html"><button class="tripButton">Create A Trip</button></a>
         </nav>
     </head>
     <body>
         <h1>Completed Trips</h1>
-        <h3><a href>View Active Trips</a></h3>
+        <h3><a href="index.html">View Active Trips</a></h3>
         <div class="searchContainer">
             <form>
                 <input type="text" placeholder="Trip Record" class="search">

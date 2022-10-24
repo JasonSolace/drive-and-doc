@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Create A New Trip</h1>
-        <h3><a href>View Active Trips</a> | <a href>View Completed Trips</a></h3>
+        <h3><a href="index.html">View Active Trips</a> | <a href="past_trips.html">View Completed Trips</a></h3>
         <div class="createTrip">
             <form id="newTripForm">
                 <label for="tripID">Trip ID: </label>
@@ -47,7 +47,9 @@
                 <label for="tripLoadWeight">Load Weight: </label>
                 <input type="number" id="tripLoadWeight" name="tripLoadWeight">
                     
-                <button class="cancelButton">Cancel</button>
+                <button class="cancelButton">Cancel
+                    <?php echo '<a href="index.html"></a>'; ?>
+                </button>
                 <button class="createTripButton">Create Trip</button>
             </form>
         </div> 
