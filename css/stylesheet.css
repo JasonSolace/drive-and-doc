@@ -81,7 +81,7 @@ tr {
     margin-left: auto;
     margin-right: auto;
     margin-top: 0%;
-    margin-bottom: 10%;
+    margin-bottom: 100px;
     width: 40%;
     justify-content: space-around;
     padding-left: 5%;
@@ -139,6 +139,20 @@ tr {
     overflow: hidden;
     padding: 0px;
     margin-top: 0%;
+    margin-bottom: 1%;
+}
+
+.docHistHeader{
+    overflow: hidden;
+    padding: 0px;
+    margin-top: 0%;
+    margin-bottom: 1%;
+}
+
+.docHistHeaderDriver{
+    overflow: hidden;
+    padding: 0px;
+    margin-top: 80px;
     margin-bottom: 1%;
 }
 
@@ -251,13 +265,13 @@ tr {
 .tripDetail{
     display: grid;
     grid-template-columns: 50% 50%;
-    grid-template-rows: 25% 25% 25% 25%;
+    grid-template-rows: 55% 55% 55% 55%;
     margin-left: 0%;
     margin-right: auto;
     margin-top: 0%;
+    margin-bottom: 3%;
     text-align: center;
     width: 100%;
-
 }
 
 .tripDetailAdmin{
