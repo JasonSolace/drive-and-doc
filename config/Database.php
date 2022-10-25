@@ -13,13 +13,10 @@ class Database {
 
     // DB connect
     public function connect() {
-        $this->url = getenv('JAWSDB_URL');
-        $this->dbparts = parse_url($this->url);
-    
-        $this->host = $this->dbparts['host'];
-        $this->username = $this->dbparts['user'];
-        $this->password = $this->dbparts['pass'];
-        $this->db_name = ltrim($this->dbparts['path'],'/');
+        $this->host = getenv('JAWSDB_HOST');
+        $this->username = getenv('JAWSDB_USER');
+        $this->password = getenv('JAWSDB_PW');
+        $this->db_name = getenv('JAWSDB_DB');
 
         $this->conn = null;
         try {
