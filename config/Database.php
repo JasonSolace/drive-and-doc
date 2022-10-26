@@ -11,15 +11,16 @@ class Database {
 
     private $conn;
 
+    public function __construct(){
+        $this->password = getenv('JAWSDB_PW', false);
+        $this->host = getenv('JAWSDB_HOST', false);
+        $this->username = getenv('JAWSDB_USER', false);
+        $this->db_name = getenv('JAWSDB_DB', false);
+    }
+
     // DB connect
     public function connect() {
-        $this->url = getenv('JAWSDB_URL');
-        $this->dbparts = parse_url($this->url);
-    
-        $this->host = $this->dbparts['host'];
-        $this->username = $this->dbparts['user'];
-        $this->password = $this->dbparts['pass'];
-        $this->db_name = ltrim($this->dbparts['path'],'/');
+
 
         $this->conn = null;
         try {
@@ -32,6 +33,12 @@ class Database {
         }
         return $this->conn;
     }
+
+
+
 }
+
+
+
 
 ?>
