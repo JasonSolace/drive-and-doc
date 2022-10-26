@@ -69,8 +69,12 @@ class Trip {
                         OR t.`LoadContents` LIKE '%?%'";
         //prepare statement
         $stmt = $this->conn->prepare($query);
-        //bind param
-        $stmt->bindParam(1, $this->id);
+        for ($i = 1; $i <13; $i++){ //bind query string to each of 12 ?s above
+            //bind param
+            $stmt->bindParam($i, $this->queryString);
+        };
+            
+        
         //execute
         $stmt->execute();
 
