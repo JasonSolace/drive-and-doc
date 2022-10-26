@@ -13,15 +13,6 @@
            
             require 'retrieve.php';
             break;
-        case 'POST':
-            require 'create.php';
-            break;
-        case 'PUT':
-            require 'update.php';
-            break;
-        case 'DELETE':
-            require 'delete.php';
-            break;
 
     }
 
