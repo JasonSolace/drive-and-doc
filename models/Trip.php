@@ -21,8 +21,17 @@ class Trip {
     public $userFirstName;
     public $userLastName;
 
-    //query string
-    public $queryString;
+    //query strings
+    public $queryStringId;
+    public $queryStringStatus;
+    public $queryStringStartCity;
+    public $queryStringStartStateCode;
+    public $queryStringEndCity;
+    public $queryStringEndStateCode;
+    public $queryStringUserFirstName;
+    public $queryStringUserLastName;
+    public $queryStringLoadContents;
+
 
     // constructor
     public function __construct($db) {
@@ -55,29 +64,27 @@ class Trip {
                     INNER JOIN `user` u
                         ON u.`ID` = t.`userId`
                   WHERE 
-                        t.`StartCity` = :queryStr
-                        OR t.`ID` LIKE :queryStr
-                        OR t.`TripStatus` LIKE :queryStr
-                        OR t.`StartDateTime` LIKE :queryStr
-                        OR t.`EndDateTime` LIKE :queryStr
-                        OR t.`StartStateCode LIKE :queryStr
-                        OR t.`EndCity` LIKE :queryStr
-                        OR t.`EndStateCode` LIKE :queryStr
-                        OR u.`FirstName` LIKE :queryStr
-                        OR u.`LastName` LIKE :queryStr
-                        OR u.`UserId` LIKE :queryStr
-                        OR t.`LoadContents` LIKE :queryStr";
+                        t.`ID` LIKE :queryStrId
+                        OR t.`TripStatus` LIKE :queryStrStatus
+                        OR t.`StartCity` LIKE :queryStrStartCity
+                        OR t.`StartStateCode` LIKE :queryStrStartStateCode
+                        OR t.`EndCity` LIKE :queryStrEndCity
+                        OR t.`EndStateCode` LIKE :queryStrEndStateCode
+                        OR u.`FirstName` LIKE :queryStrFirstName
+                        OR u.`LastName` LIKE :queryStrLastName
+                        OR t.`LoadContents` LIKE :queryStrLoadContents";
         //prepare statement
-        $queryStrX = 0;
-        $query = preg_replace_callback("/\:queryStr/", function ($matches) use (&$queryStrX) { $queryStrX++; return $matches[0] . ($queryStrX - 1);}, $query);
         $stmt = $this->conn->prepare($query);
-        for ($i = 0; $i < $queryStrX; $i++){
-            $stmt->bindValue(":term$i", "%$this->queryString%", PDO::PARAM_STR);
-        }
-        #print_r($query);
-        
-        #$stmt->bindParam(1, $this->queryString);
-        
+        $stmt->bindParam(':queryStrId', $this->queryStringId);
+        $stmt->bindParam(':queryStrStatus', $this->queryStringStatus);
+        $stmt->bindParam(':queryStrStartCity', $this->queryStringStartCity);
+        $stmt->bindParam(':queryStrStartStateCode', $this->queryStringStartStateCode);
+        $stmt->bindParam(':queryStrEndCity', $this->queryStringEndCity);
+        $stmt->bindParam(':queryStrEndStateCode', $this->queryStringEndStateCode);
+        $stmt->bindParam(':queryStrFirstName', $this->queryStringUserFirstName);
+        $stmt->bindParam(':queryStrLastName', $this->queryStringUserLastName);
+        $stmt->bindParam(':queryStrLoadContents', $this->queryStringLoadContents);
+        #print_r($stmt);
         #$stmt->bindParam(':queryString', $this->queryString, PDO::PARAM_STR);
         #$testQueryString = 'Topeka';
         #$stmt->bindParam(1, $testQueryString, PDO::PARAM_STR);

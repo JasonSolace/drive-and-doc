@@ -18,7 +18,16 @@
 
     //ensure a query string is passed
     if (isset($data->queryString)) {
-        $trip->queryString = $data->queryString;
+        $data->queryString = $data->queryString ;//add parentheses for LIKE statement
+        $trip->queryStringId = $data->queryString;
+        $trip->queryStringStatus = $data->queryString;
+        $trip->queryStringStartCity = $data->queryString;
+        $trip->queryStringStartStateCode = $data->queryString;
+        $trip->queryStringEndCity = $data->queryString;
+        $trip->queryStringEndStateCode = $data->queryString;
+        $trip->queryStringUserFirstName = $data->queryString;
+        $trip->queryStringUserLastName = $data->queryString;
+        $trip->queryStringLoadContents = $data->queryString;
         $result = $trip->searchTrip();
     }
     //add some handling for no query string passed
