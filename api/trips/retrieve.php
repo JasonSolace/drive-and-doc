@@ -21,7 +21,10 @@
         $result = $trip->searchTrip();
     }
     //add some handling for no query string passed
-
+    else {
+        print_r(json_encode(array('message' => 'No Query String Passed')));
+        die(); //exit
+    }
 
 
     //assume here we have returned with a result
