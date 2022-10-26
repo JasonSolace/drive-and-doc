@@ -11,7 +11,7 @@
     switch ($request_method){
         case 'GET':
            
-            require 'request.php';
+            require 'retrieve.php';
             break;
         case 'POST':
             require 'create.php';
