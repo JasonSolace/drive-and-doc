@@ -18,7 +18,7 @@
 
     //ensure a query string is passed
     if (isset($data->queryString)) {
-        $data->queryString = $data->queryString ;//add parentheses for LIKE statement
+        $data->queryString = '%' . $data->queryString . '%' ;//add % for LIKE statement
         $trip->queryStringId = $data->queryString;
         $trip->queryStringStatus = $data->queryString;
         $trip->queryStringStartCity = $data->queryString;
