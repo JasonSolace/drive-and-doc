@@ -30,12 +30,12 @@ class Trip {
     }
 
     //-------------GET TRIPS-------------------
-
+    
     //by id
     public function searchTrip(){
         //given a trip id
         //returns that trip from the database
-
+        
         //create query
         $query = "SELECT 
                     t.`ID`,
@@ -53,36 +53,38 @@ class Trip {
                     t.`LoadWeight`
                   FROM `trip` t
                     INNER JOIN `user` u
-                        ON u.`ID` = t.`userId`";
-                  /*WHERE 
-                         t.`StartCity` LIKE '?'";
-                        t.`ID` LIKE '%?%' 
-                        OR t.`TripStatus` LIKE '%?%'
-                        OR t.`StartDateTime` LIKE '%?%'
-                        OR t.`EndDateTime` LIKE '%?%'
-                        OR t.`StartStateCode LIKE '%?%'
-                        OR t.`EndCity` LIKE '%?%'
-                        OR t.`EndStateCode` LIKE '%?%'
-                        OR u.`FirstName` LIKE '%?%'
-                        OR u.`LastName` LIKE '%?%'
-                        OR u.`UserId` LIKE '%?%'
-                        OR t.`LoadContents` LIKE '%?%'";*/
+                        ON u.`ID` = t.`userId`
+                  WHERE 
+                        t.`StartCity` = :queryStr
+                        OR t.`ID` LIKE :queryStr
+                        OR t.`TripStatus` LIKE :queryStr
+                        OR t.`StartDateTime` LIKE :queryStr
+                        OR t.`EndDateTime` LIKE :queryStr
+                        OR t.`StartStateCode LIKE :queryStr
+                        OR t.`EndCity` LIKE :queryStr
+                        OR t.`EndStateCode` LIKE :queryStr
+                        OR u.`FirstName` LIKE :queryStr
+                        OR u.`LastName` LIKE :queryStr
+                        OR u.`UserId` LIKE :queryStr
+                        OR t.`LoadContents` LIKE :queryStr";
         //prepare statement
+        $queryStrX = 0;
+        $query = preg_replace_callback("/\:queryStr/", function ($matches) use (&$queryStrX) { $queryStrX++; return $matches[0] . ($queryStrX - 1);}, $query);
         $stmt = $this->conn->prepare($query);
+        for ($i = 0; $i < $queryStrX; $i++){
+            $stmt->bindValue(":term$i", "%$this->queryString%", PDO::PARAM_STR);
+        }
+        #print_r($query);
         
-        /*for ($i = 1; $i <13; $i++){ //bind query string to each of 12 ?s above
-            //bind param
-            $stmt->bindParam($i, $this->queryString);
-        };
-          */
+        #$stmt->bindParam(1, $this->queryString);
+        
         #$stmt->bindParam(':queryString', $this->queryString, PDO::PARAM_STR);
         #$testQueryString = 'Topeka';
         #$stmt->bindParam(1, $testQueryString, PDO::PARAM_STR);
         
         //execute
         $stmt->execute();
-
-       return $stmt;
+        return $stmt;
     }
 
 
