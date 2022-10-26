@@ -13,11 +13,12 @@
     //instantiate new trip object
     $trip = new Trip($db);
 
+    //get passed data
+    $data = json_decode(file_get_contents('php://input'));
+
     //ensure a query string is passed
-    if (isset($_GET['queryString']) && $_GET['queryString'] != '') {
-        
-        
-        $trip->queryString = $_GET['queryString'];
+    if (isset($data->queryString)) {
+        $trip->queryString = $data->queryString;
         $result = $trip->searchTrip();
     }
     //add some handling for no query string passed
@@ -29,6 +30,7 @@
 
     //assume here we have returned with a result
     $num = $result->rowCount();
+    print_r($stmt->fetch(PDO::FETCH_ASSOC));
     //if we have results
     if ($num>0) {
         //create array of results
@@ -51,9 +53,11 @@
                 'loadWeight' => $loadWeight
             );
 
-            //push to data
+            //push to result array
             array_push($trip_arr, $trip_item);
         }
+        //return result array
+        echo json_encode($trip_arr);
 
     } else {
         echo json_encode(
