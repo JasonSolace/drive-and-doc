@@ -30,27 +30,28 @@
 
     //assume here we have returned with a result
     $num = $result->rowCount();
-    print_r($stmt->fetch(PDO::FETCH_ASSOC));
+    #print_r($result->fetch(PDO::FETCH_ASSOC));
     //if we have results
     if ($num>0) {
         //create array of results
         $trip_arr = array();
         while ($row = $result->fetch(PDO::FETCH_ASSOC)){
             extract($row);
+            #print_r($row);
             $trip_item = array(
-                'ID' => $id,
-                'TripStatus' => $tripStatus,
-                'StartDateTime' => $startDateTime,
-                'EndDateTime' => $endDateTime,
-                'StartCity' => $startCity,
-                'StartStateCode' => $startStateCode,
-                'EndCity' => $endCity,
-                'EndStateCode' => $endStateCode,
-                'UserId' => $userId,
-                'FirstName' => $userFirstName,
-                'LastName' => $userLastName,
-                'LoadContents' => $loadContents,
-                'loadWeight' => $loadWeight
+                'ID' => $ID,
+                'TripStatus' => $TripStatus,
+                'StartDateTime' => $StartDateTime,
+                'EndDateTime' => $EndDateTime,
+                'StartCity' => $StartCity,
+                'StartStateCode' => $StartStateCode,
+                'EndCity' => $EndCity,
+                'EndStateCode' => $EndStateCode,
+                'UserId' => $UserId,
+                'DriverFirstName' => $FirstName,
+                'DriverLastName' => $LastName,
+                'LoadContents' => $LoadContents,
+                'loadWeight' => $LoadWeight
             );
 
             //push to result array
