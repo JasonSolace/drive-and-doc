@@ -37,7 +37,7 @@
         $trip_arr = array();
         while ($row = $result->fetch(PDO::FETCH_ASSOC)){
             extract($row);
-            #print_r($row);
+            //returned result name => query column name
             $trip_item = array(
                 'ID' => $ID,
                 'TripStatus' => $TripStatus,
