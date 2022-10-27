@@ -45,7 +45,7 @@
                     //if trip creation is successful, return the Trip
                     echo json_encode(
                         array(
-                            'ID' => $trip->ID,
+                            'ID' => $trip->id,
                             'tripStatus' => $trip->tripStatus,
                             'startDateTime' => $trip->startDateTime,
                             'endDateTime' => $trip->endDateTime,
