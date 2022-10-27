@@ -10,10 +10,17 @@
 
     switch ($request_method){
         case 'GET':
-           
-            require 'retrieve.php';
+            require 'read.php';
             break;
-
+        case 'POST':
+            require 'create.php';
+            break;
+        case 'PUT':
+            require 'update.php';
+            break;
+        case 'DELETE':
+            require 'delete.php';
+            break;
     }
 
 
