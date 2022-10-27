@@ -294,7 +294,6 @@ class Trip {
                   . (is_null($this->loadContents) ? '' : ' LoadContents  = :loadContents,')
                   . (is_null($this->loadWeight) ? '' : ' LoadWeight  = :loadWeight,');
         $query = rtrim($query, ',') . ' WHERE ID = :id '; //remove the final comma and add where clause
-        print_r($query);
         //create a sql statement
         $stmt = $this->conn->prepare($query);
 
