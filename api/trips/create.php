@@ -15,15 +15,25 @@
 
        //passed json body
        $data = json_decode(file_get_contents('php://input'));
-
-       //TRIP requires a startdatetime and driver user id
+        //TRIP requires a startdatetime and driver user id
        if (isset($data->driverUserId) 
             && $data->driverUserId != ''
             && isset($data->startDatetime) 
-            && DateTime::createFromFormat('Y-m-d H:i:s', $data->startDatetime != false)) {
+            && DateTime::createFromFormat('Y-m-d H:i:s', $data->startDatetime) != false) {
                 //if required params are passed, create a trip
 
-                $trip->queryStringUserId = is_int($data->driverUserId) ? $data->driverUserId : intval($data->driverUserId);
+                $trip->userId = is_int($data->driverUserId) ? $data->driverUserId : intval($data->driverUserId);
+                
+                $trip->tripStatus = $data->tripStatus;
+                $trip->startDateTime = $data->startDatetime;
+                $trip->endDateTime = $data->endDateTime;
+                $trip->startCity = $data->startCity;
+                $trip->startStateCode = $data->startStateCode;
+                $trip->endCity = $data->endCity;
+                $trip->endStateCode = $data->endStateCode;
+                $trip->loadContents = $data->loadContents;
+                $trip->loadWeight = $data->loadWeight;
+                
                 //test if passed user id is in the db
                 if (!$trip->userCheck()){
                     //user not in the database
@@ -35,19 +45,19 @@
                     //if trip creation is successful, return the Trip
                     echo json_encode(
                         array(
-                            'ID' => $ID,
-                            'tripStatus' => $TripStatus,
-                            'startDateTime' => $StartDateTime,
-                            'endDateTime' => $EndDateTime,
-                            'startCity' => $StartCity,
-                            'startStateCode' => $StartStateCode,
-                            'endCity' => $EndCity,
-                            'endStatecode' => $EndStateCode,
-                            'driverUserId' => $UserId,
-                            'driverFirstName' => $FirstName,
-                            'driverLastName' => $LastName,
-                            'loadContents' => $LoadContents,
-                            'loadWeight' => $LoadWeight
+                            'ID' => $trip->ID,
+                            'tripStatus' => $trip->tripStatus,
+                            'startDateTime' => $trip->startDateTime,
+                            'endDateTime' => $trip->endDateTime,
+                            'startCity' => $trip->startCity,
+                            'startStateCode' => $trip->startStateCode,
+                            'endCity' => $trip->endCity,
+                            'endStatecode' => $trip->endStateCode,
+                            'driverUserId' => $trip->userId,
+                            'driverFirstName' => $trip->firstName,
+                            'driverLastName' => $trip->lastName,
+                            'loadContents' => $trip->loadContents,
+                            'loadWeight' => $trip->loadWeight
                         )
                         );
                 }

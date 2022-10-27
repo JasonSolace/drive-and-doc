@@ -101,8 +101,8 @@ class Trip {
 
         $usrSql = 'SELECT COUNT(*) "userIdCount" FROM USER WHERE ID = :queryStringUserId';
         $stmt = $this->conn->prepare($usrSql);
-        $stmt->bindParam(':queryUserStringId', $this->queryStringUserId);
-
+        $stmt->bindParam(':queryStringUserId', $this->userId, PDO::PARAM_INT);
+        #print_r($stmt);
         if ($stmt->execute()){
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             extract($row);
@@ -165,17 +165,17 @@ class Trip {
         
         //bind data
         //pass null if a field is not set, except user id and start datetime
-        $stmt->bindParam(':tripStatus', $this->tripStatus ?? null); 
+        $stmt->bindParam(':tripStatus', $this->tripStatus); 
         $stmt->bindParam(':startDateTime', $this->startDateTime); 
-        $stmt->bindParam(':endDateTime', $this->endDateTime ?? null); 
-        $stmt->bindParam(':startCity', $this->startCity ?? 'NULL'); 
-        $stmt->bindParam(':startStateCode', $this->startStateCode ?? 'NULL'); 
-        $stmt->bindParam(':endCity', $this->endCity ?? 'NULL'); 
-        $stmt->bindParam(':endStateCode', $this->endStateCode ?? 'NULL'); 
-        $stmt->bindParam(':userId', $this->userId); 
-        $stmt->bindParam(':loadContents', $this->loadContents ?? 'NULL'); 
-        $stmt->bindParam(':loadWeight', $this->loadWeight ?? 'NULL'); 
-        
+        $stmt->bindParam(':endDateTime', $this->endDateTime); 
+        $stmt->bindParam(':startCity', $this->startCity); 
+        $stmt->bindParam(':startStateCode', $this->startStateCode); 
+        $stmt->bindParam(':endCity', $this->endCity); 
+        $stmt->bindParam(':endStateCode', $this->endStateCode); 
+        $stmt->bindParam(':userId', $this->userId, PDO::PARAM_INT); 
+        $stmt->bindParam(':loadContents', $this->loadContents); 
+        $stmt->bindParam(':loadWeight', $this->loadWeight, PDO::PARAM_INT); 
+        print_r($stmt);
         //execute the insert statement
         if ($stmt->execute()){
             //get the created record

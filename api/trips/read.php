@@ -49,17 +49,17 @@
             //returned result name => query column name
             $trip_item = array(
                 'ID' => $ID,
-                'TripStatus' => $TripStatus,
-                'StartDateTime' => $StartDateTime,
-                'EndDateTime' => $EndDateTime,
-                'StartCity' => $StartCity,
-                'StartStateCode' => $StartStateCode,
-                'EndCity' => $EndCity,
-                'EndStateCode' => $EndStateCode,
-                'UserId' => $UserId,
-                'DriverFirstName' => $FirstName,
-                'DriverLastName' => $LastName,
-                'LoadContents' => $LoadContents,
+                'tripStatus' => $TripStatus,
+                'startDateTime' => $StartDateTime,
+                'endDateTime' => $EndDateTime,
+                'startCity' => $StartCity,
+                'startStateCode' => $StartStateCode,
+                'endCity' => $EndCity,
+                'endStateCode' => $EndStateCode,
+                'driverUserId' => $UserId,
+                'driverFirstName' => $FirstName,
+                'driverLastName' => $LastName,
+                'loadContents' => $LoadContents,
                 'loadWeight' => $LoadWeight
             );
 
