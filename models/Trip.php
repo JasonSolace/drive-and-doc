@@ -122,12 +122,140 @@ class Trip {
 
     public function create(){
         //creates a new trip in the database
-        $createSql = 'INSERT INTO TRIP
+        $query = 'INSERT INTO TRIP (
+                TripStatus,
+                StartDateTime,
+                EndDateTime,
+                StartCity,
+                StartStateCode,
+                EndCity,
+                EndStateCode,
+                UserId,
+                LoadContents,
+                LoadWeight
+                )
+                VALUES (
+                :tripStatus,
+                :startDateTime,
+                :endDateTime,
+                :startCity,
+                :startStateCode,
+                :endCity,
+                :endStateCode,
+                :userId,
+                :loadContents,
+                :loadWeight
+                );
+                ';
 
+        //create a sql statement
+        $stmt = $this->conn->prepare($query);
+        
+        //clean to prevent sql injection
+        $this->tripStatus = htmlspecialchars(strip_tags($this->tripStatus));
+        $this->startDateTime = htmlspecialchars(strip_tags($this->startDateTime));
+        $this->endDateTime = htmlspecialchars(strip_tags($this->endDateTime));
+        $this->startCity = htmlspecialchars(strip_tags($this->startCity));
+        $this->startStateCode = htmlspecialchars(strip_tags($this->startStateCode));
+        $this->endCity = htmlspecialchars(strip_tags($this->endCity));
+        $this->endStateCode = htmlspecialchars(strip_tags($this->endStateCode));
+        $this->userId = htmlspecialchars(strip_tags($this->userId));
+        $this->loadContents = htmlspecialchars(strip_tags($this->loadContents));
+        $this->loadWeight = htmlspecialchars(strip_tags($this->loadWeight));
+        
+        //bind data
+        //pass null if a field is not set, except user id and start datetime
+        $stmt->bindParam(':tripStatus', $this->tripStatus ?? null); 
+        $stmt->bindParam(':startDateTime', $this->startDateTime); 
+        $stmt->bindParam(':endDateTime', $this->endDateTime ?? null); 
+        $stmt->bindParam(':startCity', $this->startCity ?? 'NULL'); 
+        $stmt->bindParam(':startStateCode', $this->startStateCode ?? 'NULL'); 
+        $stmt->bindParam(':endCity', $this->endCity ?? 'NULL'); 
+        $stmt->bindParam(':endStateCode', $this->endStateCode ?? 'NULL'); 
+        $stmt->bindParam(':userId', $this->userId); 
+        $stmt->bindParam(':loadContents', $this->loadContents ?? 'NULL'); 
+        $stmt->bindParam(':loadWeight', $this->loadWeight ?? 'NULL'); 
+        
+        //execute the insert statement
+        if ($stmt->execute()){
+            //get the created record
+            $newTripId = '
+                SELECT 
+                    t.ID,
+                    t.TripStatus,
+                    t.StartDateTime,
+                    t.EndDateTime,
+                    t.StartCity,
+                    t.StartStateCode,
+                    t.EndCity,
+                    t.EndStateCode,
+                    t.UserId,
+                    u.FirstName,
+                    u.LastName,
+                    t.LoadContents,
+                    t.LoadWeight
+                FROM TRIP t
+                    INNER JOIN USER u
+                        ON u.ID = t.userId
+                WHERE t.ID = (SELECT MAX(ID) FROM TRIP)';
+            $stmtId = $this->conn->prepare($newTripId);
+            if ($stmtId->execute()){
+                $row = $stmtId->fetch(PDO::FETCH_ASSOC);
+                extract($row);
+                $this->id = $ID;
+                $this->tripStatus = $TripStatus;
+                $this->startDateTime = $StartDateTime;
+                $this->endDateTime = $EndDateTime;
+                $this->startCity = $StartCity;
+                $this->startStateCode = $StartStateCode;
+                $this->endCity = $EndCity;
+                $this->endStateCode = $EndStateCode;
+                $this->userId = $UserId;
+                $this->userFirstName = $FirstName;
+                $this->userLastName = $LastName;
+                $this->loadContents = $LoadContents;
+                $this->loadWeight = $LoadWeight;
+                
+            } else {
+                printf('Error retrieving newly created Trip: %s.\n', $stmtId->error);
+            }
+            return true;
 
-
+        }
+        else {
+            //print error
+            printf('Error: %s.\n', $stmt->error);
+            return false;
+        }
     }
 
 
+
+    public function delete(){
+        //delete a trip
+        $query = 'DELETE FROM TRIP WHERE ID = :ID;';
+        $stmt = $this->conn->prepare($query);
+        $this->ID = htmlspecialchars(strip_tags($this->ID));
+        $stmt->bindParam(':ID', $this->ID);
+
+        if ($stmt->execute()){
+            $affectedRows = $stmt->rowCount();
+            if ($affectedRows==0){
+                echo json_encode(
+                    array('id' => $this->id,
+                          'message' => 'No Trip with passed ID found')
+                    );
+                }
+            else {
+                echo json_encode(
+                    array('id' => $this->id,
+                          'message' => 'Trip deleted')
+                );
+            }
+        }
+        else {
+            printf('ERROR: %s.\n', $stmt->error);
+        }
+    }
 
 }

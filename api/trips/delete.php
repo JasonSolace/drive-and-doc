@@ -17,14 +17,11 @@
        $data = json_decode(file_get_contents('php://input'));
 
        //TRIP requires a startdatetime and driver user id
-       if (isset($data->driverUserId) 
-            && $data->driverUserId != ''
-            && isSeet($data->startDatetime) 
-            && DateTime::createFromFormat('Y-m-d H:i:s', $data->startDatetime != false){
-
+       if (isset($data->ID) && $data->ID != ''){
+                $trip->delete();
             }
         else {
-            print_r(json_encode(array('message' => 'No Query String Passed')));
+            print_r(json_encode(array('message' => 'No Trip ID Passed')));
             die(); //exit
         }
 
