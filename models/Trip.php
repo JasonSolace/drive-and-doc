@@ -121,8 +121,7 @@ class Trip {
 
         $query = 'SELECT COUNT(*) "tripIdCount" FROM TRIP WHERE ID = :id';
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $this->id, PDO_PARAM_INT);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
         if ($stmt->execute()){
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             extract($row);
@@ -284,62 +283,63 @@ class Trip {
         //updates a trip record
         $query = 'UPDATE TRIP 
                   SET '
-                  . (is_null($this->tripStatus) ? '' : 'TripStatus = :tripStatus,') 
-                  . (is_null($this->startDateTime) ? '' : 'StartDateTime = :startDateTime,')
-                  . (is_null($this->endDateTime) ? '' : 'EndDateTime  = :startDateTime,')
-                  . (is_null($this->startCity) ? '' : 'StartCity  = :startDateTime,')
-                  . (is_null($this->startStateCode) ? '' : 'StartStateCode  = :startDateTime,')
-                  . (is_null($this->endCity) ? '' : 'EndCity = :startDateTime,')
-                  . (is_null($this->endStateCode) ? '' : 'EndStateCode  = :startDateTime,')
-                  . (is_null($this->userId) ? '' : 'UserId  = :startDateTime,')
-                  . (is_null($this->loadContents) ? '' : 'LoadContents  = :startDateTime,')
-                  . (is_null($this->loadWeight) ? '' : 'LoadWeight  = :startDateTime,');
-        $query = rtrim($query, ',') . 'WHERE ID = :id'; //remove the final comma and add where clause
-
+                  . (is_null($this->tripStatus) ? '' : ' TripStatus = :tripStatus,') 
+                  . (is_null($this->startDateTime) ? '' : ' StartDateTime = :startDateTime,')
+                  . (is_null($this->endDateTime) ? '' : ' EndDateTime  = :endDateTime,')
+                  . (is_null($this->startCity) ? '' : ' StartCity  = :startCity,')
+                  . (is_null($this->startStateCode) ? '' : ' StartStateCode  = :startStateCode,')
+                  . (is_null($this->endCity) ? '' : ' EndCity = :endCity,')
+                  . (is_null($this->endStateCode) ? '' : ' EndStateCode  = :endStateCode,')
+                  . (is_null($this->userId) ? '' : ' UserId  = :userId,')
+                  . (is_null($this->loadContents) ? '' : ' LoadContents  = :loadContents,')
+                  . (is_null($this->loadWeight) ? '' : ' LoadWeight  = :loadWeight,');
+        $query = rtrim($query, ',') . ' WHERE ID = :id '; //remove the final comma and add where clause
+        print_r($query);
         //create a sql statement
         $stmt = $this->conn->prepare($query);
 
-        //clean to prevent sql injection
-        $this->tripStatus = htmlspecialchars(strip_tags($this->tripStatus));
-        $this->startDateTime = htmlspecialchars(strip_tags($this->startDateTime));
-        $this->endDateTime = htmlspecialchars(strip_tags($this->endDateTime));
-        $this->startCity = htmlspecialchars(strip_tags($this->startCity));
-        $this->startStateCode = htmlspecialchars(strip_tags($this->startStateCode));
-        $this->endCity = htmlspecialchars(strip_tags($this->endCity));
-        $this->endStateCode = htmlspecialchars(strip_tags($this->endStateCode));
-        $this->userId = htmlspecialchars(strip_tags($this->userId));
-        $this->loadContents = htmlspecialchars(strip_tags($this->loadContents));
-        $this->loadWeight = htmlspecialchars(strip_tags($this->loadWeight));
         
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
         //bind data, but only if field is set so we don't overwrite with null
         if (!is_null($this->tripStatus)){
+            $this->tripStatus = htmlspecialchars(strip_tags($this->tripStatus));
             $stmt->bindParam(':tripStatus', $this->tripStatus); 
         }
         if (!is_null($this->startDateTime)){
+            $this->startDateTime = htmlspecialchars(strip_tags($this->startDateTime));
             $stmt->bindParam(':startDateTime', $this->startDateTime);
         }
         if (!is_null($this->endDateTime)){ 
+            $this->endDateTime = htmlspecialchars(strip_tags($this->endDateTime));
             $stmt->bindParam(':endDateTime', $this->endDateTime); 
         }
         if (!is_null($this->startCity)){
+            $this->startCity = htmlspecialchars(strip_tags($this->startCity));
             $stmt->bindParam(':startCity', $this->startCity); 
         }
         if (!is_null($this->startStateCode)){
+            $this->startStateCode = htmlspecialchars(strip_tags($this->startStateCode));
             $stmt->bindParam(':startStateCode', $this->startStateCode); 
         }
         if (!is_null($this->endCity)){
+            $this->endCity = htmlspecialchars(strip_tags($this->endCity));
             $stmt->bindParam(':endCity', $this->endCity); 
         }
         if (!is_null($this->endStateCode)){
+            $this->endStateCode = htmlspecialchars(strip_tags($this->endStateCode));
             $stmt->bindParam(':endStateCode', $this->endStateCode); 
         }
         if (!is_null($this->userId)){
+            $this->userId = htmlspecialchars(strip_tags($this->userId));
             $stmt->bindParam(':userId', $this->userId, PDO::PARAM_INT); 
         }
         if (!is_null($this->loadContents)){
+            $this->loadContents = htmlspecialchars(strip_tags($this->loadContents));
             $stmt->bindParam(':loadContents', $this->loadContents); 
         }
         if (!is_null($this->loadWeight)){
+            $this->loadWeight = htmlspecialchars(strip_tags($this->loadWeight));
             $stmt->bindParam(':loadWeight', $this->loadWeight, PDO::PARAM_INT); 
         }
 

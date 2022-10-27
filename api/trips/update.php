@@ -16,17 +16,16 @@
        //passed json body
        $data = json_decode(file_get_contents('php://input'));
        $trip->id = is_int($data->ID) ? $data->ID : intval($data->ID);
-
        //add a check here for no data other than trip id being passed
 
        //check to make sure that the passed trip id exists
-       if (!$trip->tripCheck()){
+       if ($trip->tripCheck()){
             //now perform the necessary update
             $trip->tripStatus = $data->tripStatus;
             $trip->startDateTime = $data->startDatetime;
             $trip->endDateTime = $data->endDatetime;
             $trip->startCity = $data->startCity;
-            $trip->startStateCode = $data->startStateCode;
+            $trip->startStateCode = $data->startStateCode ?? NULL;
             $trip->endCity = $data->endCity;
             $trip->endStateCode = $data->endStateCode;
             $trip->loadContents = $data->loadContents;
