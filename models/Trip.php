@@ -94,6 +94,39 @@ class Trip {
         return $stmt;
     }
 
+    
+    public function userCheck(){
+        //checks to see if the user id exists in the users table
+        //returns boolean
+
+        $usrSql = 'SELECT COUNT(*) "userIdCount" FROM USER WHERE ID = :queryStringUserId';
+        $stmt = $this->conn->prepare($usrSql);
+        $stmt->bindParam(':queryUserStringId', $this->queryStringUserId);
+
+        if ($stmt->execute()){
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            extract($row);
+            if ($userIdCount > 0){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            printf('ERROR: %s.\n', $stmt->error);
+            return false;
+        }
+
+    }
+
+    public function create(){
+        //creates a new trip in the database
+        $createSql = 'INSERT INTO TRIP
+
+
+
+    }
 
 
 
