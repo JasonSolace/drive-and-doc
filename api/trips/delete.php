@@ -17,7 +17,8 @@
        $data = json_decode(file_get_contents('php://input'));
 
        //TRIP requires a startdatetime and driver user id
-       if (isset($data->ID) && $data->ID != ''){
+       if (isset($data->ID)){
+                $trip->id = $data->ID;
                 $trip->delete();
             }
         else {

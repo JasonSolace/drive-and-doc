@@ -26,7 +26,7 @@
                 
                 $trip->tripStatus = $data->tripStatus;
                 $trip->startDateTime = $data->startDatetime;
-                $trip->endDateTime = $data->endDateTime;
+                $trip->endDateTime = $data->endDatetime;
                 $trip->startCity = $data->startCity;
                 $trip->startStateCode = $data->startStateCode;
                 $trip->endCity = $data->endCity;

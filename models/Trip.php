@@ -84,11 +84,7 @@ class Trip {
         $stmt->bindParam(':queryStrFirstName', $this->queryStringUserFirstName);
         $stmt->bindParam(':queryStrLastName', $this->queryStringUserLastName);
         $stmt->bindParam(':queryStrLoadContents', $this->queryStringLoadContents);
-        #print_r($stmt);
-        #$stmt->bindParam(':queryString', $this->queryString, PDO::PARAM_STR);
-        #$testQueryString = 'Topeka';
-        #$stmt->bindParam(1, $testQueryString, PDO::PARAM_STR);
-        
+         
         //execute
         $stmt->execute();
         return $stmt;
@@ -102,7 +98,6 @@ class Trip {
         $usrSql = 'SELECT COUNT(*) "userIdCount" FROM USER WHERE ID = :queryStringUserId';
         $stmt = $this->conn->prepare($usrSql);
         $stmt->bindParam(':queryStringUserId', $this->userId, PDO::PARAM_INT);
-        #print_r($stmt);
         if ($stmt->execute()){
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             extract($row);
@@ -175,7 +170,7 @@ class Trip {
         $stmt->bindParam(':userId', $this->userId, PDO::PARAM_INT); 
         $stmt->bindParam(':loadContents', $this->loadContents); 
         $stmt->bindParam(':loadWeight', $this->loadWeight, PDO::PARAM_INT); 
-        print_r($stmt);
+        
         //execute the insert statement
         if ($stmt->execute()){
             //get the created record
@@ -235,8 +230,8 @@ class Trip {
         //delete a trip
         $query = 'DELETE FROM TRIP WHERE ID = :ID;';
         $stmt = $this->conn->prepare($query);
-        $this->ID = htmlspecialchars(strip_tags($this->ID));
-        $stmt->bindParam(':ID', $this->ID);
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $stmt->bindParam(':ID', $this->id, PDO::PARAM_INT);
 
         if ($stmt->execute()){
             $affectedRows = $stmt->rowCount();
