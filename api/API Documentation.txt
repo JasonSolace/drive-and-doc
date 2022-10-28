@@ -1,0 +1,66 @@
+Base url: http://drive-and-doc.herokuapp.com/api/
+See the included postman collection for examples
+Trips - 
+	- Represents the Trips object
+	- Accessible through http://drive-and-doc.herokuapp.com/api/trips/
+	- All parameters passed via request body in JSON format
+	- Parameter names are case sensitive
+		○ Ex: 
+		{
+		    "ID": 8,
+		    "tripStatus": "Not Complete",
+		    "startDatetime": "2022-10-25 08:28:32",
+		    "endDatetime": "2022-10-28 10:21:38",
+		    "startCity": "Manhattan",
+		    "endCity": "Walker",
+		    "loadContents": "Cows"
+		}
+		
+	- Methods
+		○ GET
+			§ Returns Trips matching the passed "queryStr" parameter
+			§ Must Pass "queryStr" via JSON in the request body:  {"queryString": "1"}
+			§ Available Parameters:
+				□ queryStr
+		○ POST
+			§ Used to create a Trip
+			§ Must 
+				□ pass driver's user id (int or int string)
+				□ start date time in format 
+			§ All available parameters
+				□ userId
+				□ tripStatus
+				□ startDatetime
+				□ endDatetime
+				□ startCity
+				□ startStateCode
+				□ endCity
+				□ endStateCode
+				□ loadContents
+				□ loadWeight
+			§ userId is the driver's user id
+			§ Will return an error if the user id isn’t found
+			§ Returns the created Trip as a JSON string
+		○ PUT
+			§ Used to update an existing trip
+			§ Must pass a trip ID as "ID"
+			§ Available parameters
+				□ ID
+				□ userId
+				□ tripStatus
+				□ startDatetime
+				□ endDatetime
+				□ startCity
+				□ startStateCode
+				□ endCity
+				□ endStateCode
+				□ loadContents
+				□ loadWeight
+			§ userId is the driver's user id
+			§ Will return an error if the trip id or a passed user id isn't found
+		○ DELETE
+			§ Used to delete an existing trip
+			§ Must pass a trip ID as "ID"
+			§ Available parameters
+				□ ID
+			§ Will return an error if the trip id isn't found
