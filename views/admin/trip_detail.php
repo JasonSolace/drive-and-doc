@@ -9,12 +9,14 @@
         <link rel="stylesheet" href="../../css/stylesheet.css">
         <nav class = "topnav">
             <h2>Drive and Doc</h2>
-            <a href="new_trip.html"><button class="tripButton">Create A Trip</button></a>
+            <button class="tripButton">Create A Trip
+                <?php echo '<a href="new_trip.php"></a>'; ?>
+            </button>
         </nav>
     </head>
     <body>
         <h1>Trip Record Details</h1>
-        <h3><a href="index.html">View Active Trips</a> | <a href="past_trips.html">View Completed Trips</a></h3>
+        <h3><a href="home.php">View Active Trips</a> | <a href="past_trips.php">View Completed Trips</a></h3>
             <div class="tripDetailAdmin">                
                 <div class="tripDetailID"><strong>Trip ID</strong><br>0000001</div>  
                 <div class="tripDetailDriver"><strong>Driver</strong><br>Joe Bob</div> 

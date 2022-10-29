@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Completed Trips</h1>
-        <h3><a href="index.html">View Active Trips</a></h3>
+        <h3><a href="home.php">View Active Trips</a></h3>
         <div class="tripsView">
             <h4>List of Completed Trips</h4>           
             <table class="tripsTable">
