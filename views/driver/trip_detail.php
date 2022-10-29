@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Trip Record Details</h1>
-        <h3><a href="index.html">View Active Trips</a> | <a href="past_trips.html">View Completed Trips</a></h3>
+        <h3><a href="home.php">View Active Trips</a> | <a href="past_trips.php">View Completed Trips</a></h3>
             <div class="tripDetail">                
                 <div class="tripDetailID"><strong>Trip ID</strong><br>0000001</div>  
                 <div class="tripDetailDriver"><strong>Driver</strong><br>Joe Bob</div> 
