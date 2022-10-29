@@ -1,3 +1,13 @@
+<?php
+    if(isset($_POST["createTripButton"])) {
+        header("Location: trip_detail.php");
+        exit();
+    }
+    if(isset($_POST["cancelButton"])) {
+        header("Location: home.php");
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +25,7 @@
         <h1>Create A New Trip</h1>
         <h3><a href="home.php">View Active Trips</a> | <a href="past_trips.php">View Completed Trips</a></h3>
         <div class="createTrip">
-            <form id="newTripForm">
+            <form form action = "trip_detail.php" method="post" id="newTripForm">
                 <label for="tripID">Trip ID: </label>
                 <input type="text" id="tripID" name="tripID">
                 <br>
@@ -47,10 +57,8 @@
                 <label for="tripLoadWeight">Load Weight: </label>
                 <input type="number" id="tripLoadWeight" name="tripLoadWeight">
                     
-                <button class="cancelButton">Cancel
-                    <?php echo '<a href="home.php"></a>'; ?>
-                </button>
-                <button class="createTripButton">Create Trip</button>
+                <button type="submit" class="cancelButton" formaction="home.php">Cancel</button>
+                <button type="submit" class="createTripButton">Create Trip</button>
             </form>
         </div> 
     </body>
