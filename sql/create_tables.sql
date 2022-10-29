@@ -13,6 +13,7 @@ CREATE TABLE USER (
     UserTypeId int NOT NULL,
     FirstName varchar(144),
     LastName varchar(144),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (ID),
     FOREIGN KEY (UserTypeId) REFERENCES USER_TYPE(ID)
     );
