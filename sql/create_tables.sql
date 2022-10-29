@@ -72,3 +72,5 @@ CREATE TABLE USER (
     );
     
     
+    INSERT INTO `user_type` (`ID`, `UserTypeName`) 
+    VALUES (0, 'Company User'), (1, 'Driver');
