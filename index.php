@@ -1,3 +1,9 @@
+<?php
+    if(isset($_POST["loginBtn"])) {
+        header("Location: views/admin/home.php");
+        exit();
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,7 +15,8 @@
         <link rel="stylesheet" href="./css/loginStylesheet.css">
     </head>
     <body>
-            <div class="container">
+        <div class="container">
+            <form action = "views/admin/home.php" method="post">
                 <h1>Login</h1>                
                 <br>
                 <input type="text" placeholder="Enter Your Username" name="username" required>
@@ -19,6 +26,7 @@
                 <a href="" checked="checked">Forgot Password?</a>
                 <br>
                 <button type="submit" class="loginBtn">Login</button>
+            </form>
             </div>
     </body>
 </html>

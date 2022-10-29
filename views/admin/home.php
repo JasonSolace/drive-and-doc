@@ -1,3 +1,9 @@
+<?php
+    if(isset($_POST["tripButton"])) {
+        header("Location: new_trip.php");
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,9 +15,9 @@
         <link rel="stylesheet" href="../../css/stylesheet.css">
         <nav class = "topnav">
             <h2>Drive and Doc</h2>
-            <button class="tripButton">Create A Trip
-                <?php echo '<a href="new_trip.php"></a>'; ?>
-            </button>
+            <form action = "new_trip.php" method="post">
+                <button type="submit" class="tripButton">Create A Trip</button>
+            </form>
         </nav>
     </head>
     <body>
