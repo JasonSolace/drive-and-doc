@@ -14,6 +14,9 @@
             if (isset($data->ID)) {
                 require 'read_single.php';
             }
+            else if (isset($data->driverUserId)) {
+                require 'read_driver_trips.php';
+            }
             else{
                 require 'read.php';
             }
