@@ -10,9 +10,11 @@ CREATE TABLE USER_TYPE (
 CREATE TABLE USER (
 	ID mediumint NOT NULL AUTO_INCREMENT,
 	Username varchar(50) NOT NULL,
+    Password VARCHAR(255) NOT NULL,
     UserTypeId int NOT NULL,
     FirstName varchar(144),
     LastName varchar(144),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (ID),
     FOREIGN KEY (UserTypeId) REFERENCES USER_TYPE(ID)
     );
