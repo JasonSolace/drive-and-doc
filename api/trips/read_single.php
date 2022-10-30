@@ -16,60 +16,43 @@
     //get passed data
     $data = json_decode(file_get_contents('php://input'));
    
-    //must have a trip id, if not return an error
-    if (isset($data->ID)){
-        $trip->id = $data->ID;
-        //ensure the trip is valid
-        if (!$trip->tripCheck()){
-            //if an invalid id was passed return an error
-            echo json_encode(array('message' => 'A Trip with this ID Was Not Found'));
-            die();
-        }
-
-        $result = $trip->readOne();
-        //assume here we have returned with a result
-        $num = $result->rowCount();
-        #print_r($result->fetch(PDO::FETCH_ASSOC));
-        //if we have results
-        if ($num>0) {
-            //create array of results
-            $trip_arr = array();
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)){
-                extract($row);
-                //returned result name => query column name
-                $trip_item = array(
-                    'ID' => $ID,
-                    'tripStatus' => $TripStatus,
-                    'startDateTime' => $StartDateTime,
-                    'endDateTime' => $EndDateTime,
-                    'startCity' => $StartCity,
-                    'startStateCode' => $StartStateCode,
-                    'endCity' => $EndCity,
-                    'endStateCode' => $EndStateCode,
-                    'driverUserId' => $UserId,
-                    'driverFirstName' => $FirstName,
-                    'driverLastName' => $LastName,
-                    'loadContents' => $LoadContents,
-                    'loadWeight' => $LoadWeight
-                );
-
-                //push to result array
-                array_push($trip_arr, $trip_item);
-            }
-            //return result array
-            echo json_encode($trip_arr);
-
-        } else {
-            echo json_encode(
-                array('message'=>'No Matching Trips Found')
-            );
-
-        }
+    //assume ID is passed (trip ID) as it's conditional to arrive here
+    $trip->id = $data->ID;
+    //ensure the trip is valid
+    if (!$trip->tripCheck()){
+        //if an invalid id was passed return an error
+        echo json_encode(array('message' => 'A Trip with this ID Was Not Found'));
+        die();
     }
-    else {
-        print_r(json_encode(array('message' => 'No Trip ID Passed')));
-        die(); //exit
+
+    //assume here we have returned with a result
+    if ($trip->readOne()) {
+        //return JSON of Trip result
+        echo json_encode(
+            array(
+                'ID' => $trip->id,
+                'tripStatus' => $trip->tripStatus,
+                'startDateTime' => $trip->startDateTime,
+                'endDateTime' => $trip->endDateTime,
+                'startCity' => $trip->startCity,
+                'startStateCode' => $trip->startStateCode,
+                'endCity' => $trip->endCity,
+                'endStatecode' => $trip->endStateCode,
+                'driverUserId' => $trip->userId,
+                'driverFirstName' => $trip->userFirstName,
+                'driverLastName' => $trip->userLastName,
+                'loadContents' => $trip->loadContents,
+                'loadWeight' => $trip->loadWeight
+            )
+        );
+
+    } else {
+        echo json_encode(
+            array('message'=>'No Matching Trips Found')
+        );
+
     }
+
 
 
 ?>
