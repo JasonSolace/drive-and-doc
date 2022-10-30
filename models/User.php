@@ -50,7 +50,7 @@ class User {
 
     public function create(){ 
         // Prepare an insert statement
-        $sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
+        $sql = "INSERT INTO ". $this->table ." (Username, Password, UserTypeId) VALUES (:username, :password, 1)";
          
         if($stmt = $this->conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -58,8 +58,8 @@ class User {
             $stmt->bindParam(":password", $this->param_password, PDO::PARAM_STR);
             
             // Set parameters
-            $param_username = $this->username;
-            $param_password = password_hash($this->password, PASSWORD_DEFAULT); // Creates a password hash
+            $this->param_username = $this->username;
+            $this->param_password = password_hash($this->password, PASSWORD_DEFAULT); // Creates a password hash
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
