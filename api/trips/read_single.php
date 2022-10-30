@@ -26,7 +26,7 @@
             die();
         }
 
-        $result = $trip->readOneDriver();
+        $result = $trip->readOne();
         //assume here we have returned with a result
         $num = $result->rowCount();
         #print_r($result->fetch(PDO::FETCH_ASSOC));
