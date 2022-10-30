@@ -86,8 +86,12 @@ class Trip {
         $stmt->bindParam(':queryStrLoadContents', $this->queryStringLoadContents);
          
         //execute
-        $stmt->execute();
-        return $stmt;
+        if ($stmt->execute()){
+            return $stmt;
+        }
+        else {
+            printf('ERROR: %s.\n', $stmt->error);
+        }
     }
 
     
@@ -139,6 +143,87 @@ class Trip {
 
 }
 
+
+
+public function readOne(){
+    //given a trip ID
+    //returns details only for that trip
+    $query = 'SELECT 
+                t.ID,
+                t.TripStatus,
+                t.StartDateTime,
+                t.EndDateTime,
+                t.StartCity,
+                t.StartStateCode,
+                t.EndCity,
+                t.EndStateCode,
+                t.UserId,
+                u.FirstName,
+                u.LastName,
+                t.LoadContents,
+                t.LoadWeight
+              FROM TRIP t
+                INNER JOIN USER u
+                    ON u.ID = t.userId
+              WHERE t.ID = :id';
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+    if ($stmt->execute()){
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        extract($row);
+        $this->id = $ID;
+        $this->tripStatus = $TripStatus;
+        $this->startDateTime = $StartDateTime;
+        $this->endDateTime = $EndDateTime;
+        $this->startCity = $StartCity;
+        $this->startStateCode = $StartStateCode;
+        $this->endCity = $EndCity;
+        $this->endStateCode = $EndStateCode;
+        $this->userId = $UserId;
+        $this->userFirstName = $FirstName;
+        $this->userLastName = $LastName;
+        $this->loadContents = $LoadContents;
+        $this->loadWeight = $LoadWeight;
+        return true;
+    }
+    else {
+        printf('ERROR: %s.\n', $stmt->error);
+        return false;
+    }
+}
+
+
+
+public function readOneDriver(){
+    //given a trip ID
+    //returns full result to be parsed
+    $query = 'SELECT 
+                t.ID,
+                t.TripStatus,
+                t.StartDateTime,
+                t.EndDateTime,
+                t.StartCity,
+                t.StartStateCode,
+                t.EndCity,
+                t.EndStateCode,
+                t.UserId,
+                u.FirstName,
+                u.LastName,
+                t.LoadContents,
+                t.LoadWeight
+              FROM TRIP t
+                INNER JOIN USER u
+                    ON u.ID = t.userId
+              WHERE t.userId = :driverUserId';
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':driverUserId', $this->userId, PDO::PARAM_INT);
+    if ($stmt->execute()){
+        return $stmt;
+    }
+    else {
+        printf('ERROR: %s.\n', $stmt->error);
+    }
+}
 
     public function create(){
         //creates a new trip in the database
