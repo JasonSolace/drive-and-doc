@@ -7,10 +7,16 @@
 
 
     $request_method = $_SERVER['REQUEST_METHOD'];
+    $data = json_decode(file_get_contents('php://input'));
 
     switch ($request_method){
         case 'GET':
-            require 'read.php';
+            if (isset($data->ID)) {
+                require 'read_single.php';
+            }
+            else{
+                require 'read.php';
+            }
             break;
         case 'POST':
             require 'create.php';

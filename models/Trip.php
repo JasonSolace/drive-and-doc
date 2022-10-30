@@ -115,58 +115,6 @@ class Trip {
 
     }
 
-
-    public function readOne(){
-        //given a trip ID
-        //returns details only for that trip
-        $query = 'SELECT 
-                    t.ID,
-                    t.TripStatus,
-                    t.StartDateTime,
-                    t.EndDateTime,
-                    t.StartCity,
-                    t.StartStateCode,
-                    t.EndCity,
-                    t.EndStateCode,
-                    t.UserId,
-                    u.FirstName,
-                    u.LastName,
-                    t.LoadContents,
-                    t.LoadWeight
-                  FROM TRIP t
-                    INNER JOIN USER u
-                        ON u.ID = t.userId
-                  WHERE ID = :id';
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
-        if ($stmt->execute()){
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            extract($row);
-            //returned result name => query column name
-            echo json_encode(
-                array(
-                    'ID' => $trip->id,
-                    'tripStatus' => $trip->tripStatus,
-                    'startDateTime' => $trip->startDateTime,
-                    'endDateTime' => $trip->endDateTime,
-                    'startCity' => $trip->startCity,
-                    'startStateCode' => $trip->startStateCode,
-                    'endCity' => $trip->endCity,
-                    'endStatecode' => $trip->endStateCode,
-                    'driverUserId' => $trip->userId,
-                    'driverFirstName' => $trip->firstName,
-                    'driverLastName' => $trip->lastName,
-                    'loadContents' => $trip->loadContents,
-                    'loadWeight' => $trip->loadWeight
-                )
-            );
-        }
-        else {
-            printf('ERROR: %s.\n', $stmt->error);
-            return false;
-        }
-    }
-
     public function tripCheck(){
         //checks to see if the user trip exists in the trip table
         //returns boolean
@@ -191,6 +139,54 @@ class Trip {
 
 }
 
+
+
+public function readOne(){
+    //given a trip ID
+    //returns details only for that trip
+    $query = 'SELECT 
+                t.ID,
+                t.TripStatus,
+                t.StartDateTime,
+                t.EndDateTime,
+                t.StartCity,
+                t.StartStateCode,
+                t.EndCity,
+                t.EndStateCode,
+                t.UserId,
+                u.FirstName,
+                u.LastName,
+                t.LoadContents,
+                t.LoadWeight
+              FROM TRIP t
+                INNER JOIN USER u
+                    ON u.ID = t.userId
+              WHERE t.ID = :id';
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+    if ($stmt->execute()){
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        extract($row);
+        $this->id = $ID;
+        $this->tripStatus = $TripStatus;
+        $this->startDateTime = $StartDateTime;
+        $this->endDateTime = $EndDateTime;
+        $this->startCity = $StartCity;
+        $this->startStateCode = $StartStateCode;
+        $this->endCity = $EndCity;
+        $this->endStateCode = $EndStateCode;
+        $this->userId = $UserId;
+        $this->userFirstName = $FirstName;
+        $this->userLastName = $LastName;
+        $this->loadContents = $LoadContents;
+        $this->loadWeight = $LoadWeight;
+        return true;
+    }
+    else {
+        printf('ERROR: %s.\n', $stmt->error);
+        return false;
+    }
+}
 
     public function create(){
         //creates a new trip in the database
