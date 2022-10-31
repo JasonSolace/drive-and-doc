@@ -21,15 +21,16 @@
        //check to make sure that the passed trip id exists
        if ($trip->tripCheck()){
             //now perform the necessary update
-            $trip->tripStatus = $data->tripStatus;
-            $trip->startDateTime = $data->startDatetime;
-            $trip->endDateTime = $data->endDatetime;
-            $trip->startCity = $data->startCity;
+            $trip->tripStatus = $data->tripStatus ?? NULL;
+            $trip->startDateTime = $data->startDatetime ?? NULL;
+            $trip->endDateTime = $data->endDatetime ?? NULL;
+            $trip->startCity = $data->startCity ?? NULL;
             $trip->startStateCode = $data->startStateCode ?? NULL;
-            $trip->endCity = $data->endCity;
-            $trip->endStateCode = $data->endStateCode;
-            $trip->loadContents = $data->loadContents;
-            $trip->loadWeight = $data->loadWeight;
+            $trip->endCity = $data->endCity ?? NULL;
+            $trip->endStateCode = $data->endStateCode ?? NULL;
+            $trip->loadContents = $data->loadContents ?? NULL;
+            $trip->loadWeight = $data->loadWeight ?? NULL;
+            $trip->companyId = $data->companyId ?? NULL;
 
             //don't pass a new user value unless it's set and valid
             if (isset($data->driverUserId)){
@@ -53,12 +54,14 @@
                         'startCity' => $trip->startCity,
                         'startStateCode' => $trip->startStateCode,
                         'endCity' => $trip->endCity,
-                        'endStatecode' => $trip->endStateCode,
+                        'endStateCode' => $trip->endStateCode,
                         'driverUserId' => $trip->userId,
-                        'driverFirstName' => $trip->firstName,
-                        'driverLastName' => $trip->lastName,
+                        'driverFirstName' => $trip->userFirstName,
+                        'driverLastName' => $trip->userFirstName,
                         'loadContents' => $trip->loadContents,
-                        'loadWeight' => $trip->loadWeight
+                        'loadWeight' => $trip->loadWeight,
+                        'companyId' => $trip->companyId
+                        
                     )
                 );
             }

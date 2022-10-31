@@ -12,6 +12,7 @@ class Database {
     private $conn;
 
     public function __construct(){
+      
         /*for prod*/
         
        $this->password = getenv('JAWSDB_PW', false);
@@ -25,7 +26,6 @@ class Database {
         #$this->db_name = 'drive_and_doc';
         #$this->username = 'root';
         #$this->password = '';
-        
     }
 
     // DB connect
@@ -44,12 +44,5 @@ class Database {
         }
         return $this->conn;
     }
-
-
-
 }
-
-
-
-
 ?>
