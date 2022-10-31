@@ -12,10 +12,8 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         if ($_SESSION["usertype"] === 0) { // user is admin
             header("location: ./views/admin/home.php");
             exit;
-            }
-}
-    header("location: ./views/driver/home.php");
-    exit;
+        }
+    }
 }
 
 // Include Database config file
