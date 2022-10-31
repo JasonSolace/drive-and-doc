@@ -15,6 +15,7 @@ class User {
     public $password;
     public $firstName;
     public $lastName;
+    public $usertype;
 
 
 
@@ -52,7 +53,7 @@ class User {
     
     public function loginIsValid() {
         // Prepare a select statement
-        $sql = "SELECT ID, Username, Password FROM ". $this->table ." WHERE Username = :username";
+        $sql = "SELECT ID, Username, Password , UserTypeId FROM ". $this->table ." WHERE Username = :username";
         
         if($stmt = $this->conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -69,6 +70,7 @@ class User {
                         $this->id = $row["ID"];
                         $this->username = $row["Username"];
                         $this->hashed_password = $row["Password"];
+                        $this->usertype = $row["UserTypeId"];
                         if(password_verify($this->password, $this->hashed_password)){
                             // Password is correct, so start a new session
                             session_start();
@@ -77,7 +79,7 @@ class User {
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $this->id;
                             $_SESSION["username"] = $this->username;                            
-                            
+                            $_SESSION["usertype"] = $this->usertype;    
                             // Redirect user to welcome page
                             return true;
                         } else{
