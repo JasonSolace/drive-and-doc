@@ -33,6 +33,7 @@
                 $trip->endStateCode = $data->endStateCode;
                 $trip->loadContents = $data->loadContents;
                 $trip->loadWeight = $data->loadWeight;
+                $trip->companyId = $data->companyId;
                 
                 //test if passed user id is in the db
                 if (!$trip->userCheck()){
@@ -54,10 +55,11 @@
                             'endCity' => $trip->endCity,
                             'endStatecode' => $trip->endStateCode,
                             'driverUserId' => $trip->userId,
-                            'driverFirstName' => $trip->firstName,
-                            'driverLastName' => $trip->lastName,
+                            'driverFirstName' => $trip->userFirstName,
+                            'driverLastName' => $trip->userLastName,
                             'loadContents' => $trip->loadContents,
-                            'loadWeight' => $trip->loadWeight
+                            'loadWeight' => $trip->loadWeight,
+                            'companyId' => $trip->companyId
                         )
                         );
                 }

@@ -42,7 +42,8 @@
                 'driverFirstName' => $trip->userFirstName,
                 'driverLastName' => $trip->userLastName,
                 'loadContents' => $trip->loadContents,
-                'loadWeight' => $trip->loadWeight
+                'loadWeight' => $trip->loadWeight,
+                'companyId' => $trip->companyId
             )
         );
 
