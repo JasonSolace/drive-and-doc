@@ -14,17 +14,17 @@ class Database {
     public function __construct(){
         /*for prod*/
         
-       #$this->password = getenv('JAWSDB_PW', false);
-       #$this->host = getenv('JAWSDB_HOST', false);
-       #$this->username = getenv('JAWSDB_USER', false);
-       #$this->db_name = getenv('JAWSDB_DB', false);
+       $this->password = getenv('JAWSDB_PW', false);
+       $this->host = getenv('JAWSDB_HOST', false);
+       $this->username = getenv('JAWSDB_USER', false);
+       $this->db_name = getenv('JAWSDB_DB', false);
         
         # for local
         
-        $this->host = 'localhost';
-        $this->db_name = 'drive_and_doc';
-        $this->username = 'root';
-        $this->password = '';
+        #$this->host = 'localhost';
+        #$this->db_name = 'drive_and_doc';
+        #$this->username = 'root';
+        #$this->password = '';
         
     }
 
