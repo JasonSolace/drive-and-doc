@@ -13,10 +13,13 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../../css/stylesheet.css">
-        <nav class = "topnav">
-            <h2>Drive and Doc</h2>
+        <nav class = "adminnav">
             <form action = "new_trip.php" method="post">
-                <button type="submit" class="tripButton">Create A Trip</button>
+                <button type="submit" id= "tripButton" class="tripButton">Create A Trip</button>
+            </form>
+            <h2>Drive and Doc</h2>
+            <form action = "../../index.php" method="post">
+                <button type="submit" id= "logoutButton" class="logoutButton">Logout</button>
             </form>
         </nav>
     </head>
@@ -59,4 +62,62 @@
             </table> 
         </div>
     </body>
+    <!---Modal Code for future impl-->
+    <!---<div id="tripModal" class="modal">
+                        <div class="createTrip">
+                            <form form action = "trip_detail.php" method="post" id="newTripForm">
+                            <span class="close">&times;</span>
+                            <label for="tripID">Trip ID: </label>
+                            <input type="text" id="tripID" name="tripID">
+                            <br>
+
+                            <label for="driverID">Driver ID: </label>
+                            <input type="text" id="driverID" name="driverID">
+                            <br>
+                    
+                            <label for="tripStartLoc">Start Location: </label>
+                            <input type="text" id="tripStartLoc" name="tripStartLoc">
+                            <br>
+                    
+                            <label for="tripDestination">End Location: </label>
+                            <input type="text" id="tripDestination" name="tripDestination">
+                            <br>
+                    
+                            <label for="tripStartTime">Start Time: </label>
+                            <input type="datetime-local" id="tripStartTime" name="tripStartTime">
+                            <br>
+                    
+                            <label for="tripEndTime">End Time: </label>
+                            <input type="datetime-local" id="tripEndTime" name="tripEndTime">
+                            <br>                    
+
+                            <label for="tripLoadContents">Load Contents: </label>
+                            <input type="text" id="tripLoadContents" name="tripLoadContents">
+                            <br>
+                    
+                            <label for="tripLoadWeight">Load Weight: </label>
+                            <input type="number" id="tripLoadWeight" name="tripLoadWeight">
+                    
+                            <button type="submit" class="cancelButton" formaction="home.php">Cancel</button>
+                            <button type="submit" class="createTripButton">Create Trip</button>
+                        </div> 
+                    </div>
+                    <script>
+                        // Get the trip modal
+                        var modal = document.getElementById("tripModal");
+                        // Get the create new trip button to open modal
+                        var modalBtn = document.getElementById("tripButton");
+                        // Get element to close modal
+                        var span = document.getElementById("close")[0];
+                        // Function to open the modal on button click
+                        modalBtn.onclick = function() {modal.style.display = "block";}
+                        // Function to close the modal on 'x' click
+                        span.onclick = function() {modal.style.display = "none";}
+                        // Function to close the modal if user clicks outside of the modal
+                        window.onclick = function() {
+                            if(event.target === modal) {
+                                modal.style.display = "none";
+                            }
+                        }
+                    </script>-->
 </html>

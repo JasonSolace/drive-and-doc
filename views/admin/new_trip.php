@@ -1,6 +1,6 @@
 <?php
-    if(isset($_POST["createTripButton"])) {
-        header("Location: trip_detail.php");
+    if(isset($_POST["createTripButton"])) {     
+        header("Location: trip_details.php");
         exit();
     }
     if(isset($_POST["cancelButton"])) {
@@ -30,32 +30,43 @@
                 <input type="text" id="tripID" name="tripID">
                 <br>
 
-                <label for="driverID">Driver ID: </label>
-                <input type="text" id="driverID" name="driverID">
+                <label for="driverUserId">Driver ID: </label>
+                <input type="text" id="driverUserId" name="driverUserId" required>
                 <br>
                     
-                <label for="tripStartLoc">Start Location: </label>
-                <input type="text" id="tripStartLoc" name="tripStartLoc">
+                <label for="tripCity">Start Location: </label>
+                <input type="text" id="startCity" name="startCity">
                 <br>
                     
-                <label for="tripDestination">End Location: </label>
-                <input type="text" id="tripDestination" name="tripDestination">
+                <label for="endCity">End Location: </label>
+                <input type="text" id="endCity" name="endCity">
                 <br>
                     
-                <label for="tripStartTime">Start Time: </label>
-                <input type="datetime-local" id="tripStartTime" name="tripStartTime">
+                <label for="startDateTime">Start Time: </label>
+                <input type="datetime-local" id="startDateTime" name="startDateTime" required>
                 <br>
                     
-                <label for="tripEndTime">End Time: </label>
-                <input type="datetime-local" id="tripEndTime" name="tripEndTime">
+                <label for="endDateTime">End Time: </label>
+                <input type="datetime-local" id="endDateTime" name="endDateTime">
                 <br>                    
 
-                <label for="tripLoadContents">Load Contents: </label>
-                <input type="text" id="tripLoadContents" name="tripLoadContents">
+                <label for="loadContents">Load Contents: </label>
+                <input type="text" id="loadContents" name="loadContents">
                 <br>
                     
-                <label for="tripLoadWeight">Load Weight: </label>
-                <input type="number" id="tripLoadWeight" name="tripLoadWeight">
+                <label for="loadWeight">Load Weight: </label>
+                <input type="number" id="loadWeight" name="loadWeight">
+
+                <!---<script>
+                    $.ajax({
+                        type:'POST',
+                        url: '../../api/trips/index.php',
+                        contentType: 'application/json; charset=utf-8',
+                        data: {data:JSON.stringify($_POST)}
+                    }).done(function ($_POST) {
+                        self.result("Done!");
+                    }).fail(showError);
+                </script>-->
                     
                 <button type="submit" class="cancelButton" formaction="home.php">Cancel</button>
                 <button type="submit" class="createTripButton">Create Trip</button>

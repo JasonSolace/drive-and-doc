@@ -17,6 +17,9 @@
             else if (isset($data->driverUserId)) {
                 require 'read_driver_trips.php';
             }
+            else if (isset($data->userId)) {
+                require 'read_admin_trips.php';
+            }
             else{
                 require 'read.php';
             }
