@@ -16,6 +16,7 @@ class Trip {
     public $userId;
     public $loadContents;
     public $loadWeight;
+    public $companyId;
 
     //user properties
     public $userFirstName;
@@ -86,8 +87,12 @@ class Trip {
         $stmt->bindParam(':queryStrLoadContents', $this->queryStringLoadContents);
          
         //execute
-        $stmt->execute();
-        return $stmt;
+        if ($stmt->execute()){
+            return $stmt;
+        }
+        else {
+            printf('ERROR: %s.\n', $stmt->error);
+        }
     }
 
     
@@ -140,6 +145,126 @@ class Trip {
 }
 
 
+
+public function readOne(){
+    //given a trip ID
+    //returns details only for that trip
+    $query = 'SELECT 
+                t.ID,
+                t.TripStatus,
+                t.StartDateTime,
+                t.EndDateTime,
+                t.StartCity,
+                t.StartStateCode,
+                t.EndCity,
+                t.EndStateCode,
+                t.UserId,
+                u.FirstName,
+                u.LastName,
+                t.LoadContents,
+                t.LoadWeight,
+                t.CompanyId
+              FROM TRIP t
+                INNER JOIN USER u
+                    ON u.ID = t.userId
+              WHERE t.ID = :id';
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+    if ($stmt->execute()){
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        extract($row);
+        $this->id = $ID;
+        $this->tripStatus = $TripStatus;
+        $this->startDateTime = $StartDateTime;
+        $this->endDateTime = $EndDateTime;
+        $this->startCity = $StartCity;
+        $this->startStateCode = $StartStateCode;
+        $this->endCity = $EndCity;
+        $this->endStateCode = $EndStateCode;
+        $this->userId = $UserId;
+        $this->userFirstName = $FirstName;
+        $this->userLastName = $LastName;
+        $this->loadContents = $LoadContents;
+        $this->loadWeight = $LoadWeight;
+        $this->companyId = $CompanyId;
+        return true;
+    }
+    else {
+        printf('ERROR: %s.\n', $stmt->error);
+        return false;
+    }
+}
+
+
+
+public function readOneDriver(){
+    //given a Driver's User ID
+    //returns all trips for that driver
+    $query = 'SELECT 
+                t.ID,
+                t.TripStatus,
+                t.StartDateTime,
+                t.EndDateTime,
+                t.StartCity,
+                t.StartStateCode,
+                t.EndCity,
+                t.EndStateCode,
+                t.UserId,
+                u.FirstName,
+                u.LastName,
+                t.LoadContents,
+                t.LoadWeight,
+                t.CompanyId
+              FROM TRIP t
+                INNER JOIN USER u
+                    ON u.ID = t.userId
+              WHERE t.userId = :driverUserId';
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':driverUserId', $this->userId, PDO::PARAM_INT);
+    if ($stmt->execute()){
+        return $stmt;
+    }
+    else {
+        printf('ERROR: %s.\n', $stmt->error);
+    }
+}
+
+
+public function readOneAdmin(){
+    //given an admin user's ID
+    //return all trips for that user's company
+
+    $query = 'SELECT DISTINCT
+        t.ID,
+        t.TripStatus,
+        t.StartDateTime,
+        t.EndDateTime,
+        t.StartCity,
+        t.StartStateCode,
+        t.EndCity,
+        t.EndStateCode,
+        t.UserId,
+        u.FirstName,
+        u.LastName,
+        t.LoadContents,
+        t.LoadWeight,
+        t.CompanyId
+    FROM USER u
+        INNER JOIN TRIP t
+            ON u.companyId = t.companyId
+    WHERE u.ID = :adminUserId';
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':adminUserId', $this->userId, PDO::PARAM_INT);
+    if ($stmt->execute()){
+    return $stmt;
+    }
+    else {
+    printf('ERROR: %s.\n', $stmt->error);
+    }
+
+
+}
+
     public function create(){
         //creates a new trip in the database
         $query = 'INSERT INTO TRIP (
@@ -152,7 +277,8 @@ class Trip {
                 EndStateCode,
                 UserId,
                 LoadContents,
-                LoadWeight
+                LoadWeight,
+                CompanyId
                 )
                 VALUES (
                 :tripStatus,
@@ -164,7 +290,8 @@ class Trip {
                 :endStateCode,
                 :userId,
                 :loadContents,
-                :loadWeight
+                :loadWeight,
+                :companyId
                 );
                 ';
 
@@ -182,6 +309,7 @@ class Trip {
         $this->userId = htmlspecialchars(strip_tags($this->userId));
         $this->loadContents = htmlspecialchars(strip_tags($this->loadContents));
         $this->loadWeight = htmlspecialchars(strip_tags($this->loadWeight));
+        $this->companyId = htmlspecialchars(strip_tags($this->companyId));
         
         //bind data
         //pass null if a field is not set, except user id and start datetime
@@ -195,6 +323,7 @@ class Trip {
         $stmt->bindParam(':userId', $this->userId, PDO::PARAM_INT); 
         $stmt->bindParam(':loadContents', $this->loadContents); 
         $stmt->bindParam(':loadWeight', $this->loadWeight, PDO::PARAM_INT); 
+        $stmt->bindParam(':companyId', $this->companyId, PDO::PARAM_INT); 
         
         //execute the insert statement
         if ($stmt->execute()){
@@ -213,7 +342,8 @@ class Trip {
                     u.FirstName,
                     u.LastName,
                     t.LoadContents,
-                    t.LoadWeight
+                    t.LoadWeight,
+                    t.CompanyId
                 FROM TRIP t
                     INNER JOIN USER u
                         ON u.ID = t.userId
@@ -235,6 +365,7 @@ class Trip {
                 $this->userLastName = $LastName;
                 $this->loadContents = $LoadContents;
                 $this->loadWeight = $LoadWeight;
+                $this->companyId = $CompanyId;
                 
             } else {
                 printf('Error retrieving newly created Trip: %s.\n', $stmtId->error);
@@ -292,7 +423,8 @@ class Trip {
                   . (is_null($this->endStateCode) ? '' : ' EndStateCode  = :endStateCode,')
                   . (is_null($this->userId) ? '' : ' UserId  = :userId,')
                   . (is_null($this->loadContents) ? '' : ' LoadContents  = :loadContents,')
-                  . (is_null($this->loadWeight) ? '' : ' LoadWeight  = :loadWeight,');
+                  . (is_null($this->loadWeight) ? '' : ' LoadWeight  = :loadWeight,')
+                  . (is_null($this->companyId) ? '' : ' CompanyId  = :companyId,');
         $query = rtrim($query, ',') . ' WHERE ID = :id '; //remove the final comma and add where clause
         //create a sql statement
         $stmt = $this->conn->prepare($query);
@@ -341,6 +473,10 @@ class Trip {
             $this->loadWeight = htmlspecialchars(strip_tags($this->loadWeight));
             $stmt->bindParam(':loadWeight', $this->loadWeight, PDO::PARAM_INT); 
         }
+        if (!is_null($this->companyId)){
+            $this->companyId = htmlspecialchars(strip_tags($this->companyId));
+            $stmt->bindParam(':companyId', $this->companyId, PDO::PARAM_INT); 
+        }
 
         //update the record
         if ($stmt->execute()){
@@ -359,7 +495,8 @@ class Trip {
                     u.FirstName,
                     u.LastName,
                     t.LoadContents,
-                    t.LoadWeight
+                    t.LoadWeight,
+                    t.CompanyId
                 FROM TRIP t
                     INNER JOIN USER u
                         ON u.ID = t.userId
@@ -382,6 +519,7 @@ class Trip {
                 $this->userLastName = $LastName;
                 $this->loadContents = $LoadContents;
                 $this->loadWeight = $LoadWeight;
+                $this->companyId = $CompanyId;
                 
             } else {
                 printf('Error retrieving updated Trip: %s.\n', $stmtId->error);

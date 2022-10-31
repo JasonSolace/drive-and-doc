@@ -15,31 +15,21 @@
 
     //get passed data
     $data = json_decode(file_get_contents('php://input'));
+   
+    //We must have a driver id to get here, so assume it's in place
+    $trip->userId = $data->driverUserId;
 
-    //ensure a query string is passed
-    if (isset($data->queryString)) {
-        $data->queryString = '%' . $data->queryString . '%' ;//add % for LIKE statement
-        $trip->queryStringId = $data->queryString;
-        $trip->queryStringStatus = $data->queryString;
-        $trip->queryStringStartCity = $data->queryString;
-        $trip->queryStringStartStateCode = $data->queryString;
-        $trip->queryStringEndCity = $data->queryString;
-        $trip->queryStringEndStateCode = $data->queryString;
-        $trip->queryStringUserFirstName = $data->queryString;
-        $trip->queryStringUserLastName = $data->queryString;
-        $trip->queryStringLoadContents = $data->queryString;
-        $result = $trip->searchTrip();
-    }
-    //add some handling for no query string passed
-    else {
-        print_r(json_encode(array('message' => 'No Query String Passed')));
-        die(); //exit
+    //ensure the user is valid
+    if (!$trip->userCheck()){
+        //if an invalid id was passed return an error
+        echo json_encode(array('message' => 'A User with this ID Was Not Found'));
+        die();
     }
 
-
+    #execute the search
+    $result = $trip->readOneDriver();
     //assume here we have returned with a result
     $num = $result->rowCount();
-    #print_r($result->fetch(PDO::FETCH_ASSOC));
     //if we have results
     if ($num>0) {
         //create array of results
@@ -60,7 +50,8 @@
                 'driverFirstName' => $FirstName,
                 'driverLastName' => $LastName,
                 'loadContents' => $LoadContents,
-                'loadWeight' => $LoadWeight
+                'loadWeight' => $LoadWeight,
+                'companyId' => $CompanyId
             );
 
             //push to result array
@@ -68,13 +59,14 @@
         }
         //return result array
         echo json_encode($trip_arr);
-        } 
+    } 
     else {
         echo json_encode(
             array('message'=>'No Matching Trips Found')
         );
     }
 
+?>
 
 
 

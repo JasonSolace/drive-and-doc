@@ -10,11 +10,15 @@ CREATE TABLE USER_TYPE (
 CREATE TABLE USER (
 	ID mediumint NOT NULL AUTO_INCREMENT,
 	Username varchar(50) NOT NULL,
+    Password VARCHAR(255) NOT NULL,
     UserTypeId int NOT NULL,
     FirstName varchar(144),
     LastName varchar(144),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    CompanyId mediumint,
     PRIMARY KEY (ID),
-    FOREIGN KEY (UserTypeId) REFERENCES USER_TYPE(ID)
+    FOREIGN KEY (UserTypeId) REFERENCES USER_TYPE(ID),
+    FOREIGN KEY (CompanyId) REFERENCES COMPANY(ID)
     );
     
     
@@ -30,8 +34,10 @@ CREATE TABLE USER (
 		UserId mediumint NOT NULL,
         LoadContents varchar(255),
         LoadWeight mediumint,
+        CompanyId mediumint,
         PRIMARY KEY (ID),
         FOREIGN KEY (UserId) REFERENCES USER(ID)
+        FOREIGN KEY (CompanyId) REFERENCES COMPANY(ID)
 		);
         
         
