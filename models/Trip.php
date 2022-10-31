@@ -195,8 +195,8 @@ public function readOne(){
 
 
 public function readOneDriver(){
-    //given a trip ID
-    //returns full result to be parsed
+    //given a Driver's User ID
+    //returns all trips for that driver
     $query = 'SELECT 
                 t.ID,
                 t.TripStatus,
@@ -223,6 +223,41 @@ public function readOneDriver(){
     else {
         printf('ERROR: %s.\n', $stmt->error);
     }
+}
+
+
+public function readOneAdmin(){
+    //given an admin user's ID
+    //return all trips for that user's company
+
+    $query = 'SELECT DISTINCT
+        t.ID,
+        t.TripStatus,
+        t.StartDateTime,
+        t.EndDateTime,
+        t.StartCity,
+        t.StartStateCode,
+        t.EndCity,
+        t.EndStateCode,
+        t.UserId,
+        u.FirstName,
+        u.LastName,
+        t.LoadContents,
+        t.LoadWeight
+    FROM USER u
+        INNER JOIN TRIP t
+            ON u.companyId = t.companyId
+    WHERE u.ID = :adminUserId';
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':adminUserId', $this->userId, PDO::PARAM_INT);
+    if ($stmt->execute()){
+    return $stmt;
+    }
+    else {
+    printf('ERROR: %s.\n', $stmt->error);
+    }
+
+
 }
 
     public function create(){
