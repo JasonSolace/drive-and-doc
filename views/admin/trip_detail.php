@@ -13,10 +13,13 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../../css/stylesheet.css">
-        <nav class = "topnav">
-            <h2>Drive and Doc</h2>
+        <nav class = "adminnav">
             <form action = "new_trip.php" method="post">
-                <button type="submit" class="tripButton">Create A Trip</button>
+                <button type="submit" id= "tripButton" class="tripButton">Create A Trip</button>
+            </form>
+            <h2>Drive and Doc</h2>
+            <form action = "../../index.php" method="post">
+                <button type="submit" id= "logoutButton" class="logoutButton">Logout</button>
             </form>
         </nav>
     </head>
