@@ -50,7 +50,8 @@
                 'driverFirstName' => $FirstName,
                 'driverLastName' => $LastName,
                 'loadContents' => $LoadContents,
-                'loadWeight' => $LoadWeight
+                'loadWeight' => $LoadWeight,
+                'companyId' => $CompanyId
             );
 
             //push to result array

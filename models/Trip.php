@@ -16,6 +16,7 @@ class Trip {
     public $userId;
     public $loadContents;
     public $loadWeight;
+    public $companyId;
 
     //user properties
     public $userFirstName;
@@ -161,7 +162,8 @@ public function readOne(){
                 u.FirstName,
                 u.LastName,
                 t.LoadContents,
-                t.LoadWeight
+                t.LoadWeight,
+                t.CompanyId
               FROM TRIP t
                 INNER JOIN USER u
                     ON u.ID = t.userId
@@ -184,6 +186,7 @@ public function readOne(){
         $this->userLastName = $LastName;
         $this->loadContents = $LoadContents;
         $this->loadWeight = $LoadWeight;
+        $this->companyId = $CompanyId;
         return true;
     }
     else {
@@ -210,7 +213,8 @@ public function readOneDriver(){
                 u.FirstName,
                 u.LastName,
                 t.LoadContents,
-                t.LoadWeight
+                t.LoadWeight,
+                t.CompanyId
               FROM TRIP t
                 INNER JOIN USER u
                     ON u.ID = t.userId
@@ -243,7 +247,8 @@ public function readOneAdmin(){
         u.FirstName,
         u.LastName,
         t.LoadContents,
-        t.LoadWeight
+        t.LoadWeight,
+        t.CompanyId
     FROM USER u
         INNER JOIN TRIP t
             ON u.companyId = t.companyId
@@ -272,7 +277,8 @@ public function readOneAdmin(){
                 EndStateCode,
                 UserId,
                 LoadContents,
-                LoadWeight
+                LoadWeight,
+                CompanyId
                 )
                 VALUES (
                 :tripStatus,
@@ -284,7 +290,8 @@ public function readOneAdmin(){
                 :endStateCode,
                 :userId,
                 :loadContents,
-                :loadWeight
+                :loadWeight,
+                :companyId
                 );
                 ';
 
@@ -302,6 +309,7 @@ public function readOneAdmin(){
         $this->userId = htmlspecialchars(strip_tags($this->userId));
         $this->loadContents = htmlspecialchars(strip_tags($this->loadContents));
         $this->loadWeight = htmlspecialchars(strip_tags($this->loadWeight));
+        $this->companyId = htmlspecialchars(strip_tags($this->companyId));
         
         //bind data
         //pass null if a field is not set, except user id and start datetime
@@ -315,6 +323,7 @@ public function readOneAdmin(){
         $stmt->bindParam(':userId', $this->userId, PDO::PARAM_INT); 
         $stmt->bindParam(':loadContents', $this->loadContents); 
         $stmt->bindParam(':loadWeight', $this->loadWeight, PDO::PARAM_INT); 
+        $stmt->bindParam(':companyId', $this->companyId, PDO::PARAM_INT); 
         
         //execute the insert statement
         if ($stmt->execute()){
@@ -333,7 +342,8 @@ public function readOneAdmin(){
                     u.FirstName,
                     u.LastName,
                     t.LoadContents,
-                    t.LoadWeight
+                    t.LoadWeight,
+                    t.CompanyId
                 FROM TRIP t
                     INNER JOIN USER u
                         ON u.ID = t.userId
@@ -355,6 +365,7 @@ public function readOneAdmin(){
                 $this->userLastName = $LastName;
                 $this->loadContents = $LoadContents;
                 $this->loadWeight = $LoadWeight;
+                $this->companyId = $CompanyId;
                 
             } else {
                 printf('Error retrieving newly created Trip: %s.\n', $stmtId->error);
@@ -412,7 +423,8 @@ public function readOneAdmin(){
                   . (is_null($this->endStateCode) ? '' : ' EndStateCode  = :endStateCode,')
                   . (is_null($this->userId) ? '' : ' UserId  = :userId,')
                   . (is_null($this->loadContents) ? '' : ' LoadContents  = :loadContents,')
-                  . (is_null($this->loadWeight) ? '' : ' LoadWeight  = :loadWeight,');
+                  . (is_null($this->loadWeight) ? '' : ' LoadWeight  = :loadWeight,')
+                  . (is_null($this->companyId) ? '' : ' CompanyId  = :companyId,');
         $query = rtrim($query, ',') . ' WHERE ID = :id '; //remove the final comma and add where clause
         //create a sql statement
         $stmt = $this->conn->prepare($query);
@@ -461,6 +473,10 @@ public function readOneAdmin(){
             $this->loadWeight = htmlspecialchars(strip_tags($this->loadWeight));
             $stmt->bindParam(':loadWeight', $this->loadWeight, PDO::PARAM_INT); 
         }
+        if (!is_null($this->companyId)){
+            $this->companyId = htmlspecialchars(strip_tags($this->companyId));
+            $stmt->bindParam(':companyId', $this->companyId, PDO::PARAM_INT); 
+        }
 
         //update the record
         if ($stmt->execute()){
@@ -479,7 +495,8 @@ public function readOneAdmin(){
                     u.FirstName,
                     u.LastName,
                     t.LoadContents,
-                    t.LoadWeight
+                    t.LoadWeight,
+                    t.CompanyId
                 FROM TRIP t
                     INNER JOIN USER u
                         ON u.ID = t.userId
@@ -502,6 +519,7 @@ public function readOneAdmin(){
                 $this->userLastName = $LastName;
                 $this->loadContents = $LoadContents;
                 $this->loadWeight = $LoadWeight;
+                $this->companyId = $CompanyId;
                 
             } else {
                 printf('Error retrieving updated Trip: %s.\n', $stmtId->error);
