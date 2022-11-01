@@ -41,9 +41,9 @@
                 <button type="submit" id= "tripButton" class="tripButton">Create A Trip</button>
             </form>
             <h2>Drive and Doc</h2>
-            <form action = "../../index.php" method="post">
-                <button type="submit" id= "logoutButton" class="logoutButton">Logout</button>
-            </form>
+            <a href="../../logout.php">
+                <button id= "logoutButton" class="logoutButton">Logout</button>
+            </a>
         </nav>
     </head>
     <body>
