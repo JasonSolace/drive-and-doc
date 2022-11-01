@@ -7,11 +7,11 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     if(isset($_SESSION["usertype"])) {
         if ($_SESSION["usertype"] === 1) { // user is driver
         header("location: ./views/driver/home.php");
-        exit;
+        exit();
         }
         if ($_SESSION["usertype"] === 0) { // user is admin
             header("location: ./views/admin/home.php");
-            exit;
+            exit();
         }
     }
 }
