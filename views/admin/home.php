@@ -11,7 +11,7 @@
         }
     } else {
         header("location: ../../login.php");
-        exit;
+        exit();
     }
 
     if(isset($_POST["tripButton"])) {

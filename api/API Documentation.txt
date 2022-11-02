@@ -3,7 +3,7 @@ See the included postman collection for examples
 Trips - 
 	- Represents the Trips object
 	- Accessible through http://drive-and-doc.herokuapp.com/api/trips/
-	- All parameters passed via request body in JSON format
+	- All parameters passed via request body in url parameter
 	- Parameter names are case sensitive
 		○ Ex: 
 		{
@@ -18,17 +18,29 @@ Trips -
 		
 	- Methods
 		○ GET
-			§ Returns Trips matching the passed "queryStr" parameter
-			§ Must Pass "queryStr" via JSON in the request body:  {"queryString": "1"}
-			§ Available Parameters:
-				□ queryStr
+			§ Search
+				□ Returns Trips matching the passed "queryStr" parameter
+				□ Must Pass "queryStr" via url: ...api/trips/?queryStr=Topeka
+				□ Available Parameters: queryStr
+			§ Read One
+				□ Returns Trip for the passed ID parameter
+				□ Must Pass "queryStr"  via url: ...api/trips/?ID=2
+				□ Available Parameters: ID
+			§ Read Driver Trips
+				□ Returns Trip for the passed driverUserId parameter
+				□ Must Pass "driverUserId"  via url: ...api/trips/?driverUserId=2
+				□ Available Parameters: driverUserId
+			§ Read Admin Trips
+				□ Returns Trip for the passed userId parameter
+				□ Must Pass "userId"  via url: ...api/trips/?userId=2
+				□ Available Parameters: userId
 		○ POST
 			§ Used to create a Trip
-			§ Must 
+			§ Must pass via the url: ...api/trips/?driverUserId=1&startDatetime=2022-11-1T22:04:14
 				□ pass driver's user id (int or int string)
 				□ start date time in format 
 			§ All available parameters
-				□ userId
+				□ driverUserId
 				□ tripStatus
 				□ startDatetime
 				□ endDatetime
@@ -38,15 +50,16 @@ Trips -
 				□ endStateCode
 				□ loadContents
 				□ loadWeight
-			§ userId is the driver's user id
+				□ companyId
+			§ driverUserId is the driver's user id
 			§ Will return an error if the user id isn’t found
 			§ Returns the created Trip as a JSON string
 		○ PUT
 			§ Used to update an existing trip
-			§ Must pass a trip ID as "ID"
+			§ Must pass a trip ID as "ID" via the url: ...api/trips/?ID=2
 			§ Available parameters
 				□ ID
-				□ userId
+				□ driverUserId
 				□ tripStatus
 				□ startDatetime
 				□ endDatetime
@@ -56,11 +69,12 @@ Trips -
 				□ endStateCode
 				□ loadContents
 				□ loadWeight
-			§ userId is the driver's user id
+				□ companyId
+			§ driverUserId is the driver's user id
 			§ Will return an error if the trip id or a passed user id isn't found
 		○ DELETE
 			§ Used to delete an existing trip
-			§ Must pass a trip ID as "ID"
+			§ Must pass a trip ID as "ID" via the url: ...api/trips/?ID=2
 			§ Available parameters
 				□ ID
 			§ Will return an error if the trip id isn't found

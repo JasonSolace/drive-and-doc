@@ -23,6 +23,7 @@ class Trip {
     public $userLastName;
 
     //query strings
+    public $queryString;
     public $queryStringId;
     public $queryStringStatus;
     public $queryStringStartCity;

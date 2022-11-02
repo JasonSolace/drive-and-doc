@@ -17,8 +17,8 @@
        $data = json_decode(file_get_contents('php://input'));
 
        //DELETE trip requiers a Trip ID
-       if (isset($data->ID)){
-                $trip->id = $data->ID;
+       if (isset($_GET['ID'])){
+                $trip->id = $_GET['ID'];
                 $trip->delete();
             }
         else {

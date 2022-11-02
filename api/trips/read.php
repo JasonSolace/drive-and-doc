@@ -12,22 +12,20 @@
 
     //instantiate new trip object
     $trip = new Trip($db);
-
-    //get passed data
-    $data = json_decode(file_get_contents('php://input'));
-
+    
     //ensure a query string is passed
-    if (isset($data->queryString)) {
-        $data->queryString = '%' . $data->queryString . '%' ;//add % for LIKE statement
-        $trip->queryStringId = $data->queryString;
-        $trip->queryStringStatus = $data->queryString;
-        $trip->queryStringStartCity = $data->queryString;
-        $trip->queryStringStartStateCode = $data->queryString;
-        $trip->queryStringEndCity = $data->queryString;
-        $trip->queryStringEndStateCode = $data->queryString;
-        $trip->queryStringUserFirstName = $data->queryString;
-        $trip->queryStringUserLastName = $data->queryString;
-        $trip->queryStringLoadContents = $data->queryString;
+    if (isset($_GET['queryStr'])) {    
+        $queryString = $_GET['queryStr'];
+        $queryString = '%' . $queryString . '%' ;//add % for LIKE statement
+        $trip->queryStringId = $queryString;
+        $trip->queryStringStatus = $queryString;
+        $trip->queryStringStartCity = $queryString;
+        $trip->queryStringStartStateCode = $queryString;
+        $trip->queryStringEndCity = $queryString;
+        $trip->queryStringEndStateCode = $queryString;
+        $trip->queryStringUserFirstName = $queryString;
+        $trip->queryStringUserLastName = $queryString;
+        $trip->queryStringLoadContents = $queryString;
         $result = $trip->searchTrip();
     }
     //add some handling for no query string passed
