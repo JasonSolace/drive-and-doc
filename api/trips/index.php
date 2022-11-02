@@ -11,13 +11,13 @@
 
     switch ($request_method){
         case 'GET':
-            if (isset($data->ID)) {
+            if (isset($_GET['ID'])) {
                 require 'read_single.php';
             }
-            else if (isset($data->driverUserId)) {
+            else if (isset($_GET['driverUserId'])) {
                 require 'read_driver_trips.php';
             }
-            else if (isset($data->userId)) {
+            else if (isset($_GET['userId'])) {
                 require 'read_admin_trips.php';
             }
             else{

@@ -13,27 +13,25 @@
 
        $trip = new Trip($db);
 
-       //passed json body
-       $data = json_decode(file_get_contents('php://input'));
         //TRIP requires a startdatetime and driver user id
-       if (isset($data->driverUserId) 
-            && $data->driverUserId != ''
-            && isset($data->startDatetime) 
-            && DateTime::createFromFormat('Y-m-d H:i:s', $data->startDatetime) != false) {
+       if (isset($_GET['driverUserId']) 
+            && $_GET['driverUserId'] != ''
+            && isset($_GET['startDatetime']) 
+            && DateTime::createFromFormat('Y-m-d H:i:s', str_replace(['%', 'T'], ' ', $_GET['startDatetime'])) != false) {
                 //if required params are passed, create a trip
 
-                $trip->userId = is_int($data->driverUserId) ? $data->driverUserId : intval($data->driverUserId);
+                $trip->userId = is_int($_GET['driverUserId']) ? $_GET['driverUserId'] : intval($_GET['driverUserId']);
                 
-                $trip->tripStatus = $data->tripStatus;
-                $trip->startDateTime = $data->startDatetime;
-                $trip->endDateTime = $data->endDatetime;
-                $trip->startCity = $data->startCity;
-                $trip->startStateCode = $data->startStateCode;
-                $trip->endCity = $data->endCity;
-                $trip->endStateCode = $data->endStateCode;
-                $trip->loadContents = $data->loadContents;
-                $trip->loadWeight = $data->loadWeight;
-                $trip->companyId = $data->companyId;
+                $trip->tripStatus = $_GET['tripStatus'];
+                $trip->startDateTime = $_GET['startDatetime'];
+                $trip->endDateTime = $_GET['endDatetime'];
+                $trip->startCity = $_GET['startCity'];
+                $trip->startStateCode = $_GET['startStateCode'];
+                $trip->endCity = $_GET['endCity'];
+                $trip->endStateCode = $_GET['endStateCode'];
+                $trip->loadContents = $_GET['loadContents'];
+                $trip->loadWeight = $_GET['loadWeight'];
+                $trip->companyId = $_GET['companyId'];
                 
                 //test if passed user id is in the db
                 if (!$trip->userCheck()){
