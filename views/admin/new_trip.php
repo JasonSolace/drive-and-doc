@@ -13,8 +13,6 @@
         header("location: ../../login.php");
         exit;
     }
-    if(isset($_POST["createTripButton"])) {
-        header("Location: trip_detail.php");
     if(isset($_POST["createTripButton"])) {     
         header("Location: trip_details.php");
         exit();
@@ -72,17 +70,6 @@
                     
                 <label for="loadWeight">Load Weight: </label>
                 <input type="number" id="loadWeight" name="loadWeight">
-
-                <!---<script>
-                    $.ajax({
-                        type:'POST',
-                        url: '../../api/trips/index.php',
-                        contentType: 'application/json; charset=utf-8',
-                        data: {data:JSON.stringify($_POST)}
-                    }).done(function ($_POST) {
-                        self.result("Done!");
-                    }).fail(showError);
-                </script>-->
                     
                 <button type="submit" class="cancelButton" formaction="home.php">Cancel</button>
                 <button type="submit" class="createTripButton">Create Trip</button>
