@@ -6,6 +6,108 @@
         header("location: ../../login.php");
         exit;
     }
+
+    //Function to create HTML Table Element for Trips
+    function create_table($headers = array(), $rows = array(), $attributes = array()){
+        $headersCount = count($headers); //Header element, such as "ID | Driver | ... " etc.
+        $o = "<table "; //Start of Table Construction. Make sure it's not empty:
+        if(!empty($attributes)){
+            foreach($attributes as $key =>$value){
+                $o .= "$key='" . $value . "' ";
+            }
+        }
+        $o .= '>';
+        $o .= '<tr>';
+        foreach($headers as $heading){
+            $o.= '<th>' . $heading . '</th>';
+        }
+        $o .= '</tr>';
+        foreach($rows as $row){
+            $o .= '<tr>';
+            for($i = 0; $i <= $headersCount - 1; $i++){
+                for ($col = 0; $col <= 3; $col++){
+                    $o .= " <td>" . $row[$i][$col] . "</td>" ;
+                }
+                $o .= '</tr>';
+            }
+        }
+        return $o;
+    }
+
+
+    include_once '../../models/Trip.php';
+    include_once '../../config/Database.php';
+    
+    //isntantiate db and connect
+    $database = new Database();
+    $db = $database->connect();
+
+    //instantiate new trip object
+    $trip = new Trip($db);
+   
+    //We must have a driver id to get here, so assume it's in place
+    $trip->userId = '8';
+
+    //ensure the user is valid
+    if (!$trip->userCheck()){
+        //if an invalid id was passed return an error
+        echo json_encode(array('message' => 'A User with this ID Was Not Found'));
+        die();
+    }
+
+    #execute the search
+    $result = $trip->readOneDriver();
+    //assume here we have returned with a result
+    $num = $result->rowCount();
+    //if we have results
+
+    //create array of results
+    $trip_arr = array();
+    if ($num>0) {
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)){
+            extract($row);
+            //returned result name => query column name
+            $trip_item = array(
+                'ID' => $ID,
+                'startDateTime' => $StartDateTime,
+                'startCity' => $StartCity,
+                'startStateCode' => $StartStateCode,
+                'driverFirstName' => $FirstName,
+                'driverLastName' => $LastName,
+            );
+
+            //push to result array
+            array_push($trip_arr, $trip_item);
+        }
+        //return result array
+       //echo json_encode($trip_arr);
+        //echo $trip_arr[0]['ID'];
+    } 
+    else {  
+        echo json_encode(
+            array('message'=>'No Matching Trips Found')
+        );
+    }
+$displayArr = array();
+
+foreach($trip_arr as $x => $val) {
+    array_push($displayArr, array($trip_arr[$x]['ID'],
+    $trip_arr[$x]['driverFirstName'] . ' ' . $trip_arr[$x]['driverLastName'],
+    $trip_arr[$x]['startDateTime'],
+    $trip_arr[$x]['startCity'] . ', ' . $trip_arr[$x]['startStateCode']));
+}       
+                            
+
+    echo create_table(
+        ["Trip ID","Driver","Start Date","Start Location"],
+        [
+            $displayArr
+        ],
+        [
+            'class' =>'tripsTable'
+        ]
+    );
+
 ?>
 <!DOCTYPE html>
 <html>
