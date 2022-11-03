@@ -1,4 +1,20 @@
 <?php
+    // Initialize the session
+    session_start();
+    // Check if the user is already logged in, if yes then redirect them to home page
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+        if(isset($_SESSION["usertype"])) {
+            if ($_SESSION["usertype"] === 1) { // user is driver
+                header("location: ../driver/home.php");
+            exit();
+            }
+        }
+    } else {
+        header("location: ../../login.php");
+        exit;
+    }
+    if(isset($_POST["createTripButton"])) {
+        header("Location: trip_detail.php");
     if(isset($_POST["createTripButton"])) {     
         header("Location: trip_details.php");
         exit();

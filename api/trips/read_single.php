@@ -12,12 +12,9 @@
 
     //instantiate new trip object
     $trip = new Trip($db);
-
-    //get passed data
-    $data = json_decode(file_get_contents('php://input'));
    
     //assume ID is passed (trip ID) as it's conditional to arrive here
-    $trip->id = $data->ID;
+    $trip->id = $_GET['ID'];
     //ensure the trip is valid
     if (!$trip->tripCheck()){
         //if an invalid id was passed return an error

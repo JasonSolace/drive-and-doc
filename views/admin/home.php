@@ -1,4 +1,19 @@
 <?php
+    // Initialize the session
+    session_start();
+    // Check if the user is already logged in, if yes then redirect them to home page
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+        if(isset($_SESSION["usertype"])) {
+            if ($_SESSION["usertype"] === 1) { // user is driver
+            header("location: ../driver/home.php");
+            exit();
+            }
+        }
+    } else {
+        header("location: ../../login.php");
+        exit();
+    }
+
     if(isset($_POST["tripButton"])) {
         header("Location: new_trip.php");
         exit();
@@ -18,9 +33,9 @@
                 <button type="submit" id= "tripButton" class="tripButton">Create A Trip</button>
             </form>
             <h2>Drive and Doc</h2>
-            <form action = "../../index.php" method="post">
-                <button type="submit" id= "logoutButton" class="logoutButton">Logout</button>
-            </form>
+            <a href="../../logout.php">
+                <button id= "logoutButton" class="logoutButton">Logout</button>
+            </a>
         </nav>
     </head>
     <body>

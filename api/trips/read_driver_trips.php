@@ -12,12 +12,9 @@
 
     //instantiate new trip object
     $trip = new Trip($db);
-
-    //get passed data
-    $data = json_decode(file_get_contents('php://input'));
    
     //We must have a driver id to get here, so assume it's in place
-    $trip->userId = $data->driverUserId;
+    $trip->userId = $_GET['driverUserId'];
 
     //ensure the user is valid
     if (!$trip->userCheck()){

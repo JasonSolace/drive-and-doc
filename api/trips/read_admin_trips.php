@@ -13,11 +13,9 @@
     //instantiate new trip object
     $trip = new Trip($db);
 
-    //get passed data
-    $data = json_decode(file_get_contents('php://input'));
    
     //We must have a user id to get here, so assume it's in place
-    $trip->userId = $data->userId;
+    $trip->userId = $_GET['userId'];
 
     //ensure the user is valid
     if (!$trip->userCheck()){
