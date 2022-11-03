@@ -34,7 +34,7 @@
         return $o;
     }
 
-
+    //read_driver_trips copy/paste start
     include_once '../../models/Trip.php';
     include_once '../../config/Database.php';
     
@@ -67,7 +67,7 @@
         while ($row = $result->fetch(PDO::FETCH_ASSOC)){
             extract($row);
             //returned result name => query column name
-            $trip_item = array(
+            $trip_item = array( //Removed unneeded trip values
                 'ID' => $ID,
                 'startDateTime' => $StartDateTime,
                 'startCity' => $StartCity,
@@ -81,16 +81,18 @@
         }
         //return result array
        //echo json_encode($trip_arr);
-        //echo $trip_arr[0]['ID'];
+       
     } 
     else {  
         echo json_encode(
             array('message'=>'No Matching Trips Found')
         );
     }
-$displayArr = array();
+    //End of Copy/Paste Driver Trip Edit
 
-foreach($trip_arr as $x => $val) {
+$displayArr = array(); //Create Array to populate tables
+
+foreach($trip_arr as $x => $val) { //Began to populate displayArr with Trip Information
     array_push($displayArr, array($trip_arr[$x]['ID'],
     $trip_arr[$x]['driverFirstName'] . ' ' . $trip_arr[$x]['driverLastName'],
     $trip_arr[$x]['startDateTime'],
@@ -98,7 +100,7 @@ foreach($trip_arr as $x => $val) {
 }       
                             
 
-    echo create_table(
+    echo create_table( //Create Tables with information
         ["Trip ID","Driver","Start Date","Start Location"],
         [
             $displayArr
