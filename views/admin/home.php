@@ -36,7 +36,7 @@
 
     if (isset($_GET['userId'])) {
         //function to get active trips for an admin
-        $userId = filter_input(INPUT_GET, 'userId', FILTER_SANITIZE_STRING); //clean the input string
+        $userId = $_SESSION['id'];
         $ch = curl_init(); //create a curl request
 
         #local
@@ -83,8 +83,8 @@
             
             <?php
                 if (!isset($result)){
-                    echo $_SERVER['PHP_SELF'];
-
+                    echo "<br><b>No Trips to Show</b></br>";
+                    
                 }
                 else if (is_array($result)) {
                     //make an html table with search results
