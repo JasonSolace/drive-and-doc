@@ -24,7 +24,7 @@
         $o .= '</tr>';
         foreach($rows as $row){
             $o .= '<tr>';
-            for($i = 0; $i <= $headersCount - 1; $i++){
+            for($i = 0; $i < count($row); $i++){
                 for ($col = 0; $col <= 3; $col++){
                     $o .= " <td>" . $row[$i][$col] . "</td>" ;
                 }
@@ -46,7 +46,7 @@
     $trip = new Trip($db);
    
     //We must have a driver id to get here, so assume it's in place
-    $trip->userId = '8';
+    $trip->userId = '9';
 
     //ensure the user is valid
     if (!$trip->userCheck()){
@@ -98,7 +98,7 @@ foreach($trip_arr as $x => $val) { //Began to populate displayArr with Trip Info
     $trip_arr[$x]['startDateTime'],
     $trip_arr[$x]['startCity'] . ', ' . $trip_arr[$x]['startStateCode']));
 }       
-                            
+    //echo count($displayArr);                   
 
     echo create_table( //Create Tables with information
         ["Trip ID","Driver","Start Date","Start Location"],
