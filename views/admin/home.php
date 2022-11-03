@@ -32,30 +32,23 @@
         $result = curl_exec($ch);//send the curl request
         curl_close($ch);
         $result = json_decode($result);
-        #echo(var_dump($result[0]->ID));
-        #echo(var_dump($result));
-        if (count($result) > 0){
-            //make an html table with search results
-            //remove old table result
-            echo '<table>';
-            for ($i = 0; $i < count($result); $i++) {
-                $row = $result[$i];
-                #echo $row;
-                echo "<tr>";
-                echo "<td>" . $row->ID . "</td>";
-                echo "<td>" . $row->driverFirstName . ' ' . $row->driverLastName . "</td>";
-                echo "<td>" . $row->startDateTime . "</td>";
-                echo "<td>" . $row->startCity . ', ' . $row->startStateCode . "</td>";
-                echo "</tr>";
-            }
-            echo '</table>';
-        }
-        else {
-            //indicate that no results were returned
-            echo "No Results Found";
-        }
-
     }
+
+    if (isset($_GET['userId'])) {
+        //function to get active trips for an admin
+        $userId = filter_input(INPUT_GET, 'userId', FILTER_SANITIZE_STRING); //clean the input string
+        $ch = curl_init(); //create a curl request
+
+        #local
+        curl_setopt($ch, CURLOPT_URL, 'http://localhost/drive-and-doc/api/trips/?userId=' . $userId);//define url as api target, must change to prod
+        #prod
+        #curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/api/trips/?queryStr=' . $queryString);//define url as api target, must change to prod
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        $result = curl_exec($ch);//send the curl request
+        curl_close($ch);
+        $result = json_decode($result);
+    }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -87,8 +80,44 @@
         </div>
         <div class="tripsView">
             <h4>List of Active Trips</h4>           
-            <table class="tripsTable">
-                <tr><!--examples until functionality in place-->
+            
+            <?php
+                if (!isset($result)){
+                    echo $_SERVER['PHP_SELF'];
+
+                }
+                else if (is_array($result)) {
+                    //make an html table with search results
+                    //remove old table result
+                    echo '<table class="tripsTable">';
+                    echo '<tr>';
+                    echo '<th>Trip ID</th>';
+                    echo '<th>Driver</th>';
+                    echo '<th>Start Date</th>';
+                    echo '<th>Start Location</th>';
+                    echo '</tr>';
+                    for ($i = 0; $i < count($result); $i++) {
+                        $row = $result[$i];
+                        #echo $row;
+                        echo "<tr>";
+                        echo "<td>" . $row->ID . "</td>";
+                        echo "<td>" . $row->driverFirstName . ' ' . $row->driverLastName . "</td>";
+                        echo "<td>" . $row->startDateTime . "</td>";
+                        echo "<td>" . $row->startCity . ', ' . $row->startStateCode . "</td>";
+                        echo "</tr>";
+                    }
+                    echo '</table>';
+                }
+                else {
+                    //indicate that no results were returned
+                    echo "No Results Found";
+                }
+
+            ?>
+            
+            
+            <!-- <table class="tripsTable">
+                <tr>
                     <th>Trip ID</th>
                     <th>Driver</th>
                     <th>Start Date</th>
@@ -112,7 +141,7 @@
                     <td>9/30/2022</td>
                     <td>Dallas,TX</td>
                 </tr>
-            </table> 
+            </table>  -->
         </div>
     </body>
     <!---Modal Code for future impl-->
