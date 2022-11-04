@@ -83,7 +83,7 @@
                 <label for="loadWeight">Load Weight: </label>
                 <input type="number" id="loadWeight" name="loadWeight">
                     
-                <button type="submit" class="cancelButton" formaction="home.php">Cancel</button>
+                <button type="submit" class="cancelButton" formaction="home.php" formnovalidate>Cancel</button>
                 <button type="submit" class="createTripButton">Create Trip</button>
             </form>
         </div> 
