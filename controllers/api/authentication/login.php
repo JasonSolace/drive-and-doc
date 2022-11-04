@@ -17,8 +17,8 @@ session_start();
 }*/
 
 // Include Database config file
-require_once "./config/Database.php";
-include_once "./models/User.php";
+require_once "../../../config/Database.php";
+include_once "../../../models/User.php";
 
 // Instantiate DB object
 $database = new Database();
@@ -52,16 +52,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if ($user_obj->loginIsValid()) {
             if(isset($_SESSION["usertype"])) {
                 if ($_SESSION["usertype"] === 1) { // user is driver
-                header("location: ./views/driver/home.php");
+                header("location: ../../../views/driver/home.php");
                 exit;
                 }
                 if ($_SESSION["usertype"] === 0) { // user is admin
-                    header("location: ./views/admin/home.php");
+                    header("location: ../../../views/admin/home.php");
                     exit;
                 }
             }
         } else {
-            header("Location: index.php?loginFailed=true&reason=password");
+            header("Location: ../../../index.php?loginFailed=true&reason=password");
             exit;
         }
     }

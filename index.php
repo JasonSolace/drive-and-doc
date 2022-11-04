@@ -1,6 +1,3 @@
-<?php
-    $loginFailed = $_GET["loginFailed"];
-?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +10,7 @@
     </head>
     <body>
         <div class="container">
-            <form action = "login.php" method="post">
+            <form action = "controllers/api/authentication/login.php" method="post">
                 <h1>Login</h1>           
                 <?php 
                     if(!empty($loginFailed)) {
@@ -25,7 +22,7 @@
                 <br>
                 <input type="password" placeholder="Enter Your Password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" required>                
                 <button type="submit" class="loginBtn">Login</button>
-                <button type="submit" class="newAccntBtn" formaction="register.php" formnovalidate>Create a New Account</button>
+                <button type="submit" class="newAccntBtn" formaction="views/newAccount.php" formnovalidate>Create a New Account</button>
             </form>
             </div>
     </body>

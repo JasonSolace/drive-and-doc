@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="container">
-            <form action = "../register.php" method="post">
+            <form action = "../controllers/api/authentication/register.php" method="post">
                 <h1>Create A New Account</h1>   
                 <?php 
                     if(isset($_GET['userFail'])) {

@@ -10,7 +10,7 @@
             }
         }
     } else {
-        header("location: ../../login.php");
+        header("location: ../../index.php");
         exit;
     }
     $tripID = $_POST['tripID'];
@@ -21,11 +21,6 @@
     $endDateTime = $_POST['endDateTime'];
     $loadContents = $_POST['loadContents'];
     $loadWeight = $_POST['loadWeight'];
-
-    if(isset($_POST["tripButton"])) {
-        header("Location: new_trip.php");
-        exit();
-    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,7 +36,7 @@
                 <button type="submit" id= "tripButton" class="tripButton">Create A Trip</button>
             </form>
             <h2>Drive and Doc</h2>
-            <a href="../../logout.php">
+            <a href="../../controllers/api/authentication/logout.php">
                 <button id= "logoutButton" class="logoutButton">Logout</button>
             </a>
         </nav>

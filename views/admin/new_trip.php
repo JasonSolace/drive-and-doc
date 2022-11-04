@@ -17,10 +17,6 @@
         header("Location: trip_details.php");
         exit();
     }
-    if(isset($_POST["cancelButton"])) {
-        header("Location: home.php");
-        exit();
-    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,7 +35,7 @@
         <h1>Create A New Trip</h1>
         <h3><a href="home.php">View Active Trips</a> | <a href="past_trips.php">View Completed Trips</a></h3>
         <div class="createTrip">
-            <form form action = "../../api/trips/index.php" method="post" id="newTripForm">
+            <form form action = "../../controllers/api/trips/index.php" method="post" id="newTripForm">
                 <label for="tripID">Trip ID: </label>
                 <input type="text" id="tripID" name="tripID">
                 <br>

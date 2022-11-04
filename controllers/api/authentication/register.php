@@ -2,8 +2,8 @@
 // Include database connection file
 
 // IMPORTS
-require_once "./config/Database.php";
-include_once "./models/User.php";
+require_once "../../../config/Database.php";
+include_once "../../../models/User.php";
 
 // Instantiate DB object
 $database = new Database();
@@ -25,13 +25,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $username_err = "Please enter a username.";
     } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
         $username_err = "Username can only contain letters, numbers, and underscores.";
-        header("Location: views/newAccount.php?userFail=true&reason=username");
+        header("Location: ../../../views/newAccount.php?userFail=true&reason=username");
         exit;
     } else{
         $user_obj->username = trim($_POST["username"]);
         if ($user_obj->userExists()) {
             $username_err = "This username is already taken.";
-            header("Location: views/newAccount.php?existing=true&reason=username");
+            header("Location: ../../../views/newAccount.php?existing=true&reason=username");
             exit;
         }
     }
@@ -41,7 +41,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $password_err = "Please enter a password.";     
     } elseif(strlen(trim($_POST["password"])) < 6){
         $password_err = "Password must have atleast 6 characters.";
-        header("Location: views/newAccount.php?passReq=true&reason=password");
+        header("Location: ../../../views/newAccount.php?passReq=true&reason=password");
         exit;
     } else{
         $user_obj->password = trim($_POST["password"]);
@@ -54,7 +54,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $confirm_password = trim($_POST["confirmPass"]);
         if(empty($password_err) && ($user_obj->password  != $confirm_password)){
             $confirm_password_err = "Password did not match.";
-            header("Location: views/newAccount.php?unmatchedPass=true&reason=password");
+            header("Location: ../../../views/newAccount.php?unmatchedPass=true&reason=password");
             exit;
         }
     }
@@ -62,7 +62,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check input errors before inserting in database
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
         $user_obj->create();
-        header("Location: index.php");
+        header("Location: ../../../index.php");
         exit;
     }
     
