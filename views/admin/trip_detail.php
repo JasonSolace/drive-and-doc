@@ -23,7 +23,7 @@
     #local
     #curl_setopt($ch, CURLOPT_URL, 'http://localhost/drive-and-doc/api/trips/?ID=' . $queryString);
     #prod
-    curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/api/trips/?ID=' . $queryString);
+    curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/controllers/api/trips/?ID=' . $queryString);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     $result = curl_exec($ch); //send the curl request
     curl_close($ch);
