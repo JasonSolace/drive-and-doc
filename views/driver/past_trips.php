@@ -7,6 +7,7 @@
         exit;
     }
 
+    //API Call for trips from User
     $queryString = $_SESSION['id'];
     //$queryString = '9';
 
@@ -22,41 +23,42 @@
     $result = substr($result, 0, -3); //String ends in ? > for some reason. Might need to change this line later.
     $result = json_decode($result);
 
+    //Create empty array that will be used for table creation
     $displayArr = array();
-    if (isset($result)){
-    foreach($result as $x => $val) { //Began to populate displayArr with Trip Information
-            if (isset($result[$x]->tripStatus) && $result[$x]->tripStatus == "Completed"){
-                array_push($displayArr, array($result[$x]->ID,
-                $result[$x]->driverFirstName . ' ' . $result[$x]->driverLastName,
-                date('m/d/Y g:i A', strtotime($result[$x]->startDateTime)),
-                $result[$x]->startCity . ', ' . $result[$x]->startStateCode));
-            }
+    if (isset($result)){ //Make sure trips exist from API call
+        foreach($result as $x => $val) { //Began to populate displayArr with Trip Information
+                if (isset($result[$x]->tripStatus) && $result[$x]->tripStatus == "Completed"){ //Filter out non-completed trips
+                    array_push($displayArr, array($result[$x]->ID,
+                    $result[$x]->driverFirstName . ' ' . $result[$x]->driverLastName,
+                    date('m/d/Y g:i A', strtotime($result[$x]->startDateTime)),
+                    $result[$x]->startCity . ', ' . $result[$x]->startStateCode));
+                }
         }
     }
 
     //Function to create HTML Table Element for Trips
     function create_table($headers = array(), $rows = array(), $attributes = array()){
-        $headersCount = count($headers); //Header element, such as "ID | Driver | ... " etc.
-        $o = "<table "; //Start of Table Construction. Make sure it's not empty:
-        if(!empty($attributes)){
+        $headersCount = count($headers); //Header element count for "ID | Driver | ... " etc.
+        $o = "<table "; //Start of Table Construction. 
+        if(!empty($attributes)){ //Attributes such as classes or styles
             foreach($attributes as $key =>$value){
                 $o .= "$key='" . $value . "' ";
             }
         }
         $o .= '>';
-        $o .= '<tr>';
+        $o .= '<tr>'; //Began adding the table elements
         foreach($headers as $heading){
-            $o.= '<th>' . $heading . '</th>';
+            $o.= '<th>' . $heading . '</th>'; //Header Element such as "ID | Driver | ... " etc.
         }
         $o .= '</tr>';
         foreach($rows as $row){
-            $o .= '<tr>';
+            $o .= '<tr>'; //Data table elements
             for($i = 0; $i < count($row); $i++){
                 for ($col = 0; $col <= 3; $col++){
                     if ($i == 0 && $col == 0){
-                        $o .= "<td><a href>" . $row[$i][$col] . "</a></td>" ;
+                        $o .= "<td><a href>" . $row[$i][$col] . "</a></td>" ; //If it's the first element, add <a> style
                     } else {
-                        $o .= "<td>" . $row[$i][$col] . "</td>" ;
+                        $o .= "<td>" . $row[$i][$col] . "</td>" ; //otherwise, just put in the data
                     }
                 }
                 $o .= '</tr>';

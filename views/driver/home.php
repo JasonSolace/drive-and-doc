@@ -22,9 +22,9 @@
     $result = json_decode($result);
 
     $displayArr = array();
-    if (isset($result)){
+    if (isset($result)){ //Make sure trips exist from API call
         foreach($result as $x => $val) { //Began to populate displayArr with Trip Information
-            if (isset($result[$x]->tripStatus) && $result[$x]->tripStatus == "Not Started"){
+            if (isset($result[$x]->tripStatus) && $result[$x]->tripStatus == "Not Started"){ //Filter out completed trips
                 array_push($displayArr, array($result[$x]->ID,
                 $result[$x]->driverFirstName . ' ' . $result[$x]->driverLastName,
                 date('m/d/Y g:i A', strtotime($result[$x]->startDateTime)),
@@ -35,24 +35,28 @@
 
         //Function to create HTML Table Element for Trips
         function create_table($headers = array(), $rows = array(), $attributes = array()){
-            $headersCount = count($headers); //Header element, such as "ID | Driver | ... " etc.
-            $o = "<table "; //Start of Table Construction. Make sure it's not empty:
-            if(!empty($attributes)){
+            $headersCount = count($headers); //Header element count for "ID | Driver | ... " etc.
+            $o = "<table "; //Start of Table Construction.
+            if(!empty($attributes)){ //Attributes such as classes or styles
                 foreach($attributes as $key =>$value){
                     $o .= "$key='" . $value . "' ";
                 }
             }
             $o .= '>';
-            $o .= '<tr>';
+            $o .= '<tr>'; //Began adding the table elements
             foreach($headers as $heading){
-                $o.= '<th>' . $heading . '</th>';
+                $o.= '<th>' . $heading . '</th>'; //Header Element such as "ID | Driver | ... " etc.
             }
             $o .= '</tr>';
             foreach($rows as $row){
-                $o .= '<tr>';
+                $o .= '<tr>'; //Data table elements
                 for($i = 0; $i < count($row); $i++){
                     for ($col = 0; $col <= 3; $col++){
-                        $o .= "<td>" . $row[$i][$col] . "</td>" ;
+                        if ($i == 0 && $col == 0){
+                            $o .= "<td><a href>" . $row[$i][$col] . "</a></td>" ; //If it's the first element, add <a> style
+                        } else {
+                            $o .= "<td>" . $row[$i][$col] . "</td>" ; //otherwise, just put in the data
+                        }
                     }
                     $o .= '</tr>';
                 }
@@ -66,7 +70,7 @@
             $displayArr
         ],
         [
-            'class' =>'tripsTable'
+            'class' => 'tripsTable'
         ]
         );
 ?>
