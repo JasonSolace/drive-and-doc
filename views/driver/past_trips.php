@@ -7,7 +7,9 @@
         exit;
     }
 
-    $queryString = '8';
+    $queryString = $_SESSION['id'];
+    //$queryString = '9';
+
     $ch = curl_init();
 
     #local
@@ -19,6 +21,18 @@
     curl_close($ch);
     $result = substr($result, 0, -3); //String ends in ? > for some reason. Might need to change this line later.
     $result = json_decode($result);
+
+    $displayArr = array();
+    if (isset($result)){
+    foreach($result as $x => $val) { //Began to populate displayArr with Trip Information
+            if (isset($result[$x]->tripStatus) && $result[$x]->tripStatus == "Completed"){
+                array_push($displayArr, array($result[$x]->ID,
+                $result[$x]->driverFirstName . ' ' . $result[$x]->driverLastName,
+                date('m/d/Y g:i A', strtotime($result[$x]->startDateTime)),
+                $result[$x]->startCity . ', ' . $result[$x]->startStateCode));
+            }
+        }
+    }
 
     //Function to create HTML Table Element for Trips
     function create_table($headers = array(), $rows = array(), $attributes = array()){
@@ -39,24 +53,17 @@
             $o .= '<tr>';
             for($i = 0; $i < count($row); $i++){
                 for ($col = 0; $col <= 3; $col++){
-                    
-                    $o .= "<td>" . $row[$i][$col] . "</td>" ;
+                    if ($i == 0 && $col == 0){
+                        $o .= "<td><a href>" . $row[$i][$col] . "</a></td>" ;
+                    } else {
+                        $o .= "<td>" . $row[$i][$col] . "</td>" ;
+                    }
                 }
                 $o .= '</tr>';
             }
         }
         return $o;
     }
-    
-    $displayArr = array();
-    foreach($result as $x => $val) { //Began to populate displayArr with Trip Information
-        if (isset($result[$x]->tripStatus) && $result[$x]->tripStatus == "Completed"){
-            array_push($displayArr, array($result[$x]->ID,
-            $result[$x]->driverFirstName . ' ' . $result[$x]->driverLastName,
-            date('m/d/Y g:i A', strtotime($result[$x]->startDateTime)),
-            $result[$x]->startCity . ', ' . $result[$x]->startStateCode));
-        }
-        }
 
     echo create_table( //Create Tables with information
         ["Trip ID","Driver","Start Date","Start Location"],
@@ -64,7 +71,7 @@
             $displayArr
         ],
         [
-            'class' =>'tripsTable'
+            'class' => 'tripsTable'
         ]
     );
 
