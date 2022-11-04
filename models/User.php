@@ -27,7 +27,7 @@ class User {
     public function userExists() {
         $result = false;
         // Prepare a select statement
-        $sql = "SELECT ID FROM ". $this->table ." WHERE Username = :username";
+        $sql = "SELECT * FROM ". $this->table ." WHERE Username = :username";
 
         if($stmt = $this->conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -117,7 +117,7 @@ class User {
             // Attempt to execute the prepared statement
             if($stmt->execute()){
                 // Redirect to login page
-                header("location: login.php");
+                header("location: ../index.php");
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }

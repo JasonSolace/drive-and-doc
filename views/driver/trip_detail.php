@@ -3,7 +3,7 @@
     session_start();
     // Check if the user is not logged in and redirect to the login page
     if(!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"] === true){
-        header("location: ../../login.php");
+        header("location: ../../index.php");
         exit;
     }
 
@@ -30,7 +30,7 @@
         <link rel="stylesheet" href="../../css/stylesheet.css">
         <nav class = "topnav">
             <h2>Drive and Doc</h2>
-            <a href="../../logout.php">
+            <a href="../../controllers/api/authentication/logout.php">
                 <button id= "logoutButton" class="logoutButton">Logout</button>
             </a>
         </nav>

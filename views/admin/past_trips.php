@@ -10,12 +10,8 @@
             }
         }
     } else {
-        header("location: ../../login.php");
+        header("location: ../../index.php");
         exit;
-    }
-    if(isset($_POST["tripButton"])) {
-        header("Location: new_trip.php");
-        exit();
     }
 ?>
 <!DOCTYPE html>
@@ -32,7 +28,7 @@
                 <button type="submit" id= "tripButton" class="tripButton">Create A Trip</button>
             </form>
             <h2>Drive and Doc</h2>
-            <a href="../../logout.php">
+            <a href="../../controllers/api/authentication/logout.php">
                 <button id= "logoutButton" class="logoutButton">Logout</button>
             </a>
         </nav>
@@ -56,19 +52,19 @@
                     <th>Start Location</th>
                 </tr>
                 <tr>
-                    <td><a href = "">0000100</a></td>
+                    <td><a href = "trip_detail.php">0000100</a></td>
                     <td>Joe Bob</td>
                     <td>2/17/2022</td>
                     <td>Boise, ID</td>
                 </tr>
                 <tr>
-                    <td><a href>0000300</a></td>
+                    <td><a href = "trip_detail.php">0000300</a></td>
                     <td>John Doe</td>
                     <td>1/20/2022</td>
                     <td>Montgomery, AL</td>
                 </tr>
                 <tr>
-                    <td><a href>0001999</a></td>
+                    <td><a href = "trip_detail.php">0001999</a></td>
                     <td>Amy Smith</td>
                     <td>3/30/2022</td>
                     <td>Boulder, CO</td>

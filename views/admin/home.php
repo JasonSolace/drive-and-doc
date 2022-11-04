@@ -10,7 +10,7 @@
             }
         }
     } else {
-        header("location: ../../login.php");
+        header("location: ../../index.php");
         exit();
     }
 
@@ -118,7 +118,7 @@
                 <button type="submit" id= "tripButton" class="tripButton">Create A Trip</button>
             </form>
             <h2>Drive and Doc</h2>
-            <a href="../../logout.php">
+            <a href="../../controllers/api/authentication/logout.php">
                 <button id= "logoutButton" class="logoutButton">Logout</button>
             </a>
         </nav>
@@ -174,7 +174,6 @@
                             <label for="tripID">Trip ID: </label>
                             <input type="text" id="tripID" name="tripID">
                             <br>
-
                             <label for="driverID">Driver ID: </label>
                             <input type="text" id="driverID" name="driverID">
                             <br>
@@ -194,7 +193,6 @@
                             <label for="tripEndTime">End Time: </label>
                             <input type="datetime-local" id="tripEndTime" name="tripEndTime">
                             <br>                    
-
                             <label for="tripLoadContents">Load Contents: </label>
                             <input type="text" id="tripLoadContents" name="tripLoadContents">
                             <br>
