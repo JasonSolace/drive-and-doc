@@ -36,7 +36,7 @@
 
 
     $userId = $_SESSION['id'];
-    echo $userId;
+    #echo $userId;
     $ch = curl_init();
 
     #local
