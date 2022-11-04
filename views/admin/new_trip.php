@@ -15,6 +15,7 @@
     }
     if(isset($_POST["createTripButton"])) {
         header("Location: trip_detail.php");
+    }
     if(isset($_POST["createTripButton"])) {     
         header("Location: trip_details.php");
         exit();
