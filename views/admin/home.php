@@ -48,8 +48,9 @@
     curl_close($ch);
     $result = substr($result, 0, -3); //String ends in ? > for some reason. Might need to change this line later.
     $result = json_decode($result);
+
     $displayArr = array();
-    if (isset($result)){ //Make sure trips exist from API call
+    if (isset($result) && (!isset($result->message))){ //Make sure trips exist from API call
         foreach($result as $x => $val) { //Began to populate displayArr with Trip Information
             if (isset($result[$x]->tripStatus) && $result[$x]->tripStatus != "Completed"){ //Filter out completed trips
                 array_push($displayArr, array($result[$x]->ID,
