@@ -118,7 +118,7 @@
                 <button type="submit" id= "tripButton" class="tripButton">Create A Trip</button>
             </form>
             <h2>Drive and Doc</h2>
-            <a href="../../controllers/api/logout.php">
+            <a href="../../controllers/api/authentication/logout.php">
                 <button id= "logoutButton" class="logoutButton">Logout</button>
             </a>
         </nav>
