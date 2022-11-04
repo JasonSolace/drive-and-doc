@@ -40,12 +40,11 @@
     $ch = curl_init();
 
     #local
-    curl_setopt($ch, CURLOPT_URL, 'http://localhost/drive-and-doc/api/trips/?userId=' . $userId);
+    #curl_setopt($ch, CURLOPT_URL, 'http://localhost/drive-and-doc/api/trips/?userId=' . $userId);
     #prod
-    #curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/api/trips/?driverUserId=' . $userId);
+    curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/api/trips/?driverUserId=' . $userId);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     $result = curl_exec($ch); //send the curl request
-    echo $result ?? 'Result is null';
     curl_close($ch);
     $result = substr($result, 0, -3); //String ends in ? > for some reason. Might need to change this line later.
     $result = json_decode($result);
