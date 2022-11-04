@@ -89,6 +89,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="form-group">
                 <input type="password" name="confirm_password" placeholder="Re-enter the password to confirm" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
+                <br><br>
             </div>
                 <button type="submit" class="loginBtn">Create a New Account</button>
                 <button type="submit" class="newAccntBtn" formaction=" login.php" formnovalidate>Return to Login</button>
