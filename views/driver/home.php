@@ -20,7 +20,7 @@
     $result = json_decode($result);
 
     $displayArr = array();
-    if (isset($result) && $result->message !== "No Matching Trips Found"){ //Make sure trips exist from API call
+    if (isset($result) && (!isset($result->message))){ //Make sure trips exist from API call
         foreach($result as $x => $val) { //Began to populate displayArr with Trip Information
             if (isset($result[$x]->tripStatus) && $result[$x]->tripStatus == "Not Started"){ //Filter out completed trips
                 array_push($displayArr, array($result[$x]->ID,
@@ -50,7 +50,7 @@
                 $o .= '<tr>'; //Data table elements
                 for($i = 0; $i < count($row); $i++){
                     for ($col = 0; $col <= 3; $col++){
-                        if ($i == 0 && $col == 0){
+                        if ($col == 0){
                             $o .= "<td><a href = \"trip_detail.php?tripID=" . $row[$i][$col] ."\">" . $row[$i][$col] . "</a></td>" ; //If it's the first element, add <a> style
                         } else {
                             $o .= "<td>" . $row[$i][$col] . "</td>" ; //otherwise, just put in the data
