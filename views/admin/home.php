@@ -47,6 +47,7 @@
     curl_close($ch);
     $result = substr($result, 0, -3); //String ends in ? > for some reason. Might need to change this line later.
     $result = json_decode($result);
+    var_dump($result);
     $displayArr = array();
     if (isset($result)){ //Make sure trips exist from API call
         foreach($result as $x => $val) { //Began to populate displayArr with Trip Information
@@ -58,7 +59,7 @@
             }
         }
     }
-    echo $displayArr;
+    
         //Function to create HTML Table Element for Trips
         function create_table($headers = array(), $rows = array(), $attributes = array()){
             $headersCount = count($headers); //Header element count for "ID | Driver | ... " etc.
