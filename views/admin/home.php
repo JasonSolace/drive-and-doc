@@ -29,26 +29,79 @@
         #prod
         #curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/api/trips/?queryStr=' . $queryString);//define url as api target, must change to prod
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        $result = curl_exec($ch);//send the curl request
+        $queryResult = curl_exec($ch);//send the curl request
         curl_close($ch);
-        $result = json_decode($result);
+        $queryResult = json_decode($queryResult);
     }
 
-    if (isset($_GET['userId'])) {
-        //function to get active trips for an admin
-        $userId = $_SESSION['id'];
-        $ch = curl_init(); //create a curl request
 
-        #local
-        curl_setopt($ch, CURLOPT_URL, 'http://localhost/drive-and-doc/api/trips/?userId=' . $userId);//define url as api target, must change to prod
-        #prod
-        #curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/api/trips/?queryStr=' . $queryString);//define url as api target, must change to prod
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        $result = curl_exec($ch);//send the curl request
-        curl_close($ch);
-        $result = json_decode($result);
+    $userId = $_SESSION['id'];
+    $ch = curl_init();
+
+    #local
+    curl_setopt($ch, CURLOPT_URL, 'http://localhost/drive-and-doc/api/trips/?userId=' . $userId);
+    #prod
+    #curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/api/trips/?driverUserId=' . $userId);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    $result = curl_exec($ch); //send the curl request
+    curl_close($ch);
+    $result = substr($result, 0, -3); //String ends in ? > for some reason. Might need to change this line later.
+    $result = json_decode($result);
+    $displayArr = array();
+    echo isset($result);
+    if (isset($result)){ //Make sure trips exist from API call
+        foreach($result as $x => $val) { //Began to populate displayArr with Trip Information
+            if (isset($result[$x]->tripStatus) && $result[$x]->tripStatus != "Completed"){ //Filter out completed trips
+                array_push($displayArr, array($result[$x]->ID,
+                $result[$x]->driverFirstName . ' ' . $result[$x]->driverLastName,
+                date('m/d/Y g:i A', strtotime($result[$x]->startDateTime)),
+                $result[$x]->startCity . ', ' . $result[$x]->startStateCode));
+            }
+        }
     }
 
+        //Function to create HTML Table Element for Trips
+        function create_table($headers = array(), $rows = array(), $attributes = array()){
+            $headersCount = count($headers); //Header element count for "ID | Driver | ... " etc.
+            $o = "<table "; //Start of Table Construction.
+            if(!empty($attributes)){ //Attributes such as classes or styles
+                foreach($attributes as $key =>$value){
+                    $o .= "$key='" . $value . "' ";
+                }
+            }
+            $o .= '>';
+            $o .= '<tr>'; //Began adding the table elements
+            foreach($headers as $heading){
+                $o.= '<th>' . $heading . '</th>'; //Header Element such as "ID | Driver | ... " etc.
+            }
+            $o .= '</tr>';
+            foreach($rows as $row){
+                $o .= '<tr>'; //Data table elements
+                for($i = 0; $i < count($row); $i++){
+                    for ($col = 0; $col <= 3; $col++){
+                        if ($i == 0 && $col == 0){
+                            $o .= "<td><a href>" . $row[$i][$col] . "</a></td>" ; //If it's the first element, add <a> style
+                        } else {
+                            $o .= "<td>" . $row[$i][$col] . "</td>" ; //otherwise, just put in the data
+                        }
+                    }
+                    $o .= '</tr>';
+                }
+            }
+            return $o;
+        }
+        if (isset($displayArr) && !isset($queryResult)){
+            echo create_table( //Create Tables with information
+                ["Trip ID","Driver","Start Date","Start Location"],
+                [
+                    $displayArr
+                ],
+                [
+                    'class' => 'tripsTable'
+                ]
+                );
+
+            }
 ?>
 <!DOCTYPE html>
 <html>
@@ -80,13 +133,9 @@
         </div>
         <div class="tripsView">
             <h4>List of Active Trips</h4>           
-            
             <?php
-                if (!isset($result)){
-                    echo "<br><b>No Trips to Show</b></br>";
-                    
-                }
-                else if (is_array($result)) {
+
+                if (isset($queryResult) && is_array($queryResult)) {
                     //make an html table with search results
                     //remove old table result
                     echo '<table class="tripsTable">';
@@ -96,8 +145,8 @@
                     echo '<th>Start Date</th>';
                     echo '<th>Start Location</th>';
                     echo '</tr>';
-                    for ($i = 0; $i < count($result); $i++) {
-                        $row = $result[$i];
+                    for ($i = 0; $i < count($queryResult); $i++) {
+                        $row = $queryResult[$i];
                         #echo $row;
                         echo "<tr>";
                         echo "<td>" . $row->ID . "</td>";
@@ -108,13 +157,10 @@
                     }
                     echo '</table>';
                 }
-                else {
-                    //indicate that no results were returned
-                    echo "No Results Found";
-                }
 
             ?>
             
+
             
             <!-- <table class="tripsTable">
                 <tr>
