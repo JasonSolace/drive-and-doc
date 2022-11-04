@@ -13,10 +13,6 @@
         header("location: ../../login.php");
         exit;
     }*/
-    if(isset($_POST["createTripButton"])) {     
-        header("Location: trip_details.php");
-        exit();
-    }
 ?>
 <!DOCTYPE html>
 <html>
