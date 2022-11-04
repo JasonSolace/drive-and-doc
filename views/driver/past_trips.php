@@ -13,9 +13,9 @@
     $ch = curl_init();
 
     #local
-    #curl_setopt($ch, CURLOPT_URL, 'http://localhost/drive-and-doc/api/trips/?driverUserId=' . $queryString);
+    curl_setopt($ch, CURLOPT_URL, 'http://localhost/drive-and-doc/api/trips/?driverUserId=' . $queryString);
     #prod
-    curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/api/trips/?driverUserId=' . $queryString);
+    #curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/api/trips/?driverUserId=' . $queryString);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     $result = curl_exec($ch); //send the curl request
     curl_close($ch);
@@ -24,7 +24,7 @@
 
     //Create empty array that will be used for table creation
     $displayArr = array();
-    if (isset($result) && $result->message !== "No Matching Trips Found"){ //Make sure trips exist from API call
+    if (isset($result) && (!isset($result->message))){ //Make sure trips exist from API call
         foreach($result as $x => $val) { //Began to populate displayArr with Trip Information
                 if (isset($result[$x]->tripStatus) && $result[$x]->tripStatus == "Completed"){ //Filter out non-completed trips
                     array_push($displayArr, array($result[$x]->ID,
