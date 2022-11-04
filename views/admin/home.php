@@ -48,7 +48,6 @@
     $result = substr($result, 0, -3); //String ends in ? > for some reason. Might need to change this line later.
     $result = json_decode($result);
     $displayArr = array();
-    echo isset($result);
     if (isset($result)){ //Make sure trips exist from API call
         foreach($result as $x => $val) { //Began to populate displayArr with Trip Information
             if (isset($result[$x]->tripStatus) && $result[$x]->tripStatus != "Completed"){ //Filter out completed trips
@@ -157,37 +156,12 @@
                     }
                     echo '</table>';
                 }
-
+                else if (isset($queryResult)) {
+                    //indicate that no results were returned
+                    echo "No Results Found";
+                }
             ?>
-            
 
-            
-            <!-- <table class="tripsTable">
-                <tr>
-                    <th>Trip ID</th>
-                    <th>Driver</th>
-                    <th>Start Date</th>
-                    <th>Start Location</th>
-                </tr>
-                <tr>
-                    <td><a href = "">0000001</a></td>
-                    <td>Joe Bob</td>
-                    <td>9/17/2022</td>
-                    <td>Topeka, KS</td>
-                </tr>
-                <tr>
-                    <td><a href>0000233</a></td>
-                    <td>John Doe</td>
-                    <td>9/20/2022</td>
-                    <td>Chicago, IL</td>
-                </tr>
-                <tr>
-                    <td><a href>0000999</a></td>
-                    <td>Amy Smith</td>
-                    <td>9/30/2022</td>
-                    <td>Dallas,TX</td>
-                </tr>
-            </table>  -->
         </div>
     </body>
     <!---Modal Code for future impl-->
