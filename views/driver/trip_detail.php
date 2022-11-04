@@ -6,6 +6,18 @@
         header("location: ../../index.php");
         exit;
     }
+
+    $queryString = $_GET['tripID'];
+    $ch = curl_init();
+    #local
+    #curl_setopt($ch, CURLOPT_URL, 'http://localhost/drive-and-doc/api/trips/?ID=' . $queryString);
+    #prod
+    curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/api/trips/?ID=' . $queryString);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    $result = curl_exec($ch); //send the curl request
+    curl_close($ch);
+    $result = substr($result, 0, -3); //String ends in ? > for some reason. Might need to change this line later.
+    $result = json_decode($result);
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,12 +39,12 @@
         <h1>Trip Record Details</h1>
         <h3><a href="home.php">View Active Trips</a> | <a href="past_trips.php">View Completed Trips</a></h3>
             <div class="tripDetail">                
-                <div class="tripDetailID"><strong>Trip ID</strong><br>0000001</div>  
-                <div class="tripDetailDriver"><strong>Driver</strong><br>Joe Bob</div> 
-                <div class="tripDetailArrivalTime"><strong>Expected Arrival</strong><br>9-18-2022</div>             
-                <div class="tripDetailStartTime"><strong>Start Date</strong><br>9-17-2022</div>
-                <div class="tripDetailStartLoc"><strong>Start Location</strong><br>Topeka, KS</div>
-                <div class="tripDetailDest"><strong>Destination</strong><br>Fort Hays, KS</div>
+                <div class="tripDetailID"><strong>Trip ID</strong><?php echo '<br/>'. $result->ID; ?></div>
+                <div class="tripDetailDriver"><strong>Driver</strong><?php echo '<br/>' . $result->driverFirstName . ' ' . $result->driverLastName; ?></div> 
+                <div class="tripDetailArrivalTime"><strong>Expected Arrival</strong><?php echo '<br/>'. date('m/d/Y g:i A', strtotime($result->endDateTime)); ?></div>             
+                <div class="tripDetailStartTime"><strong>Start Date</strong><?php echo '<br/>'. date('m/d/Y g:i A', strtotime($result->startDateTime)); ?></div>
+                <div class="tripDetailStartLoc"><strong>Start Location</strong><?php echo '<br/>'. $result->startCity . ', ' . $result->startStateCode; ?></div>
+                <div class="tripDetailDest"><strong>Destination</strong><?php echo '<br/>'. $result->endCity . ', ' . $result->endStatecode; ?></div>
             </div>
             <br>
                 <div class="docHistHeaderDriver">

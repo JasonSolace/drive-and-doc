@@ -48,8 +48,9 @@
     curl_close($ch);
     $result = substr($result, 0, -3); //String ends in ? > for some reason. Might need to change this line later.
     $result = json_decode($result);
+
     $displayArr = array();
-    if (isset($result)){ //Make sure trips exist from API call
+    if (isset($result) && (!isset($result->message))){ //Make sure trips exist from API call
         foreach($result as $x => $val) { //Began to populate displayArr with Trip Information
             if (isset($result[$x]->tripStatus) && $result[$x]->tripStatus != "Completed"){ //Filter out completed trips
                 array_push($displayArr, array($result[$x]->ID,
@@ -79,8 +80,8 @@
                 $o .= '<tr>'; //Data table elements
                 for($i = 0; $i < count($row); $i++){
                     for ($col = 0; $col <= 3; $col++){
-                        if ($i == 0 && $col == 0){
-                            $o .= "<td><a href>" . $row[$i][$col] . "</a></td>" ; //If it's the first element, add <a> style
+                        if ($col == 0){
+                            $o .= "<td><a href = \"trip_detail.php?tripID=" . $row[$i][$col] ."\">" . $row[$i][$col] . "</a></td>" ; //If it's the first element, add <a> style
                         } else {
                             $o .= "<td>" . $row[$i][$col] . "</td>" ; //otherwise, just put in the data
                         }
