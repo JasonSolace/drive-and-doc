@@ -58,7 +58,7 @@
             }
         }
     }
-
+    echo $displayArr;
         //Function to create HTML Table Element for Trips
         function create_table($headers = array(), $rows = array(), $attributes = array()){
             $headersCount = count($headers); //Header element count for "ID | Driver | ... " etc.
