@@ -41,7 +41,7 @@
                 //assume here passed user id is in the database, and passed date string is of valid format
                 else if ($trip->create()){
                     //if trip creation is successful, return the Trip
-                    header("Location: ../../views/admin/trip_detail.php");
+                    header("Location: ../../../views/admin/trip_detail.php");
                     exit;
                 }
                 else {
