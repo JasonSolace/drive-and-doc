@@ -15,17 +15,17 @@ class Database {
       
         /*for prod*/
         
-       #$this->password = getenv('JAWSDB_PW', false);
-       #$this->host = getenv('JAWSDB_HOST', false);
-       #$this->username = getenv('JAWSDB_USER', false);
-       #$this->db_name = getenv('JAWSDB_DB', false);
+       $this->password = getenv('JAWSDB_PW', false);
+       $this->host = getenv('JAWSDB_HOST', false);
+       $this->username = getenv('JAWSDB_USER', false);
+       $this->db_name = getenv('JAWSDB_DB', false);
         
         # for local
         
-        $this->host = 'au77784bkjx6ipju.cbetxkdyhwsb.us-east-1.rds.amazonaws.com';
-        $this->db_name = 'i2fe3t4570qg3cim';
-        $this->username = 'in8ma2pxo6kvogvs';
-        $this->password = 'wq7s88aa83bpegm1';
+        #$this->host = 'localhost';
+        #$this->db_name = 'drive_and_doc';
+        #$this->username = 'root';
+        #$this->password = '';
     }
 
     // DB connect
