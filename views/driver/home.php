@@ -6,7 +6,69 @@
         header("location: ../../login.php");
         exit;
     }
+
+        //Function to create HTML Table Element for Trips
+        function create_table($headers = array(), $rows = array(), $attributes = array()){
+            $headersCount = count($headers); //Header element, such as "ID | Driver | ... " etc.
+            $o = "<table "; //Start of Table Construction. Make sure it's not empty:
+            if(!empty($attributes)){
+                foreach($attributes as $key =>$value){
+                    $o .= "$key='" . $value . "' ";
+                }
+            }
+            $o .= '>';
+            $o .= '<tr>';
+            foreach($headers as $heading){
+                $o.= '<th>' . $heading . '</th>';
+            }
+            $o .= '</tr>';
+            foreach($rows as $row){
+                $o .= '<tr>';
+                for($i = 0; $i < count($row); $i++){
+                    for ($col = 0; $col <= 3; $col++){
+                        $o .= " <td>" . $row[$i][$col] . "</td>" ;
+                    }
+                    $o .= '</tr>';
+                }
+            }
+            return $o;
+        }
+    
+    $queryString = '8';
+    $ch = curl_init();
+
+    #local
+    curl_setopt($ch, CURLOPT_URL, 'http://localhost/drive-and-doc/api/trips/?driverUserId=' . $queryString);
+    #prod
+    #curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/api/trips/?driverUserId=' . $queryString);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    $result = curl_exec($ch); //send the curl request
+    curl_close($ch);
+    $result = substr($result, 0, -3); //String ends in ? > for some reason. Might need to change this line later.
+    $result = json_decode($result);
+    
+    $displayArr = array();
+    foreach($result as $x => $val) { //Began to populate displayArr with Trip Information
+        if (isset($result[$x]->tripStatus) && $result[$x]->tripStatus == "Not Started"){
+            array_push($displayArr, array($result[$x]->ID,
+            $result[$x]->driverFirstName . ' ' . $result[$x]->driverLastName,
+            date('m/d/Y g:i A', strtotime($result[$x]->startDateTime)),
+            $result[$x]->startCity . ', ' . $result[$x]->startStateCode));
+        }
+        }
+
+    echo create_table( //Create Tables with information
+        ["Trip ID","Driver","Start Date","Start Location"],
+        [
+            $displayArr
+        ],
+        [
+            'class' =>'tripsTable'
+        ]
+    );
+
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,7 +91,7 @@
         <div class="tripsView">
             <h4>List of Active Trips</h4>           
             <table class="tripsTable">
-                <tr><!--examples until functionality in place-->
+                <!-- <tr>   examples until functionality in place
                     <th>Trip ID</th>
                     <th>Start Date</th>
                     <th>Start Location</th>
@@ -53,7 +115,7 @@
                     <td>Dallas,TX</td>
                     <td>Memphis, TN</td>
                 </tr>
-            </table> 
+            </table>-->
         </div>
     </body>
 </html>
