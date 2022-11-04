@@ -18,6 +18,89 @@
         header("Location: new_trip.php");
         exit();
     }
+
+    if (isset($_GET['queryStr'])) {
+        //function to handle search, assuming the search bar is populated with something
+        $queryString = filter_input(INPUT_GET, 'queryStr', FILTER_SANITIZE_STRING); //clean the input string
+        $ch = curl_init(); //create a curl request
+
+        #local
+        curl_setopt($ch, CURLOPT_URL, 'http://localhost/drive-and-doc/api/trips/?queryStr=' . $queryString);//define url as api target, must change to prod
+        #prod
+        #curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/api/trips/?queryStr=' . $queryString);//define url as api target, must change to prod
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        $queryResult = curl_exec($ch);//send the curl request
+        curl_close($ch);
+        $queryResult = json_decode($queryResult);
+    }
+
+
+    $userId = $_SESSION['id'];
+    $ch = curl_init();
+
+    #local
+    curl_setopt($ch, CURLOPT_URL, 'http://localhost/drive-and-doc/api/trips/?userId=' . $userId);
+    #prod
+    #curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/api/trips/?driverUserId=' . $userId);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    $result = curl_exec($ch); //send the curl request
+    curl_close($ch);
+    $result = substr($result, 0, -3); //String ends in ? > for some reason. Might need to change this line later.
+    $result = json_decode($result);
+    $displayArr = array();
+    if (isset($result)){ //Make sure trips exist from API call
+        foreach($result as $x => $val) { //Began to populate displayArr with Trip Information
+            if (isset($result[$x]->tripStatus) && $result[$x]->tripStatus != "Completed"){ //Filter out completed trips
+                array_push($displayArr, array($result[$x]->ID,
+                $result[$x]->driverFirstName . ' ' . $result[$x]->driverLastName,
+                date('m/d/Y g:i A', strtotime($result[$x]->startDateTime)),
+                $result[$x]->startCity . ', ' . $result[$x]->startStateCode));
+            }
+        }
+    }
+
+        //Function to create HTML Table Element for Trips
+        function create_table($headers = array(), $rows = array(), $attributes = array()){
+            $headersCount = count($headers); //Header element count for "ID | Driver | ... " etc.
+            $o = "<table "; //Start of Table Construction.
+            if(!empty($attributes)){ //Attributes such as classes or styles
+                foreach($attributes as $key =>$value){
+                    $o .= "$key='" . $value . "' ";
+                }
+            }
+            $o .= '>';
+            $o .= '<tr>'; //Began adding the table elements
+            foreach($headers as $heading){
+                $o.= '<th>' . $heading . '</th>'; //Header Element such as "ID | Driver | ... " etc.
+            }
+            $o .= '</tr>';
+            foreach($rows as $row){
+                $o .= '<tr>'; //Data table elements
+                for($i = 0; $i < count($row); $i++){
+                    for ($col = 0; $col <= 3; $col++){
+                        if ($i == 0 && $col == 0){
+                            $o .= "<td><a href>" . $row[$i][$col] . "</a></td>" ; //If it's the first element, add <a> style
+                        } else {
+                            $o .= "<td>" . $row[$i][$col] . "</td>" ; //otherwise, just put in the data
+                        }
+                    }
+                    $o .= '</tr>';
+                }
+            }
+            return $o;
+        }
+        if (isset($displayArr) && !isset($queryResult)){
+            echo create_table( //Create Tables with information
+                ["Trip ID","Driver","Start Date","Start Location"],
+                [
+                    $displayArr
+                ],
+                [
+                    'class' => 'tripsTable'
+                ]
+                );
+
+            }
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,39 +125,43 @@
         <h1>Active Trips</h1>
         <h3><a href="past_trips.php">View Completed Trips</a></h3>
         <div class="searchContainer">
-            <form>
-                <input type="text" placeholder="Trip Record" class="search">
+            <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="get"> <!-- action = '..\..\api\trips\read.php'  method='get' >--> 
+                <input type="text" placeholder="Trip Record" class="search" name="queryStr">
                 <button type="submit" class="searchButton">Search</button>
             </form>
         </div>
         <div class="tripsView">
             <h4>List of Active Trips</h4>           
-            <table class="tripsTable">
-                <tr><!--examples until functionality in place-->
-                    <th>Trip ID</th>
-                    <th>Driver</th>
-                    <th>Start Date</th>
-                    <th>Start Location</th>
-                </tr>
-                <tr>
-                    <td><a href = "">0000001</a></td>
-                    <td>Joe Bob</td>
-                    <td>9/17/2022</td>
-                    <td>Topeka, KS</td>
-                </tr>
-                <tr>
-                    <td><a href>0000233</a></td>
-                    <td>John Doe</td>
-                    <td>9/20/2022</td>
-                    <td>Chicago, IL</td>
-                </tr>
-                <tr>
-                    <td><a href>0000999</a></td>
-                    <td>Amy Smith</td>
-                    <td>9/30/2022</td>
-                    <td>Dallas,TX</td>
-                </tr>
-            </table> 
+            <?php
+
+                if (isset($queryResult) && is_array($queryResult)) {
+                    //make an html table with search results
+                    //remove old table result
+                    echo '<table class="tripsTable">';
+                    echo '<tr>';
+                    echo '<th>Trip ID</th>';
+                    echo '<th>Driver</th>';
+                    echo '<th>Start Date</th>';
+                    echo '<th>Start Location</th>';
+                    echo '</tr>';
+                    for ($i = 0; $i < count($queryResult); $i++) {
+                        $row = $queryResult[$i];
+                        #echo $row;
+                        echo "<tr>";
+                        echo "<td>" . $row->ID . "</td>";
+                        echo "<td>" . $row->driverFirstName . ' ' . $row->driverLastName . "</td>";
+                        echo "<td>" . $row->startDateTime . "</td>";
+                        echo "<td>" . $row->startCity . ', ' . $row->startStateCode . "</td>";
+                        echo "</tr>";
+                    }
+                    echo '</table>';
+                }
+                else if (isset($queryResult)) {
+                    //indicate that no results were returned
+                    echo "No Results Found";
+                }
+            ?>
+
         </div>
     </body>
     <!---Modal Code for future impl-->
