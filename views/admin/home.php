@@ -46,8 +46,8 @@
     $result = curl_exec($ch); //send the curl request
     curl_close($ch);
     $result = substr($result, 0, -3); //String ends in ? > for some reason. Might need to change this line later.
+    echo $result;
     $result = json_decode($result);
-    echo isset($result);
     $displayArr = array();
     if (isset($result)){ //Make sure trips exist from API call
         foreach($result as $x => $val) { //Began to populate displayArr with Trip Information
