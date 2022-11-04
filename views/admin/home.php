@@ -80,8 +80,8 @@
                 $o .= '<tr>'; //Data table elements
                 for($i = 0; $i < count($row); $i++){
                     for ($col = 0; $col <= 3; $col++){
-                        if ($i == 0 && $col == 0){
-                            $o .= "<td><a href>" . $row[$i][$col] . "</a></td>" ; //If it's the first element, add <a> style
+                        if ($col == 0){
+                            $o .= "<td><a href = \"trip_detail.php?tripID=" . $row[$i][$col] ."\">" . $row[$i][$col] . "</a></td>" ; //If it's the first element, add <a> style
                         } else {
                             $o .= "<td>" . $row[$i][$col] . "</td>" ; //otherwise, just put in the data
                         }
