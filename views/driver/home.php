@@ -8,13 +8,11 @@
     }
 
     $queryString = $_SESSION['id'];
-    //$queryString = '9';
     $ch = curl_init();
-
     #local
-    curl_setopt($ch, CURLOPT_URL, 'http://localhost/drive-and-doc/api/trips/?driverUserId=' . $queryString);
+    #curl_setopt($ch, CURLOPT_URL, 'http://localhost/drive-and-doc/api/trips/?driverUserId=' . $queryString);
     #prod
-    #curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/api/trips/?driverUserId=' . $queryString);
+    curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/api/trips/?driverUserId=' . $queryString);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     $result = curl_exec($ch); //send the curl request
     curl_close($ch);
@@ -22,7 +20,7 @@
     $result = json_decode($result);
 
     $displayArr = array();
-    if (isset($result)){ //Make sure trips exist from API call
+    if (isset($result) && $result->message !== "No Matching Trips Found"){ //Make sure trips exist from API call
         foreach($result as $x => $val) { //Began to populate displayArr with Trip Information
             if (isset($result[$x]->tripStatus) && $result[$x]->tripStatus == "Not Started"){ //Filter out completed trips
                 array_push($displayArr, array($result[$x]->ID,
@@ -53,7 +51,7 @@
                 for($i = 0; $i < count($row); $i++){
                     for ($col = 0; $col <= 3; $col++){
                         if ($i == 0 && $col == 0){
-                            $o .= "<td><a href>" . $row[$i][$col] . "</a></td>" ; //If it's the first element, add <a> style
+                            $o .= "<td><a href = \"trip_detail.php?tripID=" . $row[$i][$col] ."\">" . $row[$i][$col] . "</a></td>" ; //If it's the first element, add <a> style
                         } else {
                             $o .= "<td>" . $row[$i][$col] . "</td>" ; //otherwise, just put in the data
                         }
@@ -96,15 +94,15 @@
         <h3><a href="past_trips.php">View Completed Trips</a></h3>
         <div class="tripsView">
             <h4>List of Active Trips</h4>           
-            <table class="tripsTable">
-                <!-- <tr>   examples until functionality in place
+            <!-- <table class="tripsTable">
+                <tr> 
                     <th>Trip ID</th>
                     <th>Start Date</th>
                     <th>Start Location</th>
                     <th>Destination</th> 
                 </tr>
                 <tr>
-                    <td><a href = "">0000001</a></td>
+                    <td><a href = "trip_detail.php?varname=<//?php echo $var_value ?>">0000001</a></td>
                     <td>9/17/2022</td>
                     <td>Topeka, KS</td>
                     <td>Fort Hays, KS</td>
@@ -121,7 +119,7 @@
                     <td>Dallas,TX</td>
                     <td>Memphis, TN</td>
                 </tr>
-            </table>-->
+            </table> -->
         </div>
     </body>
 </html>
