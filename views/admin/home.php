@@ -1,6 +1,6 @@
 <?php
     // Initialize the session
-    session_start();
+    /*session_start();
     // Check if the user is already logged in, if yes then redirect them to home page
     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         if(isset($_SESSION["usertype"])) {
@@ -11,11 +11,6 @@
         }
     } else {
         header("location: ../../login.php");
-        exit();
-    }
-
-    if(isset($_POST["tripButton"])) {
-        header("Location: new_trip.php");
         exit();
     }
 
@@ -102,6 +97,7 @@
                 );
 
             }
+    }*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -117,7 +113,7 @@
                 <button type="submit" id= "tripButton" class="tripButton">Create A Trip</button>
             </form>
             <h2>Drive and Doc</h2>
-            <a href="../../logout.php">
+            <a href="../../controllers/api/authentication/logout.php">
                 <button id= "logoutButton" class="logoutButton">Logout</button>
             </a>
         </nav>
@@ -132,7 +128,8 @@
             </form>
         </div>
         <div class="tripsView">
-            <h4>List of Active Trips</h4>           
+            <h4>List of Active Trips</h4>   
+            
             <?php
 
                 if (isset($queryResult) && is_array($queryResult)) {
@@ -162,7 +159,33 @@
                     echo "No Results Found";
                 }
             ?>
-
+            
+            <table class="tripsTable">
+                <tr><!--examples until functionality in place-->
+                    <th>Trip ID</th>
+                    <th>Driver</th>
+                    <th>Start Date</th>
+                    <th>Start Location</th>
+                </tr>
+                <tr>
+                    <td><a href = "trip_detail.php">0000001</a></td>
+                    <td>Joe Bob</td>
+                    <td>9/17/2022</td>
+                    <td>Topeka, KS</td>
+                </tr>
+                <tr>
+                    <td><a href = "trip_detail.php">0000233</a></td>
+                    <td>John Doe</td>
+                    <td>9/20/2022</td>
+                    <td>Chicago, IL</td>
+                </tr>
+                <tr>
+                    <td><a href = "trip_detail.php">0000999</a></td>
+                    <td>Amy Smith</td>
+                    <td>9/30/2022</td>
+                    <td>Dallas,TX</td>
+                </tr>
+            </table> 
         </div>
     </body>
     <!---Modal Code for future impl-->

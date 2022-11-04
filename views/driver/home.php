@@ -3,7 +3,7 @@
     session_start();
     // Check if the user is not logged in and redirect to the login page
     if(!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"] === true){
-        header("location: ../../login.php");
+        header("location: ../../index.php");
         exit;
     }
 ?>
@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="../../css/stylesheet.css">
         <nav class = "topnav">
             <h2>Drive and Doc</h2>
-            <a href="../../logout.php">
+            <a href="../../controllers/api/authentication/logout.php">
                 <button id= "logoutButton" class="logoutButton">Logout</button>
             </a>
         </nav>
@@ -36,19 +36,19 @@
                     <th>Destination</th> 
                 </tr>
                 <tr>
-                    <td><a href = "">0000001</a></td>
+                    <td><a href = "trip_detail.php">0000001</a></td>
                     <td>9/17/2022</td>
                     <td>Topeka, KS</td>
                     <td>Fort Hays, KS</td>
                 </tr>
                 <tr>
-                    <td><a href>0000233</a></td>
+                    <td><a href = "trip_detail.php">0000233</a></td>
                     <td>9/20/2022</td>
                     <td>Chicago, IL</td>
                     <td>St. Louis, MO</td>
                 </tr>
                 <tr>
-                    <td><a href>0000999</a></td>
+                    <td><a href = "trip_detail.php">0000999</a></td>
                     <td>9/30/2022</td>
                     <td>Dallas,TX</td>
                     <td>Memphis, TN</td>

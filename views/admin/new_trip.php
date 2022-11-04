@@ -1,6 +1,6 @@
 <?php
     // Initialize the session
-    session_start();
+    /*session_start();
     // Check if the user is already logged in, if yes then redirect them to home page
     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         if(isset($_SESSION["usertype"])) {
@@ -12,18 +12,7 @@
     } else {
         header("location: ../../login.php");
         exit;
-    }
-    if(isset($_POST["createTripButton"])) {
-        header("Location: trip_detail.php");
-    }
-    if(isset($_POST["createTripButton"])) {     
-        header("Location: trip_details.php");
-        exit();
-    }
-    if(isset($_POST["cancelButton"])) {
-        header("Location: home.php");
-        exit();
-    }
+    }*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,29 +31,45 @@
         <h1>Create A New Trip</h1>
         <h3><a href="home.php">View Active Trips</a> | <a href="past_trips.php">View Completed Trips</a></h3>
         <div class="createTrip">
-            <form form action = "trip_detail.php" method="post" id="newTripForm">
+            <form form action = "../../controllers/api/trips/index.php" method="post" id="newTripForm">
                 <label for="tripID">Trip ID: </label>
                 <input type="text" id="tripID" name="tripID">
+                <br>
+
+                <label for="tripStatus">Trip Status: </label>
+                <input type="text" id="tripStatus" name="tripStatus">
+                <br>
+
+                <label for="companyId">Company ID: </label>
+                <input type="text" id="companyId" name="companyId">
                 <br>
 
                 <label for="driverUserId">Driver ID: </label>
                 <input type="text" id="driverUserId" name="driverUserId" required>
                 <br>
                     
-                <label for="tripCity">Start Location: </label>
+                <label for="startCity">Start Location: </label>
                 <input type="text" id="startCity" name="startCity">
+                <br>
+
+                <label for="startStateCode">Start State Abbr: </label>
+                <input type="text" id="startStateCode" name="startStateCode">
                 <br>
                     
                 <label for="endCity">End Location: </label>
                 <input type="text" id="endCity" name="endCity">
                 <br>
-                    
-                <label for="startDateTime">Start Time: </label>
-                <input type="datetime-local" id="startDateTime" name="startDateTime" required>
+
+                <label for="endStateCode">End State Abbr: </label>
+                <input type="text" id="endStateCode" name="endStateCode">
                 <br>
                     
-                <label for="endDateTime">End Time: </label>
-                <input type="datetime-local" id="endDateTime" name="endDateTime">
+                <label for="startDatetime">Start Time: </label>
+                <input type="datetime-local" id="startDatetime" name="startDatetime" required>
+                <br>
+                    
+                <label for="endDatetime">End Time: </label>
+                <input type="datetime-local" id="endDatetime" name="endDatetime">
                 <br>                    
 
                 <label for="loadContents">Load Contents: </label>
@@ -73,17 +78,6 @@
                     
                 <label for="loadWeight">Load Weight: </label>
                 <input type="number" id="loadWeight" name="loadWeight">
-
-                <!---<script>
-                    $.ajax({
-                        type:'POST',
-                        url: '../../api/trips/index.php',
-                        contentType: 'application/json; charset=utf-8',
-                        data: {data:JSON.stringify($_POST)}
-                    }).done(function ($_POST) {
-                        self.result("Done!");
-                    }).fail(showError);
-                </script>-->
                     
                 <button type="submit" class="cancelButton" formaction="home.php">Cancel</button>
                 <button type="submit" class="createTripButton">Create Trip</button>
