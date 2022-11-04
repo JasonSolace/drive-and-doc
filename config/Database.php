@@ -9,6 +9,7 @@ class Database {
     private $password;
     private $db_name;
 
+
     private $conn;
 
     public function __construct(){
@@ -20,7 +21,7 @@ class Database {
        $this->username = getenv('JAWSDB_USER', false);
        $this->db_name = getenv('JAWSDB_DB', false);
         
-        # for local
+        # for local db
         
         #$this->host = 'localhost';
         #$this->db_name = 'drive_and_doc';
