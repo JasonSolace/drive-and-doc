@@ -51,19 +51,21 @@
         }
         $o .= '</tr>';
         foreach($rows as $row){
-            $o .= '<tr>'; //Data table elements
-            for($i = 0; $i < count($row); $i++){
-                for ($col = 0; $col <= 3; $col++){
-                    if ($i == 0 && $col == 0){
-                        $o .= "<td><a href>" . $row[$i][$col] . "</a></td>" ; //If it's the first element, add <a> style
-                    } else {
-                        $o .= "<td>" . $row[$i][$col] . "</td>" ; //otherwise, just put in the data
+            $o .= '</tr>';
+            foreach($rows as $row){
+                $o .= '<tr>'; //Data table elements
+                for($i = 0; $i < count($row); $i++){
+                    for ($col = 0; $col <= 3; $col++){
+                        if ($col == 0){
+                            $o .= "<td><a href = \"trip_detail.php?tripID=" . $row[$i][$col] ."\">" . $row[$i][$col] . "</a></td>" ; //If it's the first element, add <a> style
+                        } else {
+                            $o .= "<td>" . $row[$i][$col] . "</td>" ; //otherwise, just put in the data
+                        }
                     }
+                    $o .= '</tr>';
                 }
-                $o .= '</tr>';
             }
-        }
-        return $o;
+            return $o;
     }
 
     echo create_table( //Create Tables with information
