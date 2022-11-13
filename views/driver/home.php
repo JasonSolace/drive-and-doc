@@ -22,7 +22,7 @@
     $displayArr = array();
     if (isset($result) && (!isset($result->message))){ //Make sure trips exist from API call
         foreach($result as $x => $val) { //Began to populate displayArr with Trip Information
-            if (isset($result[$x]->tripStatus) && $result[$x]->tripStatus == "Not Started"){ //Filter out completed trips
+            if (isset($result[$x]->tripStatus) && $result[$x]->tripStatus != "Completed"){ //Filter out completed trips
                 array_push($displayArr, array($result[$x]->ID,
                 $result[$x]->driverFirstName . ' ' . $result[$x]->driverLastName,
                 date('m/d/Y g:i A', strtotime($result[$x]->startDateTime)),
