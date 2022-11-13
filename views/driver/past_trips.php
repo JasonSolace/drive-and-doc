@@ -65,7 +65,8 @@
                     $o .= '</tr>';
                 }
             }
-            return $o;
+        }
+        return $o;
     }
 
     echo create_table( //Create Tables with information
