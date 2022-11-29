@@ -34,7 +34,7 @@
             catch (Exception $e) {
                 echo 'Error: ' . $e->getMessage();
             }
-            return $this->conn;
+            return $this->s3;
         }
     }
 ?>
