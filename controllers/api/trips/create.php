@@ -12,7 +12,7 @@
        $db = $database->connect();
 
        $trip = new Trip($db);
-
+        print_r('driverUserID: ' . $_POST['driverUserId']);
         $trip->userId = is_int($_POST['driverUserId']) ? $_POST['driverUserId'] : intval($_POST['driverUserId']);                
         $trip->tripStatus = $_POST['tripStatus'];
         $trip->startDateTime = $_POST['startDatetime'];
