@@ -103,10 +103,13 @@ class Trip {
 
         $usrSql = 'SELECT COUNT(*) "userIdCount" FROM USER WHERE ID = :queryStringUserId';
         $stmt = $this->conn->prepare($usrSql);
+        print_r($this->userId);
         $stmt->bindParam(':queryStringUserId', $this->userId, PDO::PARAM_INT);
+        print_r($usrSql);
         if ($stmt->execute()){
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             extract($row);
+            print_r($userIdCount);
             if ($userIdCount > 0){
                 return true;
             }

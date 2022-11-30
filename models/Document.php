@@ -8,6 +8,7 @@ class Document {
     private $conn;
     private $table = 'document';
 
+    private $bucket = 'drive-and-doc';
     //S3 Connection
     private $s3_conn;
 
@@ -18,7 +19,10 @@ class Document {
     }
 
 
+    public function upload() {
 
+
+    }
 
 
 

@@ -24,7 +24,7 @@
         $trip->loadContents = $_POST['loadContents'];
         $trip->loadWeight = $_POST['loadWeight'];
         $trip->companyId = $_POST['companyId'];
-                
+        
         //test if passed user id is in the db
         if (!$trip->userCheck()){
             //user not in the database
