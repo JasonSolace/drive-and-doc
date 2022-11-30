@@ -7,7 +7,7 @@
        
        include_once '../../../config/Database.php';
        include_once '../../../models/Trip.php';
-
+       
        $database = new Database();
        $db = $database->connect();
 
