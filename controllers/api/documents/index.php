@@ -8,13 +8,11 @@
 
     $request_method = $_SERVER['REQUEST_METHOD'];
     //$data = json_decode(file_get_contents('php://input'));
-    print_r($request_method);
     switch ($request_method){
         case 'GET':
-
+            require 'get.php';
             break;
         case 'POST':
-            print_r('test index');
             require 'upload.php';
             break;
         case 'PUT':

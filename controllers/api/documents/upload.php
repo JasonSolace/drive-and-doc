@@ -25,7 +25,6 @@
         $filename = $_FILES['image']['name'];
         $filetype = $_FILES['image']['type'];
 
-        print_r('testing');
 
         //check if invalid file format sent
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
@@ -36,14 +35,15 @@
 
         if(move_uploaded_file($_FILES['image']['tmp_name'], $filename)){
             $bucket = 'drive-and-doc';
-            $file_Path = 'Dnd company user.png';
-            $key = 'Dnd company user.png'; //basename($file_Path);
+            $file_Path = 'Dnd company user old.png';
+            $key = 'Dnd company user old.png'; //basename($file_Path);
+            print_r('test');
             try {
                 $result = $s3->putObject([
                     'Bucket' => $bucket,
                     'Key' => $key,
                     'Body' => fopen($file_Path, 'r'),
-                    'ACL' => 'public-read',
+                    //'ACL' => 'public-read',
                 ]);
                 echo 'Image uploaded successfully. image path is: '. $result->get('ObjectURL');
             }
@@ -56,7 +56,4 @@
 
     }
 
-    //https://docs.aws.amazon.com/aws-sdk-php/v2/api/class-Aws.S3.S3Client.html#_putObject 
-    //https://www.tutsmake.com/upload-file-to-aws-s3-bucket-in-php/
-    //https://medium.com/@kentaguilar/simplest-way-to-upload-a-file-to-aws-s3-via-php-e83a9f54ba77
 ?>
