@@ -82,15 +82,3 @@
             echo json_encode(array('message' => 'A Trip with this ID Was Not Found'));
             die();
         }
-
-
-
-
-
-
-
-
-
-
-
-?>
