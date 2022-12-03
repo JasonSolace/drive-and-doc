@@ -30,7 +30,7 @@ h1 {
 h2 {
     float: left;
     margin-top: 15px;
-    margin-left: 0px;
+    margin-left: 0%;
 }
 
 h3 {
@@ -147,7 +147,7 @@ tr {
     cursor: pointer;
 }
 
-.completeTrip {
+.editTrip {
     grid-column-start: 3;
     grid-column-end: 1;
     grid-row-start: 5;
@@ -155,11 +155,11 @@ tr {
     margin-top: 1em;
 }
 
-.completeTripButton {
+.editButton {
     margin-left: auto;
     margin-right: auto;
     margin-top: 0%;
-    margin-bottom: 100px;
+    margin-bottom: 0%;
     width: 40%;
     justify-content: space-around;
     padding-left: 5%;
@@ -397,6 +397,8 @@ tr {
     grid-column-end: 2;
     grid-row-start: 4;
     grid-row-end: 5;
+    margin-top: 2%;
+    margin-bottom: 3%;
 }
 
 .tripDetailDest{
@@ -404,6 +406,8 @@ tr {
     grid-column-end: 3;
     grid-row-start: 4;
     grid-row-end: 5;
+    margin-top: 2%;
+    margin-bottom: 3%;
 }
 
 .tripDetailDriver { 
@@ -411,6 +415,8 @@ tr {
     grid-column-end: 2;
     grid-row-start: 2;
     grid-row-end: 3;
+    margin-top: 5%;
+    margin-bottom: 3%;
 }
 
 .tripDetailHeader {
@@ -418,6 +424,8 @@ tr {
     grid-column-end: 3;
     grid-row-start: 1;
     grid-row-end: 2;
+    margin-top: 2%;
+    margin-bottom: 3%;
 }
 
 .tripDetailStartLoc {
@@ -425,6 +433,8 @@ tr {
     grid-column-end: 3;
     grid-row-start: 3;
     grid-row-end: 4;
+    margin-top: 2%;
+    margin-bottom: 3%;
 }
 
 .tripDetailStartTime {    
@@ -432,6 +442,8 @@ tr {
     grid-column-end: 3;
     grid-row-start: 2;
     grid-row-end: 3;
+    margin-top: 5%;
+    margin-bottom: 3%;
 }
 
 .tripDetailID  {    
@@ -439,6 +451,8 @@ tr {
     grid-column-end: 2;
     grid-row-start: 3;
     grid-row-end: 4;
+    margin-top: 2%;
+    margin-bottom: 3%;
 }
 
 .tripDocs {
