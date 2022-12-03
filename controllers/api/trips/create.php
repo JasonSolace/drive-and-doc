@@ -42,4 +42,3 @@
             array('message' => 'Trip not created')
             );
         }
-?>
