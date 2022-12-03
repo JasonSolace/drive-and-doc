@@ -13,11 +13,6 @@
         header("location: ../../index.php");
         exit;
     }
-
-    if(isset($_POST["tripButton"])) {
-        header("Location: new_trip.php");
-        exit();
-    }
     $queryString = $_GET['tripID'];
     $ch = curl_init();
     #local
@@ -55,13 +50,17 @@
         <h1>Trip Record Details</h1>
         <h3><a href="home.php">View Active Trips</a> | <a href="past_trips.php">View Completed Trips</a></h3>
             <div class="tripDetailAdmin">                
-            <div class="tripDetailID"><strong>Trip ID</strong><?php echo '<br/>'. $result->ID; ?></div>
+                <div class="tripDetailID"><strong>Trip ID</strong><?php echo '<br/>'. $result->ID; ?></div>
                 <div class="tripDetailDriver"><strong>Driver</strong><?php echo '<br/>' . $result->driverFirstName . ' ' . $result->driverLastName; ?></div> 
                 <div class="tripDetailArrivalTime"><strong>Expected Arrival</strong><?php echo '<br/>'. date('m/d/Y g:i A', strtotime($result->endDateTime)); ?></div>             
                 <div class="tripDetailStartTime"><strong>Start Date</strong><?php echo '<br/>'. date('m/d/Y g:i A', strtotime($result->startDateTime)); ?></div>
                 <div class="tripDetailStartLoc"><strong>Start Location</strong><?php echo '<br/>'. $result->startCity . ', ' . $result->startStateCode; ?></div>
                 <div class="tripDetailDest"><strong>Destination</strong><?php echo '<br/>'. $result->endCity . ', ' . $result->endStatecode; ?></div>
-                <div class="completeTrip"><button class="completeTripButton">Mark As Completed</button></div>
+                <div class="editTrip">
+                    <form action = "edit_trip.php" method="post">
+                        <button type="submit" id= "editButton" class="editButton">Edit Trip Details</button>
+                    </form>
+                </div>
             </div>
                 <div class="docHistHeader">
                     <h4>Document History</h4>
