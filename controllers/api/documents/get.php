@@ -17,19 +17,12 @@
 
     $document = new Document($db, $s3);
 
-    $key = 'Dnd company user old.png';
+    //this needs to be the name of the file in the S3 bucket
+    $key = $_GET['IMG_NAME'];
     $bucket = 'drive-and-doc';
 
     try {
-  /*$downloadUrl = $s3->getObjectUrl($bucket,
-                                    $key,
-                                    '+15 minutes',
-                                    array(
-                                        'ResponseContentDisposition' => "attachment; filename={$key},'Content-Type' => 'application/octet-stream'",
-                                    ));
-    print_r($downloadUrl);
-*/
-    //Creating a presigned URL
+        //Creating a presigned URL
         $cmd = $s3->getCommand('GetObject', [
             'Bucket' => 'drive-and-doc',
             'Key' => $key
@@ -40,49 +33,7 @@
         // Get the actual presigned-url
         $presignedUrl = (string)$request->getUri();
         print_r($presignedUrl);
-        /*
-        $result = $s3->getObject([
-            'Bucket' => $bucket,
-            'Key' => $key,
-            'ResponseContentDisposition' => 'attachment; filename="Dnd company user.png"',
-        ]);
-        
-$cmd = $s3->getCommand('GetObject', [
-    'Bucket' => $bucket,
-    'Key' => $key,
-    'ResponseContentDisposition' => 'attachment; filename="Dnd company user.png"',
-]);
-$signed_url = $s3->createPresignedRequest($cmd, '+15 minutes')
-                    ->getUri()
-                    ->__toString();
-            header("Location: {$signed_url}");
-*/
-//download('Dnd company user.png', 'Test API download.png');
-    
-/*
-        $promise = $s3->getObjectAsync([
-            'Bucket' => $bucket,
-            'Key' => $key
-        ]);
-*/
-
-        //$result['Body']->getContents();
-        //$test = (string) $result['Body'];
-        //var_dump($test);
-        //file_put_contents('./test.png', $result['Body']->getContents());
-        //$body = $result['Body']->getContents();
-        //$body->rewind();
-        //$body = $result['Body'];
-        //var_dump($body);
-        //$body->rewind();
-        //$content = $body->read($result['ContentLength']);
-        //echo 'Image retrieved successfully:\n';
-        
-        //readfile($result['Body']);
-
     }
     catch (Exception $e) {
         echo 'Error: ' . $e->getMessage();
     }
-
-?>

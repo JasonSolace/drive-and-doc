@@ -17,6 +17,7 @@
 
     $document = new Document($db, $s3);
 
+    //make sure a file is sent with the request as property "image"
     if (isset($_FILES['image']) && $_FILES['image']['error']==0){
         $allowed = array('jpg' => 'image/jpg',
                          'jpeg' => 'image/jpeg',
@@ -33,27 +34,33 @@
             die();//exit
         }
 
+
+        //check that upload file is valid and provided by POST upload mechanism
         if(move_uploaded_file($_FILES['image']['tmp_name'], $filename)){
-            $bucket = 'drive-and-doc';
-            $file_Path = 'Dnd company user old.png';
-            $key = 'Dnd company user old.png'; //basename($file_Path);
-            print_r('test');
-            try {
-                $result = $s3->putObject([
-                    'Bucket' => $bucket,
-                    'Key' => $key,
-                    'Body' => fopen($file_Path, 'r'),
-                    //'ACL' => 'public-read',
-                ]);
-                echo 'Image uploaded successfully. image path is: '. $result->get('ObjectURL');
+            $document->uploadedTime = gmdate('Y-m-d H:i:s'); //utc time for now
+            $document->tripId = isset($_POST['tripId']) ? $_POST['tripId'] : $_GET['tripId'];
+            $document->docTypeId = isset($_POST['docTypeId']) ? $_POST['docTypeId'] : $_GET['docTypeId'];
+            $document->filename = $filename;
+
+            //check that the trip and doc type exist so we don't violate constraints
+            if (!$document->tripCheck()){
+                echo json_encode(array('message' => 'tripId Not Found'));
+                die();
             }
-            catch (Exception $e) {
-                echo 'Error: ' . $e->getMessage();
-            }
+            if (!$document->docTypeCheck()){
+                echo json_encode(array('message' => 'tripId Not Found'));
+                die();
+            }           
+            
+            //if these are good, call the upload method
+            $document->upload();
         }
-        
-
-
+        else {
+            print_r(json_encode(array('message' => 'File not sent with HTTP POST request.')));
+            die();
+        }
     }
-
-?>
+    else {
+        print_r(json_encode(array('message' => 'No file included with request image property.')));
+        die();
+    }

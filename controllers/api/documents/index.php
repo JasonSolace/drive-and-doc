@@ -10,7 +10,12 @@
     //$data = json_decode(file_get_contents('php://input'));
     switch ($request_method){
         case 'GET':
-            require 'get.php';
+            if (isset($_GET['tripId'])){
+                require 'get_trip_docs.php';
+            }
+            else {
+                require 'get.php';
+            }
             break;
         case 'POST':
             require 'upload.php';
