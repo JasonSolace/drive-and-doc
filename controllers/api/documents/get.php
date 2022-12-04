@@ -17,23 +17,13 @@
 
     $document = new Document($db, $s3);
 
-    //this needs to be the name of the file in the S3 bucket
-    $key = $_GET['IMG_NAME'];
-    $bucket = 'drive-and-doc';
-
-    try {
-        //Creating a presigned URL
-        $cmd = $s3->getCommand('GetObject', [
-            'Bucket' => 'drive-and-doc',
-            'Key' => $key
-        ]);
-
-        $request = $s3->createPresignedRequest($cmd, '+20 minutes');
-
-        // Get the actual presigned-url
-        $presignedUrl = (string)$request->getUri();
-        print_r($presignedUrl);
+    //must include a document id to get that document
+    if (isset($_GET['docId'])){
+        $document->ID = $_GET['docId'];
+        $document->getDocument();
     }
-    catch (Exception $e) {
-        echo 'Error: ' . $e->getMessage();
+
+    else {
+        print_r(json_encode(array('message' => 'Must pass docId to retrieve a document!')));
+        die(); //exit
     }

@@ -20,9 +20,8 @@
         case 'POST':
             require 'upload.php';
             break;
-        case 'PUT':
-            break;
         case 'DELETE':
+            require 'delete.php';
             break;
     }
 

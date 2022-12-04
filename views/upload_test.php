@@ -12,8 +12,8 @@
         <div class="container">
             <form action = "../controllers/api/documents/index.php" method="post" enctype="multipart/form-data">
                 <input type="file" name="image" required>
-                <input type="number" placeholder="tripId" name="tripId" required> 
-                <input type="number" placeholder="docTypeId" name="docTypeId" required> 
+                <input type="number" placeholder="tripId" name="tripId" required> Trip ID
+                <input type="number" placeholder="docTypeId" name="docTypeId" required> Doc Type ID
                 <button type="submit" class="docUpload">Upload Doc</button>
             </form>
             </div>
