@@ -143,8 +143,7 @@ class Document {
         //with document record load the doc to S3    
         $bucket = 'drive-and-doc';
         $file_Path = $this->filename;
-        $key = $this->s3Filename; //basename($file_Path);
-        print_r($file_Path);
+        $key = $this->s3Filename; 
         try {
             $result = $this->s3_conn->putObject([
                 'Bucket' => $bucket,
