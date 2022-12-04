@@ -36,9 +36,7 @@
 
 
         //check that upload file is valid and provided by POST upload mechanism
-        //can uncomment the if-else statements below if we're ok with loading a copy of the file
-        //to this directory on the server. 
-        //if(move_uploaded_file($_FILES['image']['tmp_name'], $filename)){
+        if(move_uploaded_file($_FILES['image']['tmp_name'], $filename)){
             $document->uploadedTime = gmdate('Y-m-d H:i:s'); //utc time for now
             $document->tripId = isset($_POST['tripId']) ? $_POST['tripId'] : $_GET['tripId'];
             $document->docTypeId = isset($_POST['docTypeId']) ? $_POST['docTypeId'] : $_GET['docTypeId'];
@@ -46,21 +44,24 @@
 
             //check that the trip and doc type exist so we don't violate constraints
             if (!$document->tripCheck()){
-                echo json_encode(array('message' => 'tripId Not Found'));
+                echo json_encode(array('message' => 'tripId Not Found',
+                                        'tripId' => $document->tripId));
                 die();
             }
             if (!$document->docTypeCheck()){
-                echo json_encode(array('message' => 'tripId Not Found'));
+                echo json_encode(array('message' => 'docTypeId Not Found',
+                                       'docTypeId' => $document->docTypeId));
                 die();
             }           
             
             //if these are good, call the upload method
             $document->upload();
-       /* }
+            unlink($document->filename); //remove the file from this directory
+        }
         else {
             print_r(json_encode(array('message' => 'File not sent with HTTP POST request.')));
             die();
-        }*/
+        }
     }
     else {
         print_r(json_encode(array('message' => 'No file included with request image property.')));

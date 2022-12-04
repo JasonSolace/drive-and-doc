@@ -77,7 +77,6 @@ class Document {
         //appends that record's primary key to the filename (for uniqueness in S3)
         //loads the document to S3
         
-
         //create a record in the db for this file
         $query = "INSERT INTO document (
                             DocFilePath,
@@ -145,6 +144,7 @@ class Document {
         $bucket = 'drive-and-doc';
         $file_Path = $this->filename;
         $key = $this->s3Filename; //basename($file_Path);
+        print_r($file_Path);
         try {
             $result = $this->s3_conn->putObject([
                 'Bucket' => $bucket,

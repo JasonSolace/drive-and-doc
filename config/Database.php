@@ -15,10 +15,10 @@ class Database {
       
         /*for prod*/
         
-       $this->password = getenv('JAWSDB_PW', false);
-       $this->host = getenv('JAWSDB_HOST', false);
-       $this->username = getenv('JAWSDB_USER', false);
-       $this->db_name = getenv('JAWSDB_DB', false);
+        $this->password = getenv('JAWSDB_PW', false);
+        $this->host = getenv('JAWSDB_HOST', false);
+        $this->username = getenv('JAWSDB_USER', false);
+        $this->db_name = getenv('JAWSDB_DB', false);
         
         # for local
         
