@@ -36,7 +36,9 @@
 
 
         //check that upload file is valid and provided by POST upload mechanism
-        if(move_uploaded_file($_FILES['image']['tmp_name'], $filename)){
+        //can uncomment the if-else statements below if we're ok with loading a copy of the file
+        //to this directory on the server. 
+        //if(move_uploaded_file($_FILES['image']['tmp_name'], $filename)){
             $document->uploadedTime = gmdate('Y-m-d H:i:s'); //utc time for now
             $document->tripId = isset($_POST['tripId']) ? $_POST['tripId'] : $_GET['tripId'];
             $document->docTypeId = isset($_POST['docTypeId']) ? $_POST['docTypeId'] : $_GET['docTypeId'];
@@ -54,11 +56,11 @@
             
             //if these are good, call the upload method
             $document->upload();
-        }
+       /* }
         else {
             print_r(json_encode(array('message' => 'File not sent with HTTP POST request.')));
             die();
-        }
+        }*/
     }
     else {
         print_r(json_encode(array('message' => 'No file included with request image property.')));
