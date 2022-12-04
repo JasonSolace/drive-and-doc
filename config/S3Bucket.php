@@ -1,6 +1,6 @@
 <?php
     //include AWS SDK for S3 Doc storage
-    include_once '../vendor/autoload.php';
+    include_once __DIR__.'/../vendor/autoload.php';
 
     class S3Bucket {
         private $client;
