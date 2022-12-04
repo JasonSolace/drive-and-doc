@@ -1,6 +1,6 @@
 <?php
     //include AWS SDK for S3 Doc storage
-    include_once 'C:/xampp/htdocs/drive-and-doc/vendor/autoload.php';
+    include_once '../vendor/autoload.php';
 
     class S3Bucket {
         private $client;
