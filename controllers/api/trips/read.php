@@ -72,23 +72,3 @@
             array('message'=>'No Matching Trips Found')
         );
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-?>

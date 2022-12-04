@@ -36,7 +36,7 @@ CREATE TABLE USER (
         LoadWeight mediumint,
         CompanyId mediumint,
         PRIMARY KEY (ID),
-        FOREIGN KEY (UserId) REFERENCES USER(ID)
+        FOREIGN KEY (UserId) REFERENCES USER(ID),
         FOREIGN KEY (CompanyId) REFERENCES COMPANY(ID)
 		);
         

@@ -34,10 +34,3 @@
             require 'delete.php';
             break;
     }
-
-
-
-
-
-
-?>
