@@ -34,7 +34,7 @@
         $queryResult = json_decode($queryResult);
     }
 
-
+    //Began API call
     $userId = $_SESSION['id'];
     #echo $userId;
     $ch = curl_init();
@@ -47,13 +47,25 @@
     $result = curl_exec($ch); //send the curl request
     curl_close($ch);
     $result = json_decode($result);
+    //End of API call
 
     $displayArr = array();
     if (isset($result) && (!isset($result->message))){ //Make sure trips exist from API call
         foreach($result as $x => $val) { //Began to populate displayArr with Trip Information
             if (isset($result[$x]->tripStatus) && $result[$x]->tripStatus != "Completed"){ //Filter out completed trips
+
+                //Call API to populate correct driver first name and last name
+                $tripID = $result[$x]->ID;
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/controllers/api/trips/?ID=' . $tripID);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+                $tripResult = curl_exec($ch); //send the curl request
+                curl_close($ch);
+                $tripResult = json_decode($tripResult);
+                //End of API call
+    
                 array_push($displayArr, array($result[$x]->ID,
-                $result[$x]->driverFirstName . ' ' . $result[$x]->driverLastName,
+                $tripResult->driverFirstName . ' ' . $tripResult->driverLastName, //Rather than using results driverFirstName/LastName, we use the specific API call for that trip to populate
                 date('m/d/Y g:i A', strtotime($result[$x]->startDateTime)),
                 $result[$x]->startCity . ', ' . $result[$x]->startStateCode));
             }
