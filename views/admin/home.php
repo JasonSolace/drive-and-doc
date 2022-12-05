@@ -161,7 +161,7 @@
                         $row = $queryResult[$i];
                         #echo $row;
                         echo "<tr>";
-                        echo "<td>" . $row->ID . "</td>";
+                        echo "<td><a href = \"trip_detail.php?tripID=" . $row->ID . "\">" . $row->ID . "</a></td>"; //Hyperlink for trip details for a specific trip once search is made
                         echo "<td>" . $row->driverFirstName . ' ' . $row->driverLastName . "</td>";
                         echo "<td>" . $row->startDateTime . "</td>";
                         echo "<td>" . $row->startCity . ', ' . $row->startStateCode . "</td>";
