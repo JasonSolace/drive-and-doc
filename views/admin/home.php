@@ -34,7 +34,7 @@
         $queryResult = json_decode($queryResult);
     }
 
-
+    //Began API call
     $userId = $_SESSION['id'];
     #echo $userId;
     $ch = curl_init();
@@ -47,6 +47,7 @@
     $result = curl_exec($ch); //send the curl request
     curl_close($ch);
     $result = json_decode($result);
+    //End of API call
 
     $displayArr = array();
     if (isset($result) && (!isset($result->message))){ //Make sure trips exist from API call
@@ -149,7 +150,7 @@
                         $row = $queryResult[$i];
                         #echo $row;
                         echo "<tr>";
-                        echo "<td>" . $row->ID . "</td>";
+                        echo "<td><a href = \"trip_detail.php?tripID=" . $row->ID . "\">" . $row->ID . "</a></td>"; //Hyperlink for trip details for a specific trip once search is made
                         echo "<td>" . $row->driverFirstName . ' ' . $row->driverLastName . "</td>";
                         echo "<td>" . $row->startDateTime . "</td>";
                         echo "<td>" . $row->startCity . ', ' . $row->startStateCode . "</td>";
