@@ -36,7 +36,7 @@ CREATE TABLE USER (
         LoadWeight mediumint,
         CompanyId mediumint,
         PRIMARY KEY (ID),
-        FOREIGN KEY (UserId) REFERENCES USER(ID)
+        FOREIGN KEY (UserId) REFERENCES USER(ID),
         FOREIGN KEY (CompanyId) REFERENCES COMPANY(ID)
 		);
         
@@ -55,6 +55,8 @@ CREATE TABLE USER (
         DocFilePath VARCHAR(255) NOT NULL,
         DocTypeId mediumint,
         TripId mediumint,
+        UploadDatetime datetime,
+        UploadSuccess bit DEFAULT 0,
         PRIMARY KEY (ID),
         FOREIGN KEY (TripId) REFERENCES TRIP(ID),
         FOREIGN KEY (DocTypeId) REFERENCES DOCUMENT_TYPE(ID)
@@ -77,6 +79,10 @@ CREATE TABLE USER (
         FOREIGN KEY (CompanyId) REFERENCES COMPANY(ID)
     );
     
-    
+    -- user types
     INSERT INTO `user_type` (`ID`, `UserTypeName`) 
     VALUES (0, 'Company User'), (1, 'Driver');
+
+    -- document types
+    INSERT INTO `document_type` (`DocumentTypeName`)
+    VALUES ('Trip Log'), ('Receipt'), ('Other');

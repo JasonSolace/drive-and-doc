@@ -10,13 +10,12 @@
     $queryString = $_SESSION['id'];
     $ch = curl_init();
     #local
-    #curl_setopt($ch, CURLOPT_URL, 'http://localhost/drive-and-doc/api/trips/?driverUserId=' . $queryString);
+    #curl_setopt($ch, CURLOPT_URL, 'http://localhost/drive-and-doc/controllers/api/trips/?driverUserId=' . $queryString);
     #prod
     curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/controllers/api/trips/?driverUserId=' . $queryString);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     $result = curl_exec($ch); //send the curl request
     curl_close($ch);
-    $result = substr($result, 0, -3); //String ends in ? > for some reason. Might need to change this line later.
     $result = json_decode($result);
 
     $displayArr = array();

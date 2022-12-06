@@ -78,3 +78,47 @@ Trips -
 			§ Available parameters
 				□ ID
 			§ Will return an error if the trip id isn't found
+
+
+Documents - 
+	- Represents the Documents object
+	- Accessible through http://drive-and-doc.herokuapp.com/controllers/api/documents/
+	- GET and DELETE parameters passed via url parameter, POST in request body
+	- Parameter names are case sensitive
+		○ Ex: 
+		{
+		    "ID": 8,
+		    "tripStatus": "Not Complete",
+		    "startDatetime": "2022-10-25 08:28:32",
+		    "endDatetime": "2022-10-28 10:21:38",
+		    "startCity": "Manhattan",
+		    "endCity": "Walker",
+		    "loadContents": "Cows"
+		}
+		
+	- Methods
+		○ GET
+			§ Get One Document
+				□ Returns Document matching the passed docId parameter, along with presigned URL to retrieve document
+				□ Must Pass "docId" via url: ...api/documents/?docId=1
+				□ Available Parameters: docId
+			§ Get All Documents for Trip
+				□ Returns Documents for the passed tripId parameter
+				□ Must Pass "queryStr"  via url: ...api/documents/?tripId=2
+				□ Available Parameters: tripId
+		○ POST
+			§ Used to upload a Document
+			§ Must pass via the url: ...api/documents/?tripId=1&docTypeId=1
+				□ DocTypeId must exist in the document_type table in the database you're using
+				□ same for tripId
+			§ An example for implementi
+			§ All available parameters
+				□ docTypeId
+				□ tripId
+			§ UploadSuccess must = 1 in order for GET to return this Document
+		○ DELETE
+			§ Used to delete an existing document from S3 and the database
+			§ Must pass a docId as via the url: ...api/documents/?docId=2
+			§ Available parameters
+				□ docId
+			§ Will return an error if the document id isn't found

@@ -25,13 +25,3 @@
             print_r(json_encode(array('message' => 'No Trip ID Passed')));
             die(); //exit
         }
-
-
-
-
-
-
-
-
-
-?>

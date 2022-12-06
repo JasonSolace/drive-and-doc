@@ -19,7 +19,6 @@
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     $result = curl_exec($ch); //send the curl request
     curl_close($ch);
-    $result = substr($result, 0, -3); //String ends in ? > for some reason. Might need to change this line later.
     $result = json_decode($result);
 
     //Create empty array that will be used for table creation
