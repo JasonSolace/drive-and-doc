@@ -248,14 +248,16 @@ public function readOneAdmin(){
         t.EndCity,
         t.EndStateCode,
         t.UserId,
-        u.FirstName,
-        u.LastName,
+        u2.FirstName,
+        u2.LastName,
         t.LoadContents,
         t.LoadWeight,
         t.CompanyId
     FROM USER u
         INNER JOIN TRIP t
             ON u.companyId = t.companyId
+		INNER JOIN USER u2
+			ON u2.ID = t.userId
     WHERE u.ID = :adminUserId';
     $stmt = $this->conn->prepare($query);
     $stmt->bindParam(':adminUserId', $this->userId, PDO::PARAM_INT);
