@@ -31,6 +31,18 @@
     $doc_result = curl_exec($doc_ch); //send the curl request
     curl_close($doc_ch);
     $doc_result = json_decode($doc_result);
+
+    function deleteDocu($docuID) {
+        $delete_result = '';
+        $delete_ch = curl_init();
+        curl_setopt($delete_ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/controllers/api/documents/?docId=' . $docuID);
+        curl_setopt($delete_ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_setopt($delete_ch, CURLOPT_RETURNTRANSFER, true);
+        $delete_result = curl_exec($delete_ch);
+        curl_close($delete_ch);
+    }
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -75,17 +87,24 @@
                 </div>
                 <table class="docTable">
                     <tr>
+                        <th>Document ID</th>
+                        <th>Document Name</th>
                         <th>Document Type</th>
                         <th>Upload Date</th>
                         <th>Download</th>
+                        <th>Delete</th>
                     </tr>
                 <?php
+                if (isset($doc_result)){
                     for ($i = 0; $i < count($doc_result); $i++){
                         $row = $doc_result[$i];
                         echo "<tr>";
-                        echo "<td>" . $row->docTypeName . "</td>";
-                        echo "<td>" . date('m/d/Y g:i A', strtotime($row->uploadedTime)) . "</td>";
+                        echo "<td>" . $row->ID . "</td>"; //Document ID
+                        echo "<td>" . $row->docName . "</td>"; //Document Name
+                        echo "<td>" . $row->docTypeName . "</td>"; //Document Type
+                        echo "<td>" . date('m/d/Y g:i A', strtotime($row->uploadedTime)) . "</td>"; //When Document was uploaded
 
+                        //Start of API call for Document Download URL
                         $dwnld_ch = curl_init();
                         #prod
                         curl_setopt($dwnld_ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/controllers/api/documents/?docId=' . $row->ID);
@@ -93,10 +112,20 @@
                         $dwnld_result = curl_exec($dwnld_ch); //send the curl request
                         curl_close($dwnld_ch);
                         $dwnld_result = json_decode($dwnld_result);
-                        echo "<td><a href=\"" . $dwnld_result->docURL . "\" title=\"" . $row->docTypeName . "\">";
-                        echo "<button <class=\"docDownload\">Download</button></a>";
-                        echo "</tr>";
+                        echo "<td><a href=\"" . $dwnld_result->docURL . "\" title=\"" . $row->docTypeName . "\">"; //Create button for download URL
+                        echo "<button class=\"docDownload\">Download</button></a>";
+
+                        //Delete Button
+                        if (array_key_exists('deleteDocu', $_POST)){
+                            deleteDocu($row->ID);
+                            header("Refresh:0");
+                        }
+
+                        echo "<form method=\"post\">";
+                        echo "<td><button name=\"deleteDocu\" class=\"docDownload\">Delete</button>";
+                        echo "</form>";
                     }
+                }
                 ?>
                     <!---
                     <tr>

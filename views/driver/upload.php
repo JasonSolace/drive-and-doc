@@ -15,13 +15,14 @@
             <h2>Drive and Doc</h2>
         </nav>
     </head>
+    
     <body>
         <div class="container">
             <form action = "../../controllers/api/documents/index.php" method="post" enctype="multipart/form-data">
             <h1>Upload New Document</h1>
                 <input type="file" name="image" required>
                 <br>
-                <input type="number" placeholder="tripId" name="tripId" required> Trip ID
+                <input type="number" placeholder="tripId" name="tripId" required>
                 <br>
                 <input type="number" placeholder="docTypeId" name="docTypeId" required> Doc Type ID
                 <br>
