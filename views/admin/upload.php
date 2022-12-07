@@ -24,7 +24,7 @@
                 <input type="file" name="image" required>
                 <br>
                 <label for="tripID">Trip ID: </label>
-                <input type="number" placeholder="tripId" name="tripId" value=18 readonly>
+                <input type="number" placeholder="tripId" name="tripId" value=<?php echo $queryString ?> readonly>
                 <br>
                 <label for="docTypeId">Document Type:</label>
                     <input list="documentTypes" id="docTypeId" name="docTypeId">
