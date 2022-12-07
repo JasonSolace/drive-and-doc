@@ -116,8 +116,9 @@
                         echo "<button class=\"docDownload\">Download</button></a>";
 
                         //Delete Button
-                        if (array_key_exists('deleteDocu', $_POST)){
+                        if (isset($_POST['deleteDocu'])){
                             deleteDocu($row->ID);
+                            unset($_POST['deleteDocu']);
                             header("Refresh:0");
                         }
 
