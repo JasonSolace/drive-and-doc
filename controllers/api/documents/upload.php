@@ -57,6 +57,9 @@
             //if these are good, call the upload method
             $document->upload();
             unlink($document->filename); //remove the file from this directory
+
+            header("Location: ../../../views/admin/trip_detail.php?tripID=" . $document->tripId);
+            exit;
         }
         else {
             print_r(json_encode(array('message' => 'File not sent with HTTP POST request.')));
