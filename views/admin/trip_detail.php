@@ -74,7 +74,7 @@
                 <div class="tripDetailStartLoc"><strong>Start Location</strong><?php echo '<br/>'. $result->startCity . ', ' . $result->startStateCode; ?></div>
                 <div class="tripDetailDest"><strong>Destination</strong><?php echo '<br/>'. $result->endCity . ', ' . $result->endStatecode; ?></div>
                 <div class="editTrip">
-                    <form action = "edit_trip.php" method="post">
+                    <form action = "edit_trip.php?tripID=<?php echo $queryString?>" method="post">
                         <button type="submit" id= "editButton" class="editButton">Edit Trip Details</button>
                     </form>
                 </div>
