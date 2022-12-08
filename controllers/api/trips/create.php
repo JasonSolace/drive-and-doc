@@ -112,6 +112,9 @@
                             'companyId' => $trip->companyId
                         )
                     );
+
+                    header("Location: ../../../views/admin/trip_detail.php?tripID=" . $trip->id);
+                    exit;
                 }
                 else {
                     echo json_encode(
