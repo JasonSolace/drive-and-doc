@@ -140,6 +140,21 @@ tr {
     color: white;
 }
 
+.deleteButton {
+    margin-left: 0%;
+    margin-right: 10%;
+    margin-top: 5%;
+    margin-bottom: 0%;
+    width: 40%;
+    justify-content: space-around;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding: 1%;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #9C2424;
+    color: white;
+}
+
 .close {
     color: #aaa;
     float: right;
@@ -155,11 +170,23 @@ tr {
 }
 
 .editTrip {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    margin-top: 1em;
+    margin-bottom: 0%;
+    margin-left: 4%;
+}
+
+.deleteTrip {
     grid-column-start: 3;
     grid-column-end: 1;
-    grid-row-start: 5;
-    grid-row-end: 6;
+    grid-row-start: 4;
+    grid-row-end: 5;
     margin-top: 1em;
+    margin-bottom: 0%;
+    margin-left: 8%;
 }
 
 .editButton {
@@ -248,13 +275,6 @@ tr {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     background-color: #1B4F72;
     color: white;
-}
-
-.docHistHeader{
-    overflow: hidden;
-    padding: 0px;
-    margin-top: 0%;
-    margin-bottom: 1%;
 }
 
 .docHistHeader{
@@ -418,8 +438,8 @@ tr {
     grid-column-end: 2;
     grid-row-start: 4;
     grid-row-end: 5;
-    margin-top: 2%;
-    margin-bottom: 3%;
+    margin-top: 0%;
+    margin-bottom: 0%;
 }
 
 .tripDetailDest{
@@ -427,8 +447,8 @@ tr {
     grid-column-end: 3;
     grid-row-start: 4;
     grid-row-end: 5;
-    margin-top: 2%;
-    margin-bottom: 3%;
+    margin-top: 0%;
+    margin-bottom: 0%;
 }
 
 .tripDetailDriver { 
@@ -436,8 +456,8 @@ tr {
     grid-column-end: 2;
     grid-row-start: 2;
     grid-row-end: 3;
-    margin-top: 5%;
-    margin-bottom: 3%;
+    margin-top: 2%;
+    margin-bottom: 0%;
 }
 
 .tripDetailHeader {
@@ -454,8 +474,8 @@ tr {
     grid-column-end: 3;
     grid-row-start: 3;
     grid-row-end: 4;
-    margin-top: 2%;
-    margin-bottom: 3%;
+    margin-top: 0%;
+    margin-bottom: 0%;
 }
 
 .tripDetailStartTime {    
@@ -463,8 +483,8 @@ tr {
     grid-column-end: 3;
     grid-row-start: 2;
     grid-row-end: 3;
-    margin-top: 5%;
-    margin-bottom: 3%;
+    margin-top: 2%;
+    margin-bottom: 0%;
 }
 
 .tripDetailID  {    
@@ -472,8 +492,8 @@ tr {
     grid-column-end: 2;
     grid-row-start: 3;
     grid-row-end: 4;
-    margin-top: 2%;
-    margin-bottom: 3%;
+    margin-top: 0%;
+    margin-bottom: 0%;
 }
 
 .tripDocs {
