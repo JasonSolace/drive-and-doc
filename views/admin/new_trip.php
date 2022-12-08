@@ -37,7 +37,11 @@
         <div class="createTrip">
             <form form action = "../../controllers/api/trips/index.php" method="post" id="newTripForm">
                 <label for="tripStatus">Trip Status: </label>
-                <input type="text" id="tripStatus" name="tripStatus">
+                    <select name="tripStatus" id="tripStatus">
+                        <option value="Not Started">Not Started</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
                 <br>
 
                 <label for="companyId">Company ID: </label>

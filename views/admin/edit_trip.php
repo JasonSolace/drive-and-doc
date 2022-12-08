@@ -36,7 +36,13 @@
                 <br>
 
                 <label for="tripStatus">Trip Status: </label>
-                <input type="text" id="tripStatus" name="tripStatus" value="<?php echo ''. $result->tripStatus; ?>">
+                    <select name="tripStatus" id="tripStatus">
+                        <option value="<?php echo ''. $result->tripStatus; ?>"><?php echo ''. $result->tripStatus; ?></option>
+                        <option value="Not Started">Not Started</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                <br>
                 <br>
 
                 <label for="companyId">Company ID: </label>

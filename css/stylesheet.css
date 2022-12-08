@@ -70,6 +70,18 @@ input {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
 
+select {
+    margin-left: 3%;
+    margin-right: 13%;
+    margin-bottom: 0%;
+    margin-top: 2%;
+    height: 2%;
+    width : 52%;
+    padding : 1%;
+    display: inline-block;
+    position: right;
+}
+
 td {
     padding: 0%;
     padding-top: 2%;
@@ -95,10 +107,16 @@ tr {
 /* classes and ids - alpha order*/
 
 .adminDocUpload {
+    text-align: right;
     background-color: whitesmoke;
-    overflow: hidden;
-    padding: 0px;
-    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    height: 10%;
+    width : 75%;
+    padding: 30px;
+    padding-top: 30px;   
+    
 }
 
 .adminnav {
