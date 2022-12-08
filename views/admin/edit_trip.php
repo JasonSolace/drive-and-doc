@@ -1,22 +1,14 @@
 <?php
-    // Initialize the session
-    /*session_start();
-    // Check if the user is already logged in, if yes then redirect them to home page
-    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-        if(isset($_SESSION["usertype"])) {
-            if ($_SESSION["usertype"] === 1) { // user is driver
-                header("location: ../driver/home.php");
-            exit();
-            }
-        }
-    } else {
-        header("location: ../../login.php");
-        exit;
-    }*/
-    if(isset($_POST["createTripButton"])) {     
-        header("Location: trip_details.php");
-        exit();
-    }
+    $queryString = $_GET['tripID'];
+    $ch = curl_init();
+    #local
+    #curl_setopt($ch, CURLOPT_URL, 'http://localhost/drive-and-doc/controllers/api/trips/?ID=' . $queryString);
+    #prod
+    curl_setopt($ch, CURLOPT_URL, 'http://drive-and-doc.herokuapp.com/controllers/api/trips/?ID=' . $queryString);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    $result = curl_exec($ch); //send the curl request
+    curl_close($ch);
+    $result = json_decode($result);
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,59 +24,62 @@
         </nav>
     </head>
     <body>
-        <h1>Create A New Trip</h1>
+        <h1>Edit Trip Details</h1>
         <h3><a href="home.php">View Active Trips</a> | <a href="past_trips.php">View Completed Trips</a></h3>
         <div class="createTrip">
-            <form form action = "../../controllers/api/trips/index.php" method="post" id="newTripForm">
-                <label for="tripID">Trip ID: </label>
-                <input type="text" id="tripID" name="tripID">
+            <form form action = "../../controllers/api/trips/update.php/" method="POST" id="newTripForm">
+                <input type="hidden" name="_METHOD" value="PUT">
+                <div class = "tripID">
+                    <label for="ID">Trip ID: </label>
+                    <input type="hidden" id="ID" name="ID" value="<?php echo ' '. $result->ID; ?>"> <?php echo ' '. $result->ID; ?>
+                </div>
                 <br>
 
                 <label for="tripStatus">Trip Status: </label>
-                <input type="text" id="tripStatus" name="tripStatus">
+                <input type="text" id="tripStatus" name="tripStatus" value="<?php echo ''. $result->tripStatus; ?>">
                 <br>
 
                 <label for="companyId">Company ID: </label>
-                <input type="text" id="companyId" name="companyId">
+                <input type="text" id="companyID" name="companyID" value="<?php echo ''. $result->companyId; ?>">
                 <br>
 
                 <label for="driverUserId">Driver ID: </label>
-                <input type="text" id="driverUserId" name="driverUserId" required>
+                <input type="text" id="driverUserId" name="driverUserId" value="<?php echo ''. $result->driverUserId; ?>">
                 <br>
                     
                 <label for="startCity">Start Location: </label>
-                <input type="text" id="startCity" name="startCity">
+                <input type="text" id="startCity" name="startCity" value="<?php echo ''. $result->startCity; ?>">
                 <br>
 
                 <label for="startStateCode">Start State: </label>
-                <input type="text" id="startStateCode" name="startStateCode">
+                <input type="text" id="startStateCode" name="startStateCode" value="<?php echo ''. $result->startStateCode; ?>">
                 <br>
                     
                 <label for="endCity">End Location: </label>
-                <input type="text" id="endCity" name="endCity">
+                <input type="text" id="endCity" name="endCity" value="<?php echo ''. $result->endCity; ?>">
                 <br>
 
                 <label for="endStateCode">End State: </label>
-                <input type="text" id="endStateCode" name="endStateCode">
+                <input type="text" id="endStateCode" name="endStateCode" value="<?php echo ''. $result->endStatecode; ?>">
                 <br>
                     
                 <label for="startDatetime">Start Time: </label>
-                <input type="datetime-local" id="startDatetime" name="startDatetime" required>
+                <input type="datetime-local" id="startDatetime" name="startDatetime" value="<?php echo date('Y-m-d\TH:i:s', strtotime($result->startDateTime)); ?>">
                 <br>
                     
                 <label for="endDatetime">End Time: </label>
-                <input type="datetime-local" id="endDatetime" name="endDatetime">
+                <input type="datetime-local" id="endDatetime" name="endDatetime" value="<?php echo date('Y-m-d\TH:i:s', strtotime($result->endDateTime)); ?>">
                 <br>                    
 
                 <label for="loadContents">Load Contents: </label>
-                <input type="text" id="loadContents" name="loadContents">
+                <input type="text" id="loadContents" name="loadContents" value="<?php echo ''. $result->loadContents; ?>">
                 <br>
                     
                 <label for="loadWeight">Load Weight: </label>
-                <input type="number" id="loadWeight" name="loadWeight">
+                <input type="number" id="loadWeight" name="loadWeight" value="<?php echo ''. $result->loadWeight; ?>">
                     
-                <button type="submit" class="cancelButton" formaction="home.php" formnovalidate>Cancel</button>
-                <button type="submit" class="createTripButton">Create Trip</button>
+                <button type="submit" class="cancelButton" formaction="<?php echo 'trip_detail.php?tripID=' . $result->ID; ?>" formnovalidate>Cancel</button>
+                <button type="submit" class="createTripButton">Update Trip</button>
             </form>
         </div> 
     </body>

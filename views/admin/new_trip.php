@@ -36,10 +36,6 @@
         <h3><a href="home.php">View Active Trips</a> | <a href="past_trips.php">View Completed Trips</a></h3>
         <div class="createTrip">
             <form form action = "../../controllers/api/trips/index.php" method="post" id="newTripForm">
-                <label for="tripID">Trip ID: </label>
-                <input type="text" id="tripID" name="tripID">
-                <br>
-
                 <label for="tripStatus">Trip Status: </label>
                 <input type="text" id="tripStatus" name="tripStatus">
                 <br>

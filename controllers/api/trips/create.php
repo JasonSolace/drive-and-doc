@@ -21,7 +21,6 @@
                 //if required params are passed, create a trip
 
                 $trip->userId = is_int($_GET['driverUserId']) ? $_GET['driverUserId'] : intval($_GET['driverUserId']);
-                
                 $trip->tripStatus = $_GET['tripStatus'];
                 $trip->startDateTime = $_GET['startDatetime'];
                 $trip->endDateTime = $_GET['endDatetime'];
@@ -112,7 +111,7 @@
                             'loadWeight' => $trip->loadWeight,
                             'companyId' => $trip->companyId
                         )
-                        );
+                    );
                 }
                 else {
                     echo json_encode(
