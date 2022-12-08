@@ -13,14 +13,14 @@
 
        $trip = new Trip($db);
 
-       //passed json body
-       $data = json_decode(file_get_contents('php://input'));
-
        //DELETE trip requiers a Trip ID
-       if (isset($_GET['ID'])){
-                $trip->id = $_GET['ID'];
-                $trip->delete();
-            }
+       if (isset($_POST['ID'])){
+            $trip->id = $_POST['ID'];
+            $trip->delete();
+
+            header("Location: ../../../views/admin/home.php");
+            exit;
+       }
         else {
             print_r(json_encode(array('message' => 'No Trip ID Passed')));
             die(); //exit
