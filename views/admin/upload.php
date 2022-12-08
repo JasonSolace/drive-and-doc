@@ -20,17 +20,26 @@
             <form action = "../../controllers/api/documents/index.php" method="post" enctype="multipart/form-data">
             <h1>Upload New Document</h1>
             <div class = adminDocUpload>
+                <label for="tripID">Document Image: </label>
                 <input type="file" name="image" required>
                 <br>
-                <input type="number" placeholder="tripId" name="tripId" required> Trip ID
+                <label for="tripID">Trip ID: </label>
+                <input type="number" placeholder="tripId" name="tripId" value=<?php echo $queryString ?> readonly>
                 <br>
-                <input type="number" placeholder="docTypeId" name="docTypeId" required> Doc Type ID
+                <label for="docTypeId">Document Type:</label>
+                    <input list="documentTypes" id="docTypeId" name="docTypeId">
+                    <datalist id="documentTypes">
+                        <option value=1>Trip Log
+                        <option value=2>Receipt
+                        <option value=3>Other
+                    </datalist>
+
                 <br>
                 <br>
                 <button type="submit" class="uploadButton">Upload Doc</button>
+                </form>
                 <button type="submit" class="cancelButton" formaction="trip_detail.php?tripID=<?php echo $queryString?>" formnovalidate>Cancel</button>
             </div>
-            </form>
         </div>
     </body>
 </html>
